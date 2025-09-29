@@ -1,4 +1,6 @@
 import Image from 'next/image';
+import Link from 'next/link';
+import { Hammer } from 'lucide-react';
 
 const Hero = () => {
   return (
@@ -40,9 +42,10 @@ const Hero = () => {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-blue-600 text-white px-6 py-3 rounded-lg text-base font-semibold hover:bg-blue-700 transition-colors duration-200 shadow-lg">
-              Kostenfreie Anfrage
-            </button>
+            <Link href="/anfrage" className="bg-blue-600 text-white px-6 py-3 rounded-lg text-base font-semibold hover:bg-blue-700 transition-colors duration-200 shadow-lg text-center flex items-center justify-center gap-2">
+              <Hammer className="w-5 h-5" />
+              <span>Kostenfreie Anfrage</span>
+            </Link>
             <button className="bg-white text-blue-600 border-2 border-blue-600 px-6 py-3 rounded-lg text-base font-semibold hover:bg-blue-50 transition-colors duration-200 shadow-lg">
               Kostenfreier Beratungscheck Ihres Objektes
             </button>
