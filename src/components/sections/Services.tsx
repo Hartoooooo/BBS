@@ -75,16 +75,7 @@ const Services = () => {
           ))}
         </div>
 
-        {/* Notdienst Highlight */}
-        <div className="bg-red-50 border border-red-200 rounded-lg p-6 text-center">
-          <div className="flex items-center justify-center mb-4">
-            <Clock className="w-8 h-8 text-red-600 mr-2" />
-            <h3 className="text-2xl font-bold text-red-900">Notdienst/Schnelle Hilfe</h3>
-          </div>
-          <p className="text-red-800 text-lg">
-            24/7-Service für Notfälle und dringende Reparaturen – schnell und zuverlässig.
-          </p>
-        </div>
+        {/* Entfernt: Notdienst/Schnelle Hilfe */}
       </div>
     </section>
   );
