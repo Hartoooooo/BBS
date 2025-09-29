@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -6,7 +7,14 @@ import { Quote } from 'lucide-react';
 const Testimonials = () => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
 
-  const testimonials = [
+  type Testimonial = {
+    text: string;
+    author: string;
+    location: string;
+    sourceUrl: string;
+  };
+
+  const testimonials: Testimonial[] = [
     {
       text: "Ich habe mein Bad von BBS – Barrierefreies Bauen und Sanieren umbauen lassen, weil mir die Sicherheit im Alltag wichtig ist. Die Firma hat eine ebenerdige Dusche, rutschfeste Fliesen und schwellenlose Übergänge eingebaut. Alles wurde sauber, zuverlässig und termingerecht erledigt. Jetzt fühle ich mich wieder sicher in meinem eigenen Zuhause und freue mich über ein schönes, modernes Bad. Vielen Dank an das Team BBS.",
       author: "Herr E. V.",
@@ -25,15 +33,13 @@ const Testimonials = () => {
     setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
   };
 
-  const prevTestimonial = () => {
-    setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-  };
+  // prevTestimonial aktuell ungenutzt – bei Bedarf wieder aktivieren
 
   // Auto-rotate testimonials
   useEffect(() => {
     const interval = setInterval(nextTestimonial, 5000);
     return () => clearInterval(interval);
-  }, []);
+  }, [nextTestimonial]);
 
   return (
     <section className="py-20 bg-gray-50">
@@ -69,7 +75,7 @@ const Testimonials = () => {
             <Quote className="w-12 h-12 text-blue-600 mb-4" />
             
             <blockquote className="text-lg md:text-xl text-gray-700 mb-6 italic">
-              "{testimonials[currentTestimonial].text}"
+              {testimonials[currentTestimonial].text}
             </blockquote>
             
             <div className="flex items-center">
@@ -81,7 +87,7 @@ const Testimonials = () => {
                   Ort: {testimonials[currentTestimonial].location}
                 </div>
                 <a
-                  href={(testimonials[currentTestimonial] as any).sourceUrl}
+                  href={testimonials[currentTestimonial].sourceUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-sm text-blue-600 hover:text-blue-700 underline mt-1 inline-block"
