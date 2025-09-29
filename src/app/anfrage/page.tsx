@@ -319,7 +319,7 @@ const AnfragePage = () => {
           src="/Anfragebild.png"
           alt="Barrierefreies Bauen Hintergrund"
           fill
-          className="object-cover opacity-65"
+          className="object-cover opacity-95"
           priority
         />
       </div>
@@ -327,7 +327,7 @@ const AnfragePage = () => {
       {/* Main Content */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10">
         <form onSubmit={handleSubmit}>
-          <div className="bg-white/80 backdrop-blur-sm rounded-lg shadow-sm p-8">
+          <div className="bg-white/95 backdrop-blur-sm rounded-lg shadow-sm p-8">
             {/* Progress Bar */}
             <div className="mb-8">
               <div className="flex items-center justify-center mb-4">

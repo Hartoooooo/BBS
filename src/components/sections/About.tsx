@@ -6,7 +6,7 @@ const About = () => {
   const features = [
     {
       icon: <Award className="w-8 h-8 text-blue-600" />,
-      title: 'Über 15 Jahre Erfahrung im Bereich barrierefreies Bauen & Sanieren',
+      title: 'Über 22 Jahre Erfahrung im Bereich barrierefreies Bauen & Sanieren',
       description: ''
     },
     {
@@ -32,10 +32,10 @@ const About = () => {
             </h2>
             
             <p className="text-lg text-gray-600 mb-8">
-              Als familiengeführtes Unternehmen mit über 15 Jahren Erfahrung im Bereich barrierefreies 
-              Bauen und Sanieren sind wir Ihr kompetenter Ansprechpartner für alle Anpassungen in Ihrem 
-              Zuhause. Unser Ziel ist es, Ihnen zuverlässigen Komfort, dauerhafte Barrierefreiheit und 
-              höchste Sicherheit zu bieten.
+              Als familiengeführtes Unternehmen mit über 22 Jahren Erfahrung im Bereich barrierefreies 
+              Bauen und Sanieren sind wir Ihr kompetenter Fliesenleger und Badumbau-Experte in Schöneiche, 
+              Berlin, Brandenburg, Strausberg und West-Berlin/Charlottenburg. Unser Ziel ist es, Ihnen 
+              zuverlässigen Komfort, dauerhafte Barrierefreiheit und höchste Sicherheit zu bieten.
             </p>
             
             <p className="text-lg text-gray-600 mb-8">

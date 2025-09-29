@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { ChevronDown, ChevronUp } from 'lucide-react';
+import { ChevronDown, ChevronUp, Hammer } from 'lucide-react';
+import Link from 'next/link';
 
 const FAQ = () => {
   const [openItems, setOpenItems] = useState<number[]>([]);
@@ -88,9 +89,10 @@ const FAQ = () => {
           <p className="text-lg text-gray-600 mb-6">
             Haben Sie weitere Fragen? Kontaktieren Sie uns gerne!
           </p>
-          <button className="bg-blue-600 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-blue-700 transition-colors duration-200 shadow-lg">
+          <Link href="/anfrage" className="inline-flex items-center gap-2 bg-blue-600 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-blue-700 transition-colors duration-200 shadow-lg">
+            <Hammer className="w-5 h-5" />
             Kostenfreie Anfrage
-          </button>
+          </Link>
         </div>
       </div>
     </section>

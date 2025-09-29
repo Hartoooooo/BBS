@@ -32,9 +32,9 @@ const Hero = () => {
               
               {/* Untertitel */}
               <p className="text-lg md:text-xl text-gray-700 mb-6">
-                Mit über 22 Jahren Erfahrung sind wir Ihr Ansprechpartner in Berlin und Brandenburg, 
-                wenn es um barrierefreies Bauen und Sanieren geht. Unser Service sorgt für optimalen 
-                Komfort, höchste Sicherheit und nachhaltigen Wohnkomfort in Ihrem Zuhause.
+                Mit über 22 Jahren Erfahrung sind wir Ihr Fliesenleger und Badumbau-Experte in Schöneiche, 
+                Berlin, Brandenburg, Strausberg und West-Berlin/Charlottenburg. Spezialisiert auf 
+                barrierefreies Bauen und Sanieren, Bad Sanierung Berlin und Bad Umbau Brandenburg.
               </p>
 
               <p className="text-base md:text-lg text-gray-600 mb-8">

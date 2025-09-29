@@ -1,0 +1,26 @@
+# robots.txt für BBS - Barrierefreies Bauen und Sanieren
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://www.artdesignbau.de/sitemap.xml
+
+# Optimierungen für Google
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Googlebot-Image
+Allow: /
+
+# Block für Admin-Bereiche (falls vorhanden)
+Disallow: /api/
+Disallow: /_next/static/
+
+# Allow all common bots
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
