@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Hammer } from 'lucide-react';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -22,8 +22,8 @@ const Header = () => {
     { name: 'Dienstleistungen', href: '#services' },
     { name: 'Über uns', href: '#about' },
     { name: 'FAQ', href: '#faq' },
-    { name: 'Jetzt bewerben!', href: '#contact' },
     { name: 'Kontakt', href: '#contact' },
+    { name: 'Jetzt Anfragen', href: '/anfrage' },
   ];
 
   return (
@@ -64,8 +64,9 @@ const Header = () => {
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-white hover:text-blue-400 font-medium transition-colors duration-200"
+                className="text-white hover:text-blue-400 font-medium transition-colors duration-200 flex items-center gap-2"
               >
+                {item.name === 'Jetzt Anfragen' && <Hammer className="w-4 h-4" />}
                 {item.name}
               </Link>
             ))}
@@ -94,9 +95,10 @@ const Header = () => {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="block px-3 py-2 text-white hover:text-blue-400 font-medium"
+                  className="block px-3 py-2 text-white hover:text-blue-400 font-medium flex items-center gap-2"
                   onClick={() => setIsMenuOpen(false)}
                 >
+                  {item.name === 'Jetzt Anfragen' && <Hammer className="w-4 h-4" />}
                   {item.name}
                 </Link>
               ))}

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { ArrowLeft, ArrowRight, Check, Bath, ChefHat, Home, Building, Users, ArrowUp, DoorOpen, Shield, Wrench } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const AnfragePage = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -311,73 +312,56 @@ const AnfragePage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <div className="bg-white shadow-sm">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center text-blue-600 hover:text-blue-700">
-              <ArrowLeft className="w-5 h-5 mr-2" />
-              Zurück zur Startseite
-            </Link>
-            <h1 className="text-2xl font-bold text-gray-900">Kostenfreie Anfrage</h1>
-          </div>
-        </div>
-      </div>
-
-      {/* Progress Bar */}
-      <div className="bg-white border-b">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-center">
-            <div className="flex items-center space-x-2">
-              {[1, 2, 3, 4, 5, 6].map((step) => (
-                <div key={step} className="flex items-center">
-                  <div className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium ${
-                    step <= currentStep 
-                      ? 'bg-blue-600 text-white' 
-                      : 'bg-gray-200 text-gray-600'
-                  }`}>
-                    {step < currentStep ? <Check className="w-5 h-5" /> : step}
-                  </div>
-                  {step < 6 && (
-                    <div className={`w-12 h-1 mx-1 ${
-                      step < currentStep ? 'bg-blue-600' : 'bg-gray-200'
-                    }`} />
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="text-center mt-2">
-            <span className="text-sm text-gray-600">
-              Schritt {currentStep} von 6
-            </span>
-          </div>
-        </div>
+    <div className="min-h-screen bg-gray-50 relative">
+      {/* Background Image */}
+      <div className="absolute inset-0">
+        <Image
+          src="/Anfragebild.png"
+          alt="Barrierefreies Bauen Hintergrund"
+          fill
+          className="object-cover opacity-65"
+          priority
+        />
       </div>
 
       {/* Main Content */}
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10">
         <form onSubmit={handleSubmit}>
-          <div className="bg-white rounded-lg shadow-sm p-8">
+          <div className="bg-white/80 backdrop-blur-sm rounded-lg shadow-sm p-8">
+            {/* Progress Bar */}
+            <div className="mb-8">
+              <div className="flex items-center justify-center mb-4">
+                <span className="text-lg font-semibold text-gray-900">
+                  {Math.round((currentStep / 6) * 100)}%
+                </span>
+              </div>
+              <div className="w-full bg-gray-200 rounded-full h-3">
+                <div 
+                  className="bg-blue-600 h-3 rounded-full transition-all duration-300 ease-in-out"
+                  style={{ width: `${(currentStep / 6) * 100}%` }}
+                ></div>
+              </div>
+            </div>
             {renderStep()}
           </div>
 
           {/* Navigation Buttons */}
           <div className="flex justify-between mt-8">
-            <button
-              type="button"
-              onClick={prevStep}
-              disabled={currentStep === 1}
+            <Link 
+              href="/"
               className={`flex items-center px-6 py-3 rounded-lg font-medium ${
                 currentStep === 1
-                  ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                  ? 'bg-gray-600 text-white hover:bg-gray-700'
                   : 'bg-gray-600 text-white hover:bg-gray-700'
               }`}
+              onClick={currentStep === 1 ? undefined : (e) => {
+                e.preventDefault();
+                prevStep();
+              }}
             >
               <ArrowLeft className="w-4 h-4 mr-2" />
-              Zurück
-            </button>
+              {currentStep === 1 ? 'Zur Startseite' : 'Zurück'}
+            </Link>
 
             {currentStep < 6 ? (
               <button
@@ -390,7 +374,7 @@ const AnfragePage = () => {
                   (currentStep === 4 && !formData.propertyType) ||
                   (currentStep === 5 && (!formData.contactInfo.name || !formData.contactInfo.email || !formData.contactInfo.address))
                 }
-                className="flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed"
+                className="flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 hover:cursor-pointer disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed"
               >
                 Weiter
                 <ArrowRight className="w-4 h-4 ml-2" />
@@ -398,7 +382,7 @@ const AnfragePage = () => {
             ) : (
               <button
                 type="submit"
-                className="flex items-center px-6 py-3 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700"
+                className="flex items-center px-6 py-3 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 hover:cursor-pointer"
               >
                 Anfrage absenden
                 <Check className="w-4 h-4 ml-2" />
