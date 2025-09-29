@@ -68,6 +68,7 @@ export default function StructuredData() {
     "sameAs": [
       "https://www.b-b-s.berlin"
     ],
+    "hasMap": "https://www.google.com/maps/search/?api=1&query=BBS+Barrierefreies+Bauen+und+Sanieren+Petershagener+Straße+27+15566+Schöneiche+bei+Berlin",
     "hasOfferCatalog": {
       "@type": "OfferCatalog",
       "name": "Barrierefreie Bauleistungen",

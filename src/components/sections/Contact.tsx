@@ -27,10 +27,10 @@ const Contact = () => {
                   <h4 className="font-semibold text-gray-900 mb-1">Telefon</h4>
                   <p className="text-gray-600 mb-2">Rufen Sie uns direkt an:</p>
                   <a 
-                    href="tel:017643973376" 
+                    href="tel:+493092371277" 
                     className="text-blue-600 hover:text-blue-700 font-semibold text-lg"
                   >
-                    0176 43973376
+                    +49 (0) 30 923 712 77
                   </a>
                 </div>
               </div>
@@ -54,9 +54,18 @@ const Contact = () => {
                 <div>
                   <h4 className="font-semibold text-gray-900 mb-1">Standort</h4>
                   <p className="text-gray-600">
-                    12205 Berlin<br />
+                    Petershagener Straße 27<br />
+                    15566 Schöneiche bei Berlin<br />
                     Deutschland
                   </p>
+                  <a 
+                    href="https://www.google.com/maps/search/?api=1&query=BBS+Barrierefreies+Bauen+und+Sanieren+Petershagener+Straße+27+15566+Schöneiche+bei+Berlin"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:text-blue-700 font-semibold inline-flex items-center mt-2"
+                  >
+                    📍 Auf Google Maps anzeigen
+                  </a>
                 </div>
               </div>
 
