@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { ArrowLeft, ArrowRight, Check } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Check, Bath, ChefHat, Home, Building, Users, ArrowUp, DoorOpen, Shield, Wrench } from 'lucide-react';
 import Link from 'next/link';
 
 const AnfragePage = () => {
@@ -22,15 +22,15 @@ const AnfragePage = () => {
   });
 
   const projectTypes = [
-    { id: 'fliesenarbeiten-bad', label: 'Fliesenarbeiten im Bad', description: 'Komplette Fliesenverlegung in Badezimmern' },
-    { id: 'fliesenarbeiten-kueche', label: 'Fliesenarbeiten in der Küche', description: 'Fliesenverlegung für Küchenrückwand und Boden' },
-    { id: 'fliesenarbeiten-wohnraum', label: 'Fliesenarbeiten im Wohnraum', description: 'Fliesenverlegung in Wohn- und Schlafzimmern' },
-    { id: 'fliesenarbeiten-keller', label: 'Fliesenarbeiten im Keller', description: 'Fliesenverlegung in Kellerräumen und Hobbyräumen' },
-    { id: 'barrierefreie-badumbauten', label: 'Barrierefreie Badumbauten', description: 'Komplette Badumbauten für mehr Sicherheit und Komfort' },
-    { id: 'treppenlifte-rampen', label: 'Treppenlifte & Rampen', description: 'Installation für barrierefreien Zugang' },
-    { id: 'tuerverbreiterungen', label: 'Türverbreiterungen', description: 'Verbreiterung von Türöffnungen' },
-    { id: 'sicherheitstechnik', label: 'Sicherheitstechnik', description: 'Haltegriffe, Handläufe und Sicherheitssysteme' },
-    { id: 'andere', label: 'Andere Leistung', description: 'Sonstige barrierefreie Baumaßnahmen' }
+    { id: 'fliesenarbeiten-bad', label: 'Fliesenarbeiten im Bad', description: 'Komplette Fliesenverlegung in Badezimmern', icon: <Bath className="w-6 h-6 text-blue-600" /> },
+    { id: 'fliesenarbeiten-kueche', label: 'Fliesenarbeiten in der Küche', description: 'Fliesenverlegung für Küchenrückwand und Boden', icon: <ChefHat className="w-6 h-6 text-blue-600" /> },
+    { id: 'fliesenarbeiten-wohnraum', label: 'Fliesenarbeiten im Wohnraum', description: 'Fliesenverlegung in Wohn- und Schlafzimmern', icon: <Home className="w-6 h-6 text-blue-600" /> },
+    { id: 'fliesenarbeiten-keller', label: 'Fliesenarbeiten im Keller', description: 'Fliesenverlegung in Kellerräumen und Hobbyräumen', icon: <Building className="w-6 h-6 text-blue-600" /> },
+    { id: 'barrierefreie-badumbauten', label: 'Barrierefreie Badumbauten', description: 'Komplette Badumbauten für mehr Sicherheit und Komfort', icon: <Users className="w-6 h-6 text-blue-600" /> },
+    { id: 'treppenlifte-rampen', label: 'Treppenlifte & Rampen', description: 'Installation für barrierefreien Zugang', icon: <ArrowUp className="w-6 h-6 text-blue-600" /> },
+    { id: 'tuerverbreiterungen', label: 'Türverbreiterungen', description: 'Verbreiterung von Türöffnungen', icon: <DoorOpen className="w-6 h-6 text-blue-600" /> },
+    { id: 'sicherheitstechnik', label: 'Sicherheitstechnik', description: 'Haltegriffe, Handläufe und Sicherheitssysteme', icon: <Shield className="w-6 h-6 text-blue-600" /> },
+    { id: 'andere', label: 'Andere Leistung', description: 'Sonstige barrierefreie Baumaßnahmen', icon: <Wrench className="w-6 h-6 text-blue-600" /> }
   ];
 
   const budgetRanges = [
@@ -101,7 +101,7 @@ const AnfragePage = () => {
         return (
           <div className="space-y-6">
             <h2 className="text-2xl font-bold text-gray-900 mb-6">Welche Art von Projekt planen Sie?</h2>
-            <div className="grid gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {projectTypes.map((type) => (
                 <label key={type.id} className="flex items-start space-x-3 p-4 border rounded-lg cursor-pointer hover:bg-gray-50">
                   <input
@@ -112,9 +112,14 @@ const AnfragePage = () => {
                     onChange={(e) => handleInputChange('projectType', e.target.value)}
                     className="mt-1"
                   />
-                  <div>
-                    <div className="font-medium text-gray-900">{type.label}</div>
-                    <div className="text-sm text-gray-600">{type.description}</div>
+                  <div className="flex items-start space-x-3 flex-1">
+                    <div className="mt-1">
+                      {type.icon}
+                    </div>
+                    <div>
+                      <div className="font-medium text-gray-900">{type.label}</div>
+                      <div className="text-sm text-gray-600">{type.description}</div>
+                    </div>
                   </div>
                 </label>
               ))}
@@ -126,7 +131,7 @@ const AnfragePage = () => {
         return (
           <div className="space-y-6">
             <h2 className="text-2xl font-bold text-gray-900 mb-6">Welches Budget haben Sie eingeplant?</h2>
-            <div className="grid gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {budgetRanges.map((budget) => (
                 <label key={budget.id} className="flex items-center space-x-3 p-4 border rounded-lg cursor-pointer hover:bg-gray-50">
                   <input
@@ -147,7 +152,7 @@ const AnfragePage = () => {
         return (
           <div className="space-y-6">
             <h2 className="text-2xl font-bold text-gray-900 mb-6">Wann soll das Projekt starten?</h2>
-            <div className="grid gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {timeframes.map((timeframe) => (
                 <label key={timeframe.id} className="flex items-center space-x-3 p-4 border rounded-lg cursor-pointer hover:bg-gray-50">
                   <input
@@ -168,7 +173,7 @@ const AnfragePage = () => {
         return (
           <div className="space-y-6">
             <h2 className="text-2xl font-bold text-gray-900 mb-6">Um welche Art von Objekt handelt es sich?</h2>
-            <div className="grid gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {propertyTypes.map((property) => (
                 <label key={property.id} className="flex items-center space-x-3 p-4 border rounded-lg cursor-pointer hover:bg-gray-50">
                   <input

@@ -1,10 +1,10 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { Hammer } from 'lucide-react';
+import { Hammer, Phone } from 'lucide-react';
 
 const Hero = () => {
   return (
-    <section id="home" className="relative h-screen overflow-hidden flex items-center justify-center">
+    <section id="home" className="relative h-screen overflow-hidden flex items-center">
         {/* Background Image */}
         <div className="absolute inset-0">
           <Image
@@ -18,42 +18,45 @@ const Hero = () => {
           <div className="absolute inset-0 bg-black/15"></div>
         </div>
         
-        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 z-10 py-8">
-        <div className="text-center">
-          {/* Haupttitel */}
-          <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
-            BBS Björn Hartmann Barrierefreies Bauen und Sanieren –{' '}
-            <span className="text-blue-600">
-              Ihr Partner für barrierefreies Wohnen in Berlin & Brandenburg
-            </span>
-          </h1>
-          
-          {/* Untertitel */}
-          <p className="text-lg md:text-xl text-gray-200 mb-6 max-w-4xl mx-auto">
-            Mit über 15 Jahren Erfahrung sind wir Ihr Ansprechpartner in Berlin und Brandenburg, 
-            wenn es um barrierefreies Bauen und Sanieren geht. Unser Service sorgt für optimalen 
-            Komfort, höchste Sicherheit und nachhaltigen Wohnkomfort in Ihrem Zuhause.
-          </p>
+        <div className="relative w-full z-10 py-8">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="bg-white/70 backdrop-blur-sm rounded-lg p-8 shadow-xl max-w-6xl animate-scale-in">
+            <div className="text-left">
+              {/* Haupttitel */}
+              <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4">
+                <span className="text-gray-900">Ihr Partner für </span>
+                <span className="text-blue-600">barrierefreies</span>
+                <span className="text-gray-900"> Wohnen in </span>
+                <span className="text-blue-600">Berlin & Brandenburg</span>
+              </h1>
+              
+              {/* Untertitel */}
+              <p className="text-lg md:text-xl text-gray-700 mb-6">
+                Mit über 22 Jahren Erfahrung sind wir Ihr Ansprechpartner in Berlin und Brandenburg, 
+                wenn es um barrierefreies Bauen und Sanieren geht. Unser Service sorgt für optimalen 
+                Komfort, höchste Sicherheit und nachhaltigen Wohnkomfort in Ihrem Zuhause.
+              </p>
 
-          <p className="text-base md:text-lg text-gray-300 mb-8 max-w-3xl mx-auto">
-            Ob präventive Sanierung oder kompletter Umbau – wir bieten maßgeschneiderte 
-            Lösungen für Privat- und Gewerbekunden.
-          </p>
+              <p className="text-base md:text-lg text-gray-600 mb-8">
+                Ob präventive Sanierung oder kompletter Umbau – wir bieten maßgeschneiderte 
+                Lösungen für Privat- und Gewerbekunden.
+              </p>
 
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/anfrage" className="bg-blue-600 text-white px-6 py-3 rounded-lg text-base font-semibold hover:bg-blue-700 transition-colors duration-200 shadow-lg text-center flex items-center justify-center gap-2">
-              <Hammer className="w-5 h-5" />
-              <span>Kostenfreie Anfrage</span>
-            </Link>
-            <button className="bg-white text-blue-600 border-2 border-blue-600 px-6 py-3 rounded-lg text-base font-semibold hover:bg-blue-50 transition-colors duration-200 shadow-lg">
-              Kostenfreier Beratungscheck Ihres Objektes
-            </button>
+              {/* CTA Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4 justify-start">
+                <Link href="/anfrage" className="bg-blue-600 text-white px-6 py-3 rounded-lg text-base font-semibold hover:bg-blue-700 transition-all duration-200 shadow-lg hover:shadow-xl hover:-translate-y-1 text-center flex items-center justify-center gap-2">
+                  <Hammer className="w-6 h-6" />
+                  <span>Kostenfreie Anfrage</span>
+                </Link>
+                <Link href="#contact" className="bg-red-600 text-white px-6 py-3 rounded-lg text-base font-semibold hover:bg-red-700 transition-all duration-200 shadow-lg hover:shadow-xl hover:-translate-y-1 flex items-center justify-center gap-2">
+                  <Phone className="w-5 h-5" />
+                  <span>Kontakt aufnehmen</span>
+                </Link>
+              </div>
+            </div>
+            </div>
           </div>
-
         </div>
-
-      </div>
     </section>
   );
 };

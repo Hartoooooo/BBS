@@ -1,11 +1,21 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Menu, X } from 'lucide-react';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 0);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const navigation = [
     { name: 'Startseite', href: '#home' },
@@ -17,7 +27,7 @@ const Header = () => {
   ];
 
   return (
-    <header className="bg-gray-900/90 backdrop-blur-sm text-white shadow-lg fixed top-0 left-0 right-0 z-50">
+    <header className={`${isScrolled ? 'bg-gray-900/90 shadow-lg' : 'bg-transparent'} backdrop-blur-sm text-white transition-all duration-300 fixed top-0 left-0 right-0 z-50`}>
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center py-4">
           {/* Left Navigation */}
