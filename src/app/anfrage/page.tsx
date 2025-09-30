@@ -316,7 +316,7 @@ const AnfragePage = () => {
       {/* Background Image */}
       <div className="absolute inset-0">
         <Image
-          src="/Anfragebild.png"
+          src="/Anfragebild.webp"
           alt="Barrierefreies Bauen Hintergrund"
           fill
           className="object-cover opacity-95"

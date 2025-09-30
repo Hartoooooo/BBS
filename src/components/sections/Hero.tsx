@@ -8,7 +8,7 @@ const Hero = () => {
         {/* Background Image */}
         <div className="absolute inset-0">
           <Image
-            src="/hero-bathroom.png"
+            src="/hero-bathroom.webp"
             alt="Luxuriöses Badezimmerdesign – Hero"
             fill
             className="object-cover"

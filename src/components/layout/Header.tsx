@@ -47,7 +47,7 @@ const Header = () => {
           <div className="flex-1 flex justify-center">
             <Link href="/" className="flex items-center">
               <img 
-                src="/ChatGPT Image 28. Sept. 2025, 20_07_42.png" 
+                src="/LOGO.webp" 
                 alt="BBS Barrierefreies Bauen und Sanieren Logo - Björn Hartmann Berlin Brandenburg" 
                 className="h-12 w-auto mr-3"
               />

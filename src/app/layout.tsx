@@ -20,6 +20,15 @@ export const metadata: Metadata = {
   authors: [{ name: "BBS Björn Hartmann" }],
   creator: "BBS Barrierefreies Bauen und Sanieren",
   publisher: "BBS Björn Hartmann",
+  icons: {
+    icon: [
+      { url: '/LOGO.webp', type: 'image/webp' },
+    ],
+    apple: [
+      { url: '/LOGO.webp', type: 'image/webp' },
+    ],
+    shortcut: ['/LOGO.webp'],
+  },
   robots: {
     index: true,
     follow: true,
@@ -44,6 +53,12 @@ export const metadata: Metadata = {
         height: 630,
         alt: 'BBS Barrierefreies Bauen und Sanieren',
       },
+      {
+        url: '/LOGO.webp',
+        width: 512,
+        height: 512,
+        alt: 'BBS Logo',
+      },
     ],
   },
   twitter: {
@@ -65,7 +80,6 @@ export default function RootLayout({
   return (
     <html lang="de">
       <head>
-               <link rel="icon" href="/LOGO.webp" type="image/webp" />
         <StructuredData />
       </head>
       <body

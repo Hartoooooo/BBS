@@ -82,18 +82,6 @@ const Contact = () => {
               </div>
             </div>
 
-            {/* CTA */}
-            <div className="mt-8 p-6 bg-white rounded-lg shadow-sm">
-              <h4 className="font-semibold text-gray-900 mb-2">
-                Kostenfreier Beratungscheck
-              </h4>
-              <p className="text-gray-600 mb-4">
-                Lassen Sie Ihr Objekt kostenfrei auf Barrierefreiheit prüfen!
-              </p>
-              <button className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors duration-200 shadow-lg">
-                Jetzt Termin vereinbaren
-              </button>
-            </div>
           </div>
 
           {/* Kontakt-Formular */}

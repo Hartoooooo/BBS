@@ -87,11 +87,11 @@ const About = () => {
               className="h-96"
               images={[
                 {
-                  src: '/20250929_1032_Minimalistische Badezimmergriffe_remix_01k6a9h7tqez0akr66yd2qhevw.png',
+                  src: '/20250929_1032_Minimalistische Badezimmergriffe_remix_01k6a9h7tqez0akr66yd2qhevw.webp',
                   alt: 'Minimalistische Badezimmergriffe - Barrierefreie Badausstattung',
                 },
                 {
-                  src: '/20250929_1107_Barrierefreies Badezimmerdesign_remix_01k6abgsq0ezv930dvr6gdh36k.png',
+                  src: '/20250929_1107_Barrierefreies Badezimmerdesign_remix_01k6abgsq0ezv930dvr6gdh36k.webp',
                   alt: 'Barrierefreies Badezimmerdesign – Beispielprojekt',
                 },
               ]}

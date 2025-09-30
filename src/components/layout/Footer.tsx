@@ -10,7 +10,7 @@ const Footer = () => {
           <div>
             <div className="flex items-center mb-4">
               <img 
-                src="/ChatGPT Image 28. Sept. 2025, 20_07_42.png" 
+                src="/LOGO.webp" 
                 alt="BBS Logo" 
                 className="h-10 w-auto mr-3"
               />
