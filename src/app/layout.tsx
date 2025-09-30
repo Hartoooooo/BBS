@@ -22,12 +22,16 @@ export const metadata: Metadata = {
   publisher: "BBS Björn Hartmann",
   icons: {
     icon: [
-      { url: '/LOGO.webp', type: 'image/webp' },
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
     ],
     apple: [
-      { url: '/LOGO.webp', type: 'image/webp' },
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
     ],
-    shortcut: ['/LOGO.webp'],
+    other: [
+      { rel: 'icon', url: '/android-chrome-192x192.png', sizes: '192x192', type: 'image/png' },
+      { rel: 'icon', url: '/android-chrome-512x512.png', sizes: '512x512', type: 'image/png' },
+    ],
   },
   robots: {
     index: true,
