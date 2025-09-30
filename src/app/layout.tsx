@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     description: 'Fliesenleger & Badumbau Experte in Schöneiche, Berlin, Brandenburg & Strausberg. Bad Sanierung Berlin. Barrierefreies Bauen West-Berlin/Charlottenburg.',
     images: [
       {
-        url: '/hero-bathroom.png',
+        url: '/hero-bathroom.webp',
         width: 1200,
         height: 630,
         alt: 'BBS Barrierefreies Bauen und Sanieren',
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'BBS - Bad Umbau & Fliesenleger Schöneiche | Barrierefreies Bauen',
     description: 'Fliesenleger & Badumbau Experte in Schöneiche, Berlin, Brandenburg & Strausberg. Bad Sanierung Berlin.',
-    images: ['/hero-bathroom.png'],
+    images: ['/hero-bathroom.webp'],
   },
   alternates: {
     canonical: 'https://www.artdesignbau.de',
@@ -65,6 +65,7 @@ export default function RootLayout({
   return (
     <html lang="de">
       <head>
+               <link rel="icon" href="/LOGO.webp" type="image/webp" />
         <StructuredData />
       </head>
       <body
