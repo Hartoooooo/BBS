@@ -28,7 +28,16 @@ const AnfragePage = () => {
     { id: 'fliesenarbeiten-wohnraum', label: 'Fliesenarbeiten im Wohnraum', description: 'Fliesenverlegung in Wohn- und Schlafzimmern', icon: <Home className="w-6 h-6 text-blue-600" /> },
     { id: 'fliesenarbeiten-keller', label: 'Fliesenarbeiten im Keller', description: 'Fliesenverlegung in Kellerräumen und Hobbyräumen', icon: <Building className="w-6 h-6 text-blue-600" /> },
     { id: 'barrierefreie-badumbauten', label: 'Barrierefreie Badumbauten', description: 'Komplette Badumbauten für mehr Sicherheit und Komfort', icon: <Users className="w-6 h-6 text-blue-600" /> },
-    { id: 'treppenlifte-rampen', label: 'Treppenlifte & Rampen', description: 'Installation für barrierefreien Zugang', icon: <ArrowUp className="w-6 h-6 text-blue-600" /> },
+    { id: 'treppenlifte-rampen', label: 'Treppenlifte & Rampen', description: 'Installation für barrierefreien Zugang', icon: (
+      <Image
+        src="/fliesen.png"
+        alt="Treppenlifte & Rampen"
+        width={24}
+        height={24}
+        className="w-6 h-6 object-contain"
+        priority
+      />
+    ) },
     { id: 'tuerverbreiterungen', label: 'Türverbreiterungen', description: 'Verbreiterung von Türöffnungen', icon: <DoorOpen className="w-6 h-6 text-blue-600" /> },
     { id: 'sicherheitstechnik', label: 'Sicherheitstechnik', description: 'Haltegriffe, Handläufe und Sicherheitssysteme', icon: <Shield className="w-6 h-6 text-blue-600" /> },
     { id: 'andere', label: 'Andere Leistung', description: 'Sonstige barrierefreie Baumaßnahmen', icon: <Wrench className="w-6 h-6 text-blue-600" /> }

@@ -32,13 +32,13 @@ const Services = () => {
     },
     {
       icon: <Shield className="w-12 h-12 text-blue-600" />,
-      title: 'Sicherheitstechnik',
-      description: 'Installation von Sicherheitssystemen und Notrufsystemen für mehr Sicherheit.',
+      title: 'Fördermöglichkeiten',
+      description: 'Zuschüsse und Förderprogramme für barrierefreie Umbauten optimal nutzen.',
     },
     {
       icon: <Hammer className="w-12 h-12 text-blue-600" />,
-      title: 'Handläufe & Haltegriffe',
-      description: 'Fachgerechte Montage von Handläufen und Haltegriffen für sicheren Halt.',
+      title: 'Küche',
+      description: 'Barrierefreie Küchenanpassungen für mehr Komfort und Sicherheit.',
     },
   ];
 
