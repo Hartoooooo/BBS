@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { Phone, Mail, MapPin, Clock, Hammer } from 'lucide-react';
 
 const Footer = () => {
@@ -9,9 +10,11 @@ const Footer = () => {
           {/* Company Info */}
           <div>
             <div className="flex items-center mb-4">
-              <img 
+              <Image 
                 src="/LOGO.webp" 
                 alt="BBS Logo" 
+                width={40}
+                height={40}
                 className="h-10 w-auto mr-3"
               />
               <div className="text-sm">
@@ -100,8 +103,8 @@ const Footer = () => {
               <div className="flex items-center text-gray-400">
                 <Mail className="w-5 h-5 mr-3 flex-shrink-0" />
                 <div>
-                  <a href="mailto:info@bbs-hartmann.de" className="text-white hover:text-blue-400 transition-colors duration-200">
-                    info@bbs-hartmann.de
+                  <a href="mailto:service@b-b-s.berlin" className="text-white hover:text-blue-400 transition-colors duration-200">
+                    service@b-b-s.berlin
                   </a>
                 </div>
               </div>
@@ -129,21 +132,14 @@ const Footer = () => {
 
         {/* Bottom Bar */}
         <div className="border-t border-gray-800 mt-12 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="flex flex-wrap gap-4 mb-4 md:mb-0">
-              <Link href="/datenschutz" className="text-gray-400 hover:text-white text-sm transition-colors duration-200">
-                Datenschutz
-              </Link>
-              <Link href="/impressum" className="text-gray-400 hover:text-white text-sm transition-colors duration-200">
-                Impressum
-              </Link>
-            </div>
-            
-            <div className="text-gray-400 text-sm text-center md:text-right">
-              <div>© 2024 BBS Björn Hartmann Barrierefreies Bauen und Sanieren</div>
+          <div className="text-center">
+            <div className="text-gray-400 text-sm">
+              <div>© 2025 BBS Björn Hartmann Barrierefreies Bauen und Sanieren</div>
               <div className="mt-1">
-                Konzept & Umsetzung von{' '}
-                <span className="text-white">Ihr Webentwickler</span>
+                Umsetzung von{' '}
+                <span className="text-gray-400">
+                  Neoklar<sup className="text-[10px]">TM</sup>
+                </span>
               </div>
             </div>
           </div>

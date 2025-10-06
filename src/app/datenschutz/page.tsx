@@ -38,7 +38,7 @@ export default function DatenschutzPage() {
               <p>Petershagener Straße 27</p>
               <p>15566 Schöneiche bei Berlin</p>
               <p className="mt-4">Telefon: <a href="tel:+493092371277" className="text-blue-600 hover:text-blue-700">+49 (0) 30 923 712 77</a></p>
-              <p>E-Mail: <a href="mailto:info@bbs-hartmann.de" className="text-blue-600 hover:text-blue-700">info@bbs-hartmann.de</a></p>
+              <p>E-Mail: <a href="mailto:service@b-b-s.berlin" className="text-blue-600 hover:text-blue-700">service@b-b-s.berlin</a></p>
             </div>
           </section>
 

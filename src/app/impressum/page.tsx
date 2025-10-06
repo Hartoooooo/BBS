@@ -37,7 +37,7 @@ export default function ImpressumPage() {
             <div className="text-gray-700 space-y-2">
               <p><strong>Telefon:</strong> <a href="tel:+493092371277" className="text-blue-600 hover:text-blue-700">+49 (0) 30 923 712 77</a></p>
               <p><strong>Telefax:</strong> +49 (0) 30 960 632 46</p>
-              <p><strong>E-Mail:</strong> <a href="mailto:info@bbs-hartmann.de" className="text-blue-600 hover:text-blue-700">info@bbs-hartmann.de</a></p>
+              <p><strong>E-Mail:</strong> <a href="mailto:service@b-b-s.berlin" className="text-blue-600 hover:text-blue-700">service@b-b-s.berlin</a></p>
             </div>
           </section>
 

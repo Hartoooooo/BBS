@@ -11,7 +11,7 @@ export default function StructuredData() {
     "description": "Fliesenleger und Badumbau Experte in Schöneiche, Berlin, Brandenburg, Strausberg und West-Berlin/Charlottenburg. Spezialist für barrierefreies Bauen und Sanieren, Bad Sanierung Berlin, Bad Umbau Brandenburg. Über 22 Jahre Erfahrung.",
     "foundingDate": "2003",
     "telephone": "+49-30-92371277",
-    "email": "info@bbs-hartmann.de",
+    "email": "service@b-b-s.berlin",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "Petershagener Straße 27",

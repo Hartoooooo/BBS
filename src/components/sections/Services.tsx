@@ -1,7 +1,6 @@
 import { 
   Home, 
   Shield, 
-  Clock, 
   Hammer, 
   Bath,
   ArrowUp,

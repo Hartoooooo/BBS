@@ -41,10 +41,10 @@ const Contact = () => {
                   <h4 className="font-semibold text-gray-900 mb-1">E-Mail</h4>
                   <p className="text-gray-600 mb-2">Schreiben Sie uns eine Nachricht:</p>
                   <a 
-                    href="mailto:info@bbs-hartmann.de" 
+                    href="mailto:service@b-b-s.berlin" 
                     className="text-blue-600 hover:text-blue-700 font-semibold"
                   >
-                    info@bbs-hartmann.de
+                    service@b-b-s.berlin
                   </a>
                 </div>
               </div>
@@ -102,7 +102,7 @@ const Contact = () => {
                       id="firstName"
                       name="firstName"
                       required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200 placeholder-gray-500 text-gray-900"
                       placeholder="Ihr Vorname"
                     />
                   </div>
@@ -116,37 +116,39 @@ const Contact = () => {
                       id="lastName"
                       name="lastName"
                       required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200 placeholder-gray-500 text-gray-900"
                       placeholder="Ihr Nachname"
                     />
                   </div>
                 </div>
 
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                    E-Mail-Adresse *
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200"
-                    placeholder="ihre.email@beispiel.de"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
-                    Telefonnummer
-                  </label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200"
-                    placeholder="Ihre Telefonnummer"
-                  />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                      E-Mail-Adresse *
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      required
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200 placeholder-gray-500 text-gray-900"
+                      placeholder="ihre.email@beispiel.de"
+                    />
+                  </div>
+                  
+                  <div>
+                    <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
+                      Telefonnummer
+                    </label>
+                    <input
+                      type="tel"
+                      id="phone"
+                      name="phone"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200 placeholder-gray-500 text-gray-900"
+                      placeholder="Ihre Telefonnummer"
+                    />
+                  </div>
                 </div>
 
                 <div>
@@ -156,16 +158,37 @@ const Contact = () => {
                   <select
                     id="subject"
                     name="subject"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200"
+                    defaultValue=""
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200 text-gray-900 [&:invalid]:text-gray-500"
+                    required
                   >
-                    <option value="">Bitte wählen...</option>
+                    <option value="" disabled>Bitte wählen...</option>
                     <option value="badumbau">Barrierefreier Badumbau</option>
                     <option value="treppenlift">Treppenlift</option>
                     <option value="rampe">Rampen & Zugänge</option>
                     <option value="beratung">Kostenlose Beratung</option>
                     <option value="notfall">Notfall</option>
+                    <option value="barrierefrei-bad">Barrierefrei Bad</option>
+                    <option value="trockenbau">Trockenbau</option>
+                    <option value="holz-bautenschutz">Holz & Bautenschutz</option>
+                    <option value="bauwerksabdichtung">Bauwerksabdichtung</option>
+                    <option value="bodenbelagsarbeiten">Bodenbelagsarbeiten</option>
+                    <option value="wasserschadensanierung">Wasserschadensanierung & Trocknung</option>
                     <option value="sonstiges">Sonstiges</option>
                   </select>
+                </div>
+
+                <div>
+                  <label htmlFor="budget" className="block text-sm font-medium text-gray-700 mb-2">
+                    Budgetvorstellung
+                  </label>
+                  <input
+                    type="text"
+                    id="budget"
+                    name="budget"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200 placeholder-gray-500 text-gray-900"
+                    placeholder="z.B. 15.000 € oder noch unbekannt"
+                  />
                 </div>
 
                 <div>
@@ -177,7 +200,7 @@ const Contact = () => {
                     name="message"
                     rows={5}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200 resize-vertical"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200 resize-vertical placeholder-gray-500 text-gray-900"
                     placeholder="Beschreiben Sie Ihr Anliegen..."
                   ></textarea>
                 </div>

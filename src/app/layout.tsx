@@ -14,6 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://www.artdesignbau.de'),
   title: "BBS - Barrierefreies Bauen und Sanieren | Bad Umbau Berlin Brandenburg | Fliesenleger Schöneiche",
   description: "Fliesenleger & Badumbau Experte in Schöneiche, Berlin, Brandenburg & Strausberg. Spezialist für barrierefreies Bauen in West-Berlin/Charlottenburg. Bad Sanierung Berlin, Bad Umbau Brandenburg. Über 22 Jahre Erfahrung.",
   keywords: "fliesenleger schöneiche, bad umbau, bad sanierung berlin, bad umbau brandenburg, barrierefreies bauen west-berlin, barrierefreies bauen charlottenburg, barrierefreies bauen und sanieren, fliesenleger brandenburg, fliesenleger strausberg, badumbau berlin, badsanierung brandenburg, altersgerechter badumbau, barrierefreie badsanierung",

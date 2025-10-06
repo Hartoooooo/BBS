@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Menu, X, Hammer } from 'lucide-react';
 
 const Header = () => {
@@ -46,10 +47,13 @@ const Header = () => {
           {/* Centered Logo */}
           <div className="flex-1 flex justify-center">
             <Link href="/" className="flex items-center">
-              <img 
+              <Image 
                 src="/LOGO.webp" 
                 alt="BBS Barrierefreies Bauen und Sanieren Logo - Björn Hartmann Berlin Brandenburg" 
+                width={48}
+                height={48}
                 className="h-12 w-auto mr-3"
+                priority
               />
               <div className="flex flex-col justify-center">
                 <div className="font-bold text-white text-2xl">BBS</div>

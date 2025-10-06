@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { ArrowLeft, ArrowRight, Check, Bath, ChefHat, Home, Building, Users, ArrowUp, DoorOpen, Shield, Wrench } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Check, Bath, Home, Building, Users, Shield, Wrench, HelpCircle } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -12,7 +12,7 @@ const AnfragePage = () => {
     specificService: '',
     budget: '',
     timeframe: '',
-    propertyType: '',
+    propertyType: [] as string[],
     contactInfo: {
       name: '',
       email: '',
@@ -23,24 +23,15 @@ const AnfragePage = () => {
   });
 
   const projectTypes = [
-    { id: 'fliesenarbeiten-bad', label: 'Fliesenarbeiten im Bad', description: 'Komplette Fliesenverlegung in Badezimmern', icon: <Bath className="w-6 h-6 text-blue-600" /> },
-    { id: 'fliesenarbeiten-kueche', label: 'Fliesenarbeiten in der Küche', description: 'Fliesenverlegung für Küchenrückwand und Boden', icon: <ChefHat className="w-6 h-6 text-blue-600" /> },
-    { id: 'fliesenarbeiten-wohnraum', label: 'Fliesenarbeiten im Wohnraum', description: 'Fliesenverlegung in Wohn- und Schlafzimmern', icon: <Home className="w-6 h-6 text-blue-600" /> },
-    { id: 'fliesenarbeiten-keller', label: 'Fliesenarbeiten im Keller', description: 'Fliesenverlegung in Kellerräumen und Hobbyräumen', icon: <Building className="w-6 h-6 text-blue-600" /> },
-    { id: 'barrierefreie-badumbauten', label: 'Barrierefreie Badumbauten', description: 'Komplette Badumbauten für mehr Sicherheit und Komfort', icon: <Users className="w-6 h-6 text-blue-600" /> },
-    { id: 'treppenlifte-rampen', label: 'Treppenlifte & Rampen', description: 'Installation für barrierefreien Zugang', icon: (
-      <Image
-        src="/fliesen.png"
-        alt="Treppenlifte & Rampen"
-        width={24}
-        height={24}
-        className="w-6 h-6 object-contain"
-        priority
-      />
-    ) },
-    { id: 'tuerverbreiterungen', label: 'Türverbreiterungen', description: 'Verbreiterung von Türöffnungen', icon: <DoorOpen className="w-6 h-6 text-blue-600" /> },
-    { id: 'sicherheitstechnik', label: 'Sicherheitstechnik', description: 'Haltegriffe, Handläufe und Sicherheitssysteme', icon: <Shield className="w-6 h-6 text-blue-600" /> },
-    { id: 'andere', label: 'Andere Leistung', description: 'Sonstige barrierefreie Baumaßnahmen', icon: <Wrench className="w-6 h-6 text-blue-600" /> }
+    { id: 'fliesenarbeiten-bad', label: 'Fliesenarbeiten im Bad', icon: <Bath className="w-6 h-6 text-blue-600" /> },
+    { id: 'fliesenarbeiten-wohnraum', label: 'Fliesenarbeiten Wohnraum', icon: <Home className="w-6 h-6 text-blue-600" /> },
+    { id: 'barrierefreies-bad', label: 'Barrierefreies Bad', icon: <Bath className="w-6 h-6 text-blue-600" /> },
+    { id: 'trockenbau', label: 'Trockenbau', icon: <Building className="w-6 h-6 text-blue-600" /> },
+    { id: 'holz-bautenschutz', label: 'Holz & Bautenschutz', icon: <Home className="w-6 h-6 text-blue-600" /> },
+    { id: 'bauwerksabdichtung', label: 'Bauwerksabdichtung', icon: <Shield className="w-6 h-6 text-blue-600" /> },
+    { id: 'bodenbelagsarbeiten', label: 'Bodenbelagsarbeiten', icon: <Users className="w-6 h-6 text-blue-600" /> },
+    { id: 'wasserschaden', label: 'Wasserschaden', icon: <Wrench className="w-6 h-6 text-blue-600" /> },
+    { id: 'andere', label: 'Andere Leistung', icon: <HelpCircle className="w-6 h-6 text-blue-600" /> }
   ];
 
   const budgetRanges = [
@@ -86,6 +77,15 @@ const AnfragePage = () => {
     }
   };
 
+  const handlePropertyTypeChange = (propertyId: string, isChecked: boolean) => {
+    setFormData(prev => ({
+      ...prev,
+      propertyType: isChecked 
+        ? [...prev.propertyType, propertyId]
+        : prev.propertyType.filter(id => id !== propertyId)
+    }));
+  };
+
   const nextStep = () => {
     if (currentStep < 6) {
       setCurrentStep(currentStep + 1);
@@ -113,14 +113,19 @@ const AnfragePage = () => {
             <h2 className="text-2xl font-bold text-gray-900 mb-6">Welche Art von Projekt planen Sie?</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {projectTypes.map((type) => (
-                <label key={type.id} className="flex items-start space-x-3 p-4 border rounded-lg cursor-pointer hover:bg-gray-50">
+                <label 
+                  key={type.id} 
+                  className={`flex items-start space-x-3 p-4 border rounded-lg cursor-pointer hover:bg-gray-50 transition-all duration-300 ease-out ${
+                    formData.projectType === type.id ? 'bg-blue-50 border-blue-300 -translate-y-1 shadow-md' : ''
+                  }`}
+                >
                   <input
                     type="radio"
                     name="projectType"
                     value={type.id}
                     checked={formData.projectType === type.id}
                     onChange={(e) => handleInputChange('projectType', e.target.value)}
-                    className="mt-1"
+                    className="sr-only"
                   />
                   <div className="flex items-start space-x-3 flex-1">
                     <div className="mt-1">
@@ -128,7 +133,6 @@ const AnfragePage = () => {
                     </div>
                     <div>
                       <div className="font-medium text-gray-900">{type.label}</div>
-                      <div className="text-sm text-gray-600">{type.description}</div>
                     </div>
                   </div>
                 </label>
@@ -143,13 +147,19 @@ const AnfragePage = () => {
             <h2 className="text-2xl font-bold text-gray-900 mb-6">Welches Budget haben Sie eingeplant?</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {budgetRanges.map((budget) => (
-                <label key={budget.id} className="flex items-center space-x-3 p-4 border rounded-lg cursor-pointer hover:bg-gray-50">
+                <label 
+                  key={budget.id} 
+                  className={`flex items-center space-x-3 p-4 border rounded-lg cursor-pointer hover:bg-gray-50 transition-all duration-300 ease-out ${
+                    formData.budget === budget.id ? 'bg-blue-50 border-blue-300 -translate-y-1 shadow-md' : ''
+                  }`}
+                >
                   <input
                     type="radio"
                     name="budget"
                     value={budget.id}
                     checked={formData.budget === budget.id}
                     onChange={(e) => handleInputChange('budget', e.target.value)}
+                    className="sr-only"
                   />
                   <span className="font-medium text-gray-900">{budget.label}</span>
                 </label>
@@ -164,13 +174,19 @@ const AnfragePage = () => {
             <h2 className="text-2xl font-bold text-gray-900 mb-6">Wann soll das Projekt starten?</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {timeframes.map((timeframe) => (
-                <label key={timeframe.id} className="flex items-center space-x-3 p-4 border rounded-lg cursor-pointer hover:bg-gray-50">
+                <label 
+                  key={timeframe.id} 
+                  className={`flex items-center space-x-3 p-4 border rounded-lg cursor-pointer hover:bg-gray-50 transition-all duration-300 ease-out ${
+                    formData.timeframe === timeframe.id ? 'bg-blue-50 border-blue-300 -translate-y-1 shadow-md' : ''
+                  }`}
+                >
                   <input
                     type="radio"
                     name="timeframe"
                     value={timeframe.id}
                     checked={formData.timeframe === timeframe.id}
                     onChange={(e) => handleInputChange('timeframe', e.target.value)}
+                    className="sr-only"
                   />
                   <span className="font-medium text-gray-900">{timeframe.label}</span>
                 </label>
@@ -185,13 +201,19 @@ const AnfragePage = () => {
             <h2 className="text-2xl font-bold text-gray-900 mb-6">Um welche Art von Objekt handelt es sich?</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {propertyTypes.map((property) => (
-                <label key={property.id} className="flex items-center space-x-3 p-4 border rounded-lg cursor-pointer hover:bg-gray-50">
+                <label 
+                  key={property.id} 
+                  className={`flex items-center space-x-3 p-4 border rounded-lg cursor-pointer hover:bg-gray-50 transition-all duration-300 ease-out ${
+                    formData.propertyType.includes(property.id) ? 'bg-blue-50 border-blue-300 -translate-y-1 shadow-md' : ''
+                  }`}
+                >
                   <input
-                    type="radio"
+                    type="checkbox"
                     name="propertyType"
                     value={property.id}
-                    checked={formData.propertyType === property.id}
-                    onChange={(e) => handleInputChange('propertyType', e.target.value)}
+                    checked={formData.propertyType.includes(property.id)}
+                    onChange={(e) => handlePropertyTypeChange(property.id, e.target.checked)}
+                    className="sr-only"
                   />
                   <span className="font-medium text-gray-900">{property.label}</span>
                 </label>
@@ -215,24 +237,26 @@ const AnfragePage = () => {
                   required
                 />
               </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">E-Mail *</label>
-                <input
-                  type="email"
-                  value={formData.contactInfo.email}
-                  onChange={(e) => handleInputChange('contactInfo.email', e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  required
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Telefon</label>
-                <input
-                  type="tel"
-                  value={formData.contactInfo.phone}
-                  onChange={(e) => handleInputChange('contactInfo.phone', e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">E-Mail *</label>
+                  <input
+                    type="email"
+                    value={formData.contactInfo.email}
+                    onChange={(e) => handleInputChange('contactInfo.email', e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Telefon</label>
+                  <input
+                    type="tel"
+                    value={formData.contactInfo.phone}
+                    onChange={(e) => handleInputChange('contactInfo.phone', e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Adresse des Objekts *</label>
@@ -284,7 +308,7 @@ const AnfragePage = () => {
               <div>
                 <span className="font-medium text-gray-700">Objekttyp:</span>
                 <span className="ml-2 text-gray-900">
-                  {propertyTypes.find(p => p.id === formData.propertyType)?.label}
+                  {formData.propertyType.map(id => propertyTypes.find(p => p.id === id)?.label).join(', ')}
                 </span>
               </div>
               <div>
@@ -352,51 +376,51 @@ const AnfragePage = () => {
               </div>
             </div>
             {renderStep()}
-          </div>
-
-          {/* Navigation Buttons */}
-          <div className="flex justify-between mt-8">
-            <Link 
-              href="/"
-              className={`flex items-center px-6 py-3 rounded-lg font-medium ${
-                currentStep === 1
-                  ? 'bg-gray-600 text-white hover:bg-gray-700'
-                  : 'bg-gray-600 text-white hover:bg-gray-700'
-              }`}
-              onClick={currentStep === 1 ? undefined : (e) => {
-                e.preventDefault();
-                prevStep();
-              }}
-            >
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              {currentStep === 1 ? 'Zur Startseite' : 'Zurück'}
-            </Link>
-
-            {currentStep < 6 ? (
-              <button
-                type="button"
-                onClick={nextStep}
-                disabled={
-                  (currentStep === 1 && !formData.projectType) ||
-                  (currentStep === 2 && !formData.budget) ||
-                  (currentStep === 3 && !formData.timeframe) ||
-                  (currentStep === 4 && !formData.propertyType) ||
-                  (currentStep === 5 && (!formData.contactInfo.name || !formData.contactInfo.email || !formData.contactInfo.address))
-                }
-                className="flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 hover:cursor-pointer disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed"
+            
+            {/* Navigation Buttons */}
+            <div className="flex justify-center items-center gap-4 mt-8">
+              <Link 
+                href="/"
+                className={`flex items-center px-6 py-3 rounded-lg font-medium ${
+                  currentStep === 1
+                    ? 'bg-gray-600 text-white hover:bg-gray-700'
+                    : 'bg-gray-600 text-white hover:bg-gray-700'
+                }`}
+                onClick={currentStep === 1 ? undefined : (e) => {
+                  e.preventDefault();
+                  prevStep();
+                }}
               >
-                Weiter
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </button>
-            ) : (
-              <button
-                type="submit"
-                className="flex items-center px-6 py-3 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 hover:cursor-pointer"
-              >
-                Anfrage absenden
-                <Check className="w-4 h-4 ml-2" />
-              </button>
-            )}
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                {currentStep === 1 ? 'Zur Startseite' : 'Zurück'}
+              </Link>
+
+              {currentStep < 6 ? (
+                <button
+                  type="button"
+                  onClick={nextStep}
+                  disabled={
+                    (currentStep === 1 && !formData.projectType) ||
+                    (currentStep === 2 && !formData.budget) ||
+                    (currentStep === 3 && !formData.timeframe) ||
+                    (currentStep === 4 && formData.propertyType.length === 0) ||
+                    (currentStep === 5 && (!formData.contactInfo.name || !formData.contactInfo.email || !formData.contactInfo.address))
+                  }
+                  className="flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 hover:cursor-pointer disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed"
+                >
+                  Weiter
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </button>
+              ) : (
+                <button
+                  type="submit"
+                  className="flex items-center px-6 py-3 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 hover:cursor-pointer"
+                >
+                  Anfrage absenden
+                  <Check className="w-4 h-4 ml-2" />
+                </button>
+              )}
+            </div>
           </div>
         </form>
       </div>

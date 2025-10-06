@@ -1,5 +1,4 @@
 import { Award, CheckCircle, Users, Shield } from 'lucide-react';
-import Image from 'next/image';
 import ImageCarousel from '@/components/ui/ImageCarousel';
 
 const About = () => {
@@ -99,31 +98,6 @@ const About = () => {
           </div>
         </div>
 
-        {/* Project Gallery */}
-        <div className="mt-20">
-          <h3 className="text-2xl font-bold text-gray-900 text-center mb-12">
-            Einblicke in unsere Projekte
-          </h3>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              'Badumbau mit bodengleicher Dusche in Berlin',
-              'Treppenlift-Installation in Brandenburg',
-              'Rampenanbau für Rollstuhlfahrer in Berlin',
-              'Türverbreiterung in Altbau Berlin-Mitte',
-              'Haltegriff-Montage im Badezimmer',
-              'Barrierefreie Küche in Berlin-Spandau',
-              'Schwellenfreier Übergang zum Balkon',
-              'Komplette Wohnungsanpassung in Potsdam'
-            ].map((project, index) => (
-              <div key={index} className="bg-gray-200 rounded-lg h-48 flex items-center justify-center p-4">
-                <p className="text-gray-500 text-center text-sm">
-                  {project}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
       </div>
     </section>
   );
