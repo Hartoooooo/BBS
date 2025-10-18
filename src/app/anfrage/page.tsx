@@ -44,7 +44,6 @@ const AnfragePage = () => {
   ];
 
   const timeframes = [
-    { id: 'sofort', label: 'Sofort' },
     { id: '1-3-monate', label: '1-3 Monate' },
     { id: '3-6-monate', label: '3-6 Monate' },
     { id: '6-12-monate', label: '6-12 Monate' },

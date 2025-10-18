@@ -64,7 +64,7 @@ const Testimonials = () => {
                 </svg>
               ))}
             </div>
-            <span className="ml-2 text-gray-600">5,0 von 5 aus 2 Bewertungen</span>
+            <span className="ml-2 text-gray-600">5,0 (5 Bewertungen)</span>
             <a
               href="https://g.page/r/Caa5F33L0HXbEBM/review"
               target="_blank"
@@ -126,25 +126,16 @@ const Testimonials = () => {
           <div className="text-center">
             <div className="text-4xl font-bold text-blue-600 mb-2">24/7</div>
             <div className="text-gray-600">Schneller und regionaler Service</div>
-            <p className="text-sm text-gray-500 mt-2">
-              Als lokaler Dienstleister für Berlin und Brandenburg sind wir zeitnah bei Ihnen vor Ort – auch im Notfall rund um die Uhr.
-            </p>
           </div>
           
           <div className="text-center">
-            <div className="text-4xl font-bold text-blue-600 mb-2">15+</div>
+            <div className="text-4xl font-bold text-blue-600 mb-2">22+</div>
             <div className="text-gray-600">Jahre Erfahrung</div>
-            <p className="text-sm text-gray-500 mt-2">
-              Langjährige Expertise in barrierefreiem Bauen und Sanieren – zuverlässig und professionell.
-            </p>
           </div>
           
           <div className="text-center">
             <div className="text-4xl font-bold text-blue-600 mb-2">150+</div>
-            <div className="text-gray-600">erfolgreiche Projekte pro Jahr</div>
-            <p className="text-sm text-gray-500 mt-2">
-              Mit jährlich über 150 erfolgreich abgeschlossenen Projekten in Berlin und Brandenburg sind wir Ihr erfahrener Partner.
-            </p>
+            <div className="text-gray-600">erfolgreich abgeschlossene Projekte</div>
           </div>
         </div>
       </div>

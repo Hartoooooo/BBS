@@ -18,9 +18,8 @@ const Footer = () => {
                 className="h-10 w-auto mr-3"
               />
               <div className="text-sm">
-                <div className="text-2xl font-bold text-blue-400">BBS</div>
                 <div className="font-semibold text-white">Björn Hartmann</div>
-                <div className="text-gray-400 text-xs">Barrierefreies Bauen und Sanieren</div>
+                <div className="text-gray-400 text-xs">BBS - Barrierefreies Bauen und Sanieren</div>
               </div>
             </div>
             <p className="text-gray-400 mb-4">

@@ -1,43 +1,43 @@
 import { 
-  Home, 
-  Shield, 
-  Hammer, 
-  Bath,
-  ArrowUp,
-  DoorOpen 
+  Bath, 
+  Building, 
+  TreePine, 
+  Shield,
+  Package,
+  Droplet 
 } from 'lucide-react';
 
 const Services = () => {
   const services = [
     {
       icon: <Bath className="w-12 h-12 text-blue-600" />,
-      title: 'Barrierefreie Badumbauten',
-      description: 'Komplette Badumbauten für mehr Sicherheit und Komfort – bodengleiche Duschen, Haltegriffe und mehr.',
+      title: 'Barrierefreies Bad',
+      description: 'Komplette Badumbauten für mehr Sicherheit und Komfort – bodengleiche Duschen, Haltegriffe und barrierefreie Lösungen.',
     },
     {
-      icon: <ArrowUp className="w-12 h-12 text-blue-600" />,
-      title: 'Treppenlifte & Rampen',
-      description: 'Installation von Treppenliften und Rampen für barrierefreien Zugang zu allen Bereichen.',
+      icon: <Building className="w-12 h-12 text-blue-600" />,
+      title: 'Trockenbau',
+      description: 'Professionelle Trockenbauarbeiten für Wände, Decken und Raumteilungen – schnell und sauber umgesetzt.',
     },
     {
-      icon: <DoorOpen className="w-12 h-12 text-blue-600" />,
-      title: 'Türverbreiterungen',
-      description: 'Verbreiterung von Türöffnungen für Rollstuhlfahrer und bessere Zugänglichkeit.',
-    },
-    {
-      icon: <Home className="w-12 h-12 text-blue-600" />,
-      title: 'Komplette Wohnungsanpassung',
-      description: 'Ganzheitliche Anpassung Ihrer Wohnung an Ihre individuellen Bedürfnisse.',
+      icon: <TreePine className="w-12 h-12 text-blue-600" />,
+      title: 'Holz & Bautenschutz',
+      description: 'Schutz und Pflege von Holzkonstruktionen sowie umfassende Bautenschutzmaßnahmen für langlebige Bausubstanz.',
     },
     {
       icon: <Shield className="w-12 h-12 text-blue-600" />,
-      title: 'Fördermöglichkeiten',
-      description: 'Zuschüsse und Förderprogramme für barrierefreie Umbauten optimal nutzen.',
+      title: 'Bauwerksabdichtung',
+      description: 'Fachgerechte Abdichtung von Gebäuden gegen Feuchtigkeit und Wasser für dauerhaften Schutz.',
     },
     {
-      icon: <Hammer className="w-12 h-12 text-blue-600" />,
-      title: 'Küche',
-      description: 'Barrierefreie Küchenanpassungen für mehr Komfort und Sicherheit.',
+      icon: <Package className="w-12 h-12 text-blue-600" />,
+      title: 'Bodenbelagsarbeiten',
+      description: 'Verlegung von Fliesen, Parkett, Laminat und anderen Bodenbelägen mit höchster Präzision.',
+    },
+    {
+      icon: <Droplet className="w-12 h-12 text-blue-600" />,
+      title: 'Wasserschadensanierung',
+      description: 'Schnelle und professionelle Sanierung von Wasserschäden – Trocknung, Reparatur und Wiederherstellung.',
     },
   ];
 

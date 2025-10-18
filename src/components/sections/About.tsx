@@ -10,7 +10,7 @@ const About = () => {
     },
     {
       icon: <CheckCircle className="w-8 h-8 text-blue-600" />,
-      title: 'Jährlich über 150 erfolgreich abgeschlossene Projekte',
+      title: 'Über 150 erfolgreich abgeschlossene Projekte',
       description: ''
     },
     {

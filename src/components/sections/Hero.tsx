@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { Hammer, Phone } from 'lucide-react';
+import { Hammer, Phone, Star } from 'lucide-react';
 
 const Hero = () => {
   return (
@@ -32,15 +32,26 @@ const Hero = () => {
               
               {/* Untertitel */}
               <p className="text-lg md:text-xl text-gray-700 mb-6">
-                Mit über 22 Jahren Erfahrung sind wir Ihr Fliesenleger und Badumbau-Experte in Schöneiche, 
-                Berlin, Brandenburg, Strausberg und West-Berlin/Charlottenburg. Spezialisiert auf 
-                barrierefreies Bauen und Sanieren, Bad Sanierung Berlin und Bad Umbau Brandenburg.
+                Seit über 22 Jahren Ihr Experte für Fliesenarbeiten in Berlin & Brandenburg. 
+                Wir sind spezialisiert auf barrierefreies Bauen, professionelle Badsanierung und komplette Badumbauten.
               </p>
 
               <p className="text-base md:text-lg text-gray-600 mb-8">
                 Ob präventive Sanierung oder kompletter Umbau – wir bieten maßgeschneiderte 
                 Lösungen für Privat- und Gewerbekunden.
               </p>
+
+              {/* Bewertung */}
+              <div className="flex items-center gap-2 mb-6">
+                <div className="flex gap-1">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+                  ))}
+                </div>
+                <p className="text-sm text-gray-700 font-medium">
+                  5,0 (5 Bewertungen)
+                </p>
+              </div>
 
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 justify-start">
