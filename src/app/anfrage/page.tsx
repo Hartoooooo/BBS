@@ -13,6 +13,8 @@ const AnfragePage = () => {
     budget: '',
     timeframe: '',
     propertyType: [] as string[],
+    buildingType: 'neubau' as 'altbau' | 'neubau',
+    location: '',
     contactInfo: {
       name: '',
       email: '',
@@ -86,7 +88,7 @@ const AnfragePage = () => {
   };
 
   const nextStep = () => {
-    if (currentStep < 6) {
+    if (currentStep < 7) {
       setCurrentStep(currentStep + 1);
     }
   };
@@ -143,24 +145,58 @@ const AnfragePage = () => {
       case 2:
         return (
           <div className="space-y-6">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Welches Budget haben Sie eingeplant?</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">Um welche Art von Objekt handelt es sich?</h2>
+            
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {budgetRanges.map((budget) => (
+              {/* Toggle Switch Altbau/Neubau */}
+              <div className="md:col-span-2 flex justify-center mb-4">
+                <div className="relative inline-flex border border-gray-300 rounded-lg p-1 w-full max-w-md">
+                  {/* Animierter blauer Container */}
+                  <div
+                    className={`absolute top-1 bottom-1 bg-blue-100 border border-blue-300 rounded-lg transition-all duration-300 ease-in-out ${
+                      formData.buildingType === 'neubau' ? 'left-1/2 right-1' : 'left-1 right-1/2'
+                    }`}
+                  />
+                  
+                  {/* Altbau Button */}
+                  <button
+                    type="button"
+                    onClick={() => handleInputChange('buildingType', 'altbau')}
+                    className={`relative z-10 flex-1 py-4 text-base font-medium rounded-lg transition-colors duration-300 ${
+                      formData.buildingType === 'altbau' ? 'text-gray-900' : 'text-gray-700'
+                    }`}
+                  >
+                    Altbau
+                  </button>
+                  
+                  {/* Neubau Button */}
+                  <button
+                    type="button"
+                    onClick={() => handleInputChange('buildingType', 'neubau')}
+                    className={`relative z-10 flex-1 py-4 text-base font-medium rounded-lg transition-colors duration-300 ${
+                      formData.buildingType === 'neubau' ? 'text-gray-900' : 'text-gray-700'
+                    }`}
+                  >
+                    Neubau
+                  </button>
+                </div>
+              </div>
+              {propertyTypes.map((property) => (
                 <label 
-                  key={budget.id} 
+                  key={property.id} 
                   className={`flex items-center space-x-3 p-4 border rounded-lg cursor-pointer hover:bg-gray-50 transition-all duration-300 ease-out ${
-                    formData.budget === budget.id ? 'bg-blue-50 border-blue-300 -translate-y-1 shadow-md' : ''
+                    formData.propertyType.includes(property.id) ? 'bg-blue-50 border-blue-300 -translate-y-1 shadow-md' : ''
                   }`}
                 >
                   <input
-                    type="radio"
-                    name="budget"
-                    value={budget.id}
-                    checked={formData.budget === budget.id}
-                    onChange={(e) => handleInputChange('budget', e.target.value)}
+                    type="checkbox"
+                    name="propertyType"
+                    value={property.id}
+                    checked={formData.propertyType.includes(property.id)}
+                    onChange={(e) => handlePropertyTypeChange(property.id, e.target.checked)}
                     className="sr-only"
                   />
-                  <span className="font-medium text-gray-900">{budget.label}</span>
+                  <span className="font-medium text-gray-900">{property.label}</span>
                 </label>
               ))}
             </div>
@@ -168,6 +204,24 @@ const AnfragePage = () => {
         );
 
       case 3:
+        return (
+          <div className="space-y-6">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">Wo befindet sich das Objekt?</h2>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Standort *</label>
+              <input
+                type="text"
+                value={formData.location}
+                onChange={(e) => handleInputChange('location', e.target.value)}
+                placeholder="z.B. Berlin, Schöneiche, Neuenhagen..."
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
+                required
+              />
+            </div>
+          </div>
+        );
+
+      case 4:
         return (
           <div className="space-y-6">
             <h2 className="text-2xl font-bold text-gray-900 mb-6">Wann soll das Projekt starten?</h2>
@@ -194,34 +248,34 @@ const AnfragePage = () => {
           </div>
         );
 
-      case 4:
+      case 5:
         return (
           <div className="space-y-6">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Um welche Art von Objekt handelt es sich?</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">Welches Budget haben Sie eingeplant?</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {propertyTypes.map((property) => (
+              {budgetRanges.map((budget) => (
                 <label 
-                  key={property.id} 
+                  key={budget.id} 
                   className={`flex items-center space-x-3 p-4 border rounded-lg cursor-pointer hover:bg-gray-50 transition-all duration-300 ease-out ${
-                    formData.propertyType.includes(property.id) ? 'bg-blue-50 border-blue-300 -translate-y-1 shadow-md' : ''
+                    formData.budget === budget.id ? 'bg-blue-50 border-blue-300 -translate-y-1 shadow-md' : ''
                   }`}
                 >
                   <input
-                    type="checkbox"
-                    name="propertyType"
-                    value={property.id}
-                    checked={formData.propertyType.includes(property.id)}
-                    onChange={(e) => handlePropertyTypeChange(property.id, e.target.checked)}
+                    type="radio"
+                    name="budget"
+                    value={budget.id}
+                    checked={formData.budget === budget.id}
+                    onChange={(e) => handleInputChange('budget', e.target.value)}
                     className="sr-only"
                   />
-                  <span className="font-medium text-gray-900">{property.label}</span>
+                  <span className="font-medium text-gray-900">{budget.label}</span>
                 </label>
               ))}
             </div>
           </div>
         );
 
-      case 5:
+      case 6:
         return (
           <div className="space-y-6">
             <h2 className="text-2xl font-bold text-gray-900 mb-6">Ihre Kontaktdaten</h2>
@@ -281,7 +335,7 @@ const AnfragePage = () => {
           </div>
         );
 
-      case 6:
+      case 7:
         return (
           <div className="space-y-6">
             <h2 className="text-2xl font-bold text-gray-900 mb-6">Zusammenfassung Ihrer Anfrage</h2>
@@ -293,9 +347,21 @@ const AnfragePage = () => {
                 </span>
               </div>
               <div>
-                <span className="font-medium text-gray-700">Budget:</span>
+                <span className="font-medium text-gray-700">Objekttyp:</span>
                 <span className="ml-2 text-gray-900">
-                  {budgetRanges.find(b => b.id === formData.budget)?.label}
+                  {formData.propertyType.map(id => propertyTypes.find(p => p.id === id)?.label).join(', ')}
+                </span>
+              </div>
+              <div>
+                <span className="font-medium text-gray-700">Gebäudeart:</span>
+                <span className="ml-2 text-gray-900">
+                  {formData.buildingType === 'altbau' ? 'Altbau' : 'Neubau'}
+                </span>
+              </div>
+              <div>
+                <span className="font-medium text-gray-700">Standort:</span>
+                <span className="ml-2 text-gray-900">
+                  {formData.location}
                 </span>
               </div>
               <div>
@@ -305,9 +371,9 @@ const AnfragePage = () => {
                 </span>
               </div>
               <div>
-                <span className="font-medium text-gray-700">Objekttyp:</span>
+                <span className="font-medium text-gray-700">Budget:</span>
                 <span className="ml-2 text-gray-900">
-                  {formData.propertyType.map(id => propertyTypes.find(p => p.id === id)?.label).join(', ')}
+                  {budgetRanges.find(b => b.id === formData.budget)?.label}
                 </span>
               </div>
               <div>
@@ -364,13 +430,13 @@ const AnfragePage = () => {
             <div className="mb-8">
               <div className="flex items-center justify-center mb-4">
                 <span className="text-lg font-semibold text-gray-900">
-                  {Math.round((currentStep / 6) * 100)}%
+                  {Math.round((currentStep / 7) * 100)}%
                 </span>
               </div>
               <div className="w-full bg-gray-200 rounded-full h-3">
                 <div 
                   className="bg-blue-600 h-3 rounded-full transition-all duration-300 ease-in-out"
-                  style={{ width: `${(currentStep / 6) * 100}%` }}
+                  style={{ width: `${(currentStep / 7) * 100}%` }}
                 ></div>
               </div>
             </div>
@@ -394,16 +460,17 @@ const AnfragePage = () => {
                 {currentStep === 1 ? 'Zur Startseite' : 'Zurück'}
               </Link>
 
-              {currentStep < 6 ? (
+              {currentStep < 7 ? (
                 <button
                   type="button"
                   onClick={nextStep}
                   disabled={
                     (currentStep === 1 && !formData.projectType) ||
-                    (currentStep === 2 && !formData.budget) ||
-                    (currentStep === 3 && !formData.timeframe) ||
-                    (currentStep === 4 && formData.propertyType.length === 0) ||
-                    (currentStep === 5 && (!formData.contactInfo.name || !formData.contactInfo.email || !formData.contactInfo.address))
+                    (currentStep === 2 && formData.propertyType.length === 0) ||
+                    (currentStep === 3 && !formData.location) ||
+                    (currentStep === 4 && !formData.timeframe) ||
+                    (currentStep === 5 && !formData.budget) ||
+                    (currentStep === 6 && (!formData.contactInfo.name || !formData.contactInfo.email || !formData.contactInfo.address))
                   }
                   className="flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 hover:cursor-pointer disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed"
                 >

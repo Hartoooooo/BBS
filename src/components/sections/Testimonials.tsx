@@ -35,6 +35,24 @@ const Testimonials = () => {
       author: "Frau W. E.",
       location: "Berlin Charlottenburg",
       sourceUrl: "https://www.fliesenleger.net/berlin/bjoern-hartmann---bbs-barrierefreies-bauen-und-sanieren-aULrY0#bewertungen"
+    },
+    {
+      text: "Richtig gute Arbeit! Die Jungs waren pünktlich, haben ordentlich gearbeitet und das Ergebnis kann sich echt sehen lassen. So wünscht man sich das!",
+      author: "Luc S.",
+      location: "Neuenhagen",
+      sourceUrl: "https://maps.app.goo.gl/H5Vvn7cMA8UXGQAF9"
+    },
+    {
+      text: "Vom ersten Kontakt bis zur Fertigstellung einfach super! Saubere Arbeit, ein sehr kompetentes und sympathisches Team. Jederzeit wieder!",
+      author: "Louis H.",
+      location: "Schöneiche",
+      sourceUrl: "https://maps.app.goo.gl/H5Vvn7cMA8UXGQAF9"
+    },
+    {
+      text: "Unser Bad ist wunderschön geworden – genau so, wie wir es uns vorgestellt haben. Danke für eure Geduld und den tollen Einsatz.",
+      author: "Luca F.",
+      location: "Berlin",
+      sourceUrl: "https://maps.app.goo.gl/H5Vvn7cMA8UXGQAF9"
     }
   ];
 
@@ -66,7 +84,7 @@ const Testimonials = () => {
             </div>
             <span className="ml-2 text-gray-600">5,0 (5 Bewertungen)</span>
             <a
-              href="https://g.page/r/Caa5F33L0HXbEBM/review"
+              href="https://maps.app.goo.gl/H5Vvn7cMA8UXGQAF9"
               target="_blank"
               rel="noopener noreferrer"
               className="ml-3 bg-white text-blue-600 border border-blue-600 px-4 py-2 rounded-lg font-semibold hover:bg-blue-50 transition-colors inline-flex items-center gap-2"
@@ -100,7 +118,9 @@ const Testimonials = () => {
                   rel="noopener noreferrer"
                   className="text-sm text-blue-600 hover:text-blue-700 underline mt-1 inline-block"
                 >
-                  von Fliesenleger.net
+                  {testimonials[currentTestimonial].sourceUrl.includes('fliesenleger.net') 
+                    ? 'von Fliesenleger.net' 
+                    : 'von Google'}
                 </a>
               </div>
             </div>
