@@ -162,7 +162,7 @@ const AnfragePage = () => {
                   <button
                     type="button"
                     onClick={() => handleInputChange('buildingType', 'altbau')}
-                    className={`relative z-10 flex-1 py-4 text-base font-medium rounded-lg transition-colors duration-300 ${
+                    className={`relative z-10 flex-1 py-3 text-base font-medium rounded-lg transition-colors duration-300 ${
                       formData.buildingType === 'altbau' ? 'text-gray-900' : 'text-gray-700'
                     }`}
                   >
@@ -173,7 +173,7 @@ const AnfragePage = () => {
                   <button
                     type="button"
                     onClick={() => handleInputChange('buildingType', 'neubau')}
-                    className={`relative z-10 flex-1 py-4 text-base font-medium rounded-lg transition-colors duration-300 ${
+                    className={`relative z-10 flex-1 py-3 text-base font-medium rounded-lg transition-colors duration-300 ${
                       formData.buildingType === 'neubau' ? 'text-gray-900' : 'text-gray-700'
                     }`}
                   >
