@@ -22,13 +22,13 @@ const Contact = () => {
             
             <div className="space-y-6">
               <div className="flex items-start">
-                <Phone className="w-6 h-6 text-blue-600 mr-4 mt-1 flex-shrink-0" />
+                <Phone className="w-6 h-6 text-red-500 mr-4 mt-1 flex-shrink-0" />
                 <div>
                   <h4 className="font-semibold text-gray-900 mb-1">Telefon</h4>
                   <p className="text-gray-600 mb-2">Rufen Sie uns direkt an:</p>
                   <a 
                     href="tel:+493092371277" 
-                    className="text-blue-600 hover:text-blue-700 font-semibold text-lg"
+                    className="text-red-500 hover:text-red-600 font-semibold text-lg"
                   >
                     +49 (0) 30 923 712 77
                   </a>
@@ -36,13 +36,13 @@ const Contact = () => {
               </div>
 
               <div className="flex items-start">
-                <Mail className="w-6 h-6 text-blue-600 mr-4 mt-1 flex-shrink-0" />
+                <Mail className="w-6 h-6 text-red-500 mr-4 mt-1 flex-shrink-0" />
                 <div>
                   <h4 className="font-semibold text-gray-900 mb-1">E-Mail</h4>
                   <p className="text-gray-600 mb-2">Schreiben Sie uns eine Nachricht:</p>
                   <a 
                     href="mailto:service@b-b-s.berlin" 
-                    className="text-blue-600 hover:text-blue-700 font-semibold"
+                    className="text-red-500 hover:text-red-600 font-semibold"
                   >
                     service@b-b-s.berlin
                   </a>
@@ -50,7 +50,7 @@ const Contact = () => {
               </div>
 
               <div className="flex items-start">
-                <MapPin className="w-6 h-6 text-blue-600 mr-4 mt-1 flex-shrink-0" />
+                <MapPin className="w-6 h-6 text-red-500 mr-4 mt-1 flex-shrink-0" />
                 <div>
                   <h4 className="font-semibold text-gray-900 mb-1">Standort</h4>
                   <p className="text-gray-600">
@@ -62,7 +62,7 @@ const Contact = () => {
                     href="https://www.google.com/maps/search/?api=1&query=BBS+Barrierefreies+Bauen+und+Sanieren+Petershagener+Straße+27+15566+Schöneiche+bei+Berlin"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-blue-600 hover:text-blue-700 font-semibold inline-flex items-center mt-2"
+                    className="text-red-500 hover:text-red-600 font-semibold inline-flex items-center mt-2"
                   >
                     📍 Auf Google Maps anzeigen
                   </a>
@@ -70,7 +70,7 @@ const Contact = () => {
               </div>
 
               <div className="flex items-start">
-                <Clock className="w-6 h-6 text-blue-600 mr-4 mt-1 flex-shrink-0" />
+                <Clock className="w-6 h-6 text-red-500 mr-4 mt-1 flex-shrink-0" />
                 <div>
                   <h4 className="font-semibold text-gray-900 mb-1">Öffnungszeiten</h4>
                   <div className="text-gray-600 space-y-1">
@@ -207,7 +207,7 @@ const Contact = () => {
 
                 <button
                   type="submit"
-                  className="w-full bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors duration-200 shadow-lg flex items-center justify-center"
+                  className="w-full bg-red-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-red-600 transition-colors duration-200 shadow-lg flex items-center justify-center"
                 >
                   <Send className="w-5 h-5 mr-2" />
                   Nachricht senden

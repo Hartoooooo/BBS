@@ -4,17 +4,17 @@ import ImageCarousel from '@/components/ui/ImageCarousel';
 const About = () => {
   const features = [
     {
-      icon: <Award className="w-8 h-8 text-blue-600" />,
+      icon: <Award className="w-8 h-8 text-red-500" />,
       title: 'Über 22 Jahre Erfahrung im Bereich barrierefreies Bauen & Sanieren',
       description: ''
     },
     {
-      icon: <CheckCircle className="w-8 h-8 text-blue-600" />,
+      icon: <CheckCircle className="w-8 h-8 text-red-500" />,
       title: 'Über 150 erfolgreich abgeschlossene Projekte',
       description: ''
     },
     {
-      icon: <Shield className="w-8 h-8 text-blue-600" />,
+      icon: <Shield className="w-8 h-8 text-red-500" />,
       title: 'Kostenloser Beratungs- & Zustandscheck für Ihr Objekt',
       description: ''
     },
@@ -68,8 +68,8 @@ const About = () => {
             {/* Contact Person */}
             <div className="bg-blue-50 rounded-lg p-6">
               <div className="flex items-center">
-                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mr-4">
-                  <Users className="w-8 h-8 text-blue-600" />
+                <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mr-4">
+                  <Users className="w-8 h-8 text-red-500" />
                 </div>
                 <div>
                   <h3 className="font-semibold text-gray-900 text-lg">Björn Hartmann</h3>

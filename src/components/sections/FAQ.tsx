@@ -17,28 +17,32 @@ const FAQ = () => {
 
   const faqs = [
     {
-      question: 'Kann ich bei Ihnen einen Beratungstermin für barrierefreies Bauen buchen?',
-      answer: 'Selbstverständlich. Wir bieten Ihnen eine kostenlose und unverbindliche Beratung für Ihr Haus oder Ihre Wohnung. Vereinbaren Sie einfach einen Termin und lassen Sie sich individuell beraten, welche barrierefreien Lösungen für Sie in Frage kommen.'
+      question: 'Welche Fliesenarbeiten bieten Sie an?',
+      answer: 'Wir bieten professionelle Fliesenarbeiten für Bad, Küche und Wohnräume an. Dazu gehören Wand- und Bodenfliesen, Natursteinverlegung sowie moderne großformatige Fliesen. Unsere erfahrenen Fliesenleger arbeiten präzise und sauber.'
     },
     {
-      question: 'Übernehmen Sie auch komplette Badumbauten?',
-      answer: 'Ja, wir führen komplette barrierefreie Badumbauten durch. Von der Planung bis zur Fertigstellung erhalten Sie alles aus einer Hand - bodengleiche Duschen, rutschfeste Böden, Haltegriffe und alle weiteren Anpassungen für mehr Sicherheit und Komfort.'
+      question: 'Führen Sie komplette barrierefreie Badumbauten durch?',
+      answer: 'Ja, wir führen komplette barrierefreie Badumbauten durch. Von der Planung bis zur Fertigstellung erhalten Sie alles aus einer Hand - bodengleiche Duschen, rutschfeste Fliesen, Haltegriffe und alle weiteren Anpassungen für mehr Sicherheit und Komfort.'
     },
     {
-      question: 'Installieren Sie auch Treppenlifte?',
-      answer: 'Ja, wir verkaufen, montieren und warten Treppenlifte verschiedener Hersteller. Unsere Installationen erfolgen fachgerecht mit entsprechender Zertifizierung und regelmäßigen Wartungsprotokollen für maximale Sicherheit.'
+      question: 'Was umfasst Ihre Wasserschadensanierung?',
+      answer: 'Bei Wasserschäden bieten wir schnelle professionelle Hilfe: Leckortung, Trocknung der betroffenen Bereiche, Schimmelprävention sowie fachgerechte Sanierung und Wiederherstellung. Wir arbeiten mit modernen Trocknungsgeräten und dokumentieren den gesamten Prozess.'
     },
     {
-      question: 'Bieten Sie auch Notdienst an?',
-      answer: 'Ja, wir bieten einen 24/7-Notdienst für dringende Reparaturen und Sicherheitsprobleme. Rufen Sie uns jederzeit an, wenn Sie schnelle Hilfe benötigen.'
+      question: 'Welche Bodenbeläge verlegen Sie?',
+      answer: 'Wir verlegen alle gängigen Bodenbeläge: Fliesen, Naturstein, Parkett, Laminat, Vinyl und PVC. Dabei beraten wir Sie zur Auswahl des passenden Materials für Ihre Räumlichkeiten und sorgen für eine fachgerechte, präzise Verlegung.'
+    },
+    {
+      question: 'Was beinhaltet Ihr Trockenbau-Service?',
+      answer: 'Unser Trockenbau-Service umfasst den Bau von Trennwänden, abgehängten Decken, Dachausbauten und Raumteilungen. Wir arbeiten schnell, sauber und bieten auch Schall- und Wärmedämmung sowie die komplette Verspachtelung und Oberflächenbearbeitung.'
+    },
+    {
+      question: 'Wie schützen Sie Gebäude vor Feuchtigkeit?',
+      answer: 'Wir bieten professionelle Bauwerksabdichtung gegen Feuchtigkeit: Kellerabdichtung, Horizontalsperren, Vertikalabdichtungen und Balkonabdichtungen. Zusätzlich führen wir Holzschutzmaßnahmen durch, um Ihre Bausubstanz langfristig zu schützen.'
     },
     {
       question: 'Welche Förderungen gibt es für barrierefreie Umbauten?',
-      answer: 'Es gibt verschiedene Fördermöglichkeiten wie KfW-Zuschüsse, Pflegekassenzuschüsse und regionale Förderungen. Wir beraten Sie gerne über die für Sie passenden Fördermöglichkeiten und unterstützen Sie bei der Antragsstellung.'
-    },
-    {
-      question: 'Wie lange dauert ein typischer Badumbau?',
-      answer: 'Die Dauer hängt vom Umfang der Arbeiten ab. Ein einfacher Umbau dauert meist 3-5 Tage, ein kompletter Badumbau kann 1-2 Wochen in Anspruch nehmen. Wir informieren Sie vorab über den genauen Zeitplan.'
+      answer: 'Es gibt verschiedene Fördermöglichkeiten wie KfW-Zuschüsse (bis zu 6.250 €), Pflegekassenzuschüsse (bis zu 4.000 € pro Person) und regionale Förderungen. Wir beraten Sie gerne über die für Sie passenden Fördermöglichkeiten.'
     }
   ];
 
@@ -67,9 +71,9 @@ const FAQ = () => {
                   {faq.question}
                 </h3>
                 {openItems.includes(index) ? (
-                  <ChevronUp className="w-5 h-5 text-blue-600 flex-shrink-0" />
+                  <ChevronUp className="w-5 h-5 text-red-500 flex-shrink-0" />
                 ) : (
-                  <ChevronDown className="w-5 h-5 text-blue-600 flex-shrink-0" />
+                  <ChevronDown className="w-5 h-5 text-red-500 flex-shrink-0" />
                 )}
               </button>
               
@@ -89,7 +93,7 @@ const FAQ = () => {
           <p className="text-lg text-gray-600 mb-6">
             Haben Sie weitere Fragen? Kontaktieren Sie uns gerne!
           </p>
-          <Link href="/anfrage" className="inline-flex items-center gap-2 bg-blue-600 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-blue-700 transition-colors duration-200 shadow-lg">
+          <Link href="/anfrage" className="inline-flex items-center gap-2 bg-red-500 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-red-600 transition-colors duration-200 shadow-lg">
             <Hammer className="w-5 h-5" />
             Kostenfreie Anfrage
           </Link>

@@ -25,7 +25,7 @@ const Footer = () => {
             <p className="text-gray-400 mb-4">
               Ihr kompetenter Partner für barrierefreies Bauen und Sanieren in Berlin & Brandenburg
             </p>
-            <Link href="/anfrage" className="inline-flex items-center gap-2 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200">
+            <Link href="/anfrage" className="inline-flex items-center gap-2 bg-red-500 text-white px-6 py-2 rounded-lg hover:bg-red-600 transition-colors duration-200">
               <Hammer className="w-4 h-4" />
               Kostenfreie Anfrage
             </Link>

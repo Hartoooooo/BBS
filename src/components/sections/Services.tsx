@@ -10,32 +10,32 @@ import {
 const Services = () => {
   const services = [
     {
-      icon: <Bath className="w-12 h-12 text-blue-600" />,
+      icon: <Bath className="w-12 h-12 text-red-500" />,
       title: 'Barrierefreies Bad',
       description: 'Komplette Badumbauten für mehr Sicherheit und Komfort – bodengleiche Duschen, Haltegriffe und barrierefreie Lösungen.',
     },
     {
-      icon: <Building className="w-12 h-12 text-blue-600" />,
+      icon: <Building className="w-12 h-12 text-red-500" />,
       title: 'Trockenbau',
       description: 'Professionelle Trockenbauarbeiten für Wände, Decken und Raumteilungen – schnell und sauber umgesetzt.',
     },
     {
-      icon: <TreePine className="w-12 h-12 text-blue-600" />,
+      icon: <TreePine className="w-12 h-12 text-red-500" />,
       title: 'Holz & Bautenschutz',
       description: 'Schutz und Pflege von Holzkonstruktionen sowie umfassende Bautenschutzmaßnahmen für langlebige Bausubstanz.',
     },
     {
-      icon: <Shield className="w-12 h-12 text-blue-600" />,
+      icon: <Shield className="w-12 h-12 text-red-500" />,
       title: 'Bauwerksabdichtung',
       description: 'Fachgerechte Abdichtung von Gebäuden gegen Feuchtigkeit und Wasser für dauerhaften Schutz.',
     },
     {
-      icon: <Package className="w-12 h-12 text-blue-600" />,
+      icon: <Package className="w-12 h-12 text-red-500" />,
       title: 'Bodenbelagsarbeiten',
       description: 'Verlegung von Fliesen, Parkett, Laminat und anderen Bodenbelägen mit höchster Präzision.',
     },
     {
-      icon: <Droplet className="w-12 h-12 text-blue-600" />,
+      icon: <Droplet className="w-12 h-12 text-red-500" />,
       title: 'Wasserschadensanierung',
       description: 'Schnelle und professionelle Sanierung von Wasserschäden – Trocknung, Reparatur und Wiederherstellung.',
     },

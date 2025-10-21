@@ -59,7 +59,7 @@ const Hero = () => {
                   <Hammer className="w-6 h-6" />
                   <span>Kostenfreie Anfrage</span>
                 </Link>
-                <Link href="#contact" className="bg-red-600 text-white px-6 py-3 rounded-lg text-base font-semibold hover:bg-red-700 transition-all duration-200 shadow-lg hover:shadow-xl hover:-translate-y-1 flex items-center justify-center gap-2">
+                <Link href="#contact" className="bg-red-500 text-white px-6 py-3 rounded-lg text-base font-semibold hover:bg-red-600 transition-all duration-200 shadow-lg hover:shadow-xl hover:-translate-y-1 flex items-center justify-center gap-2">
                   <Phone className="w-5 h-5" />
                   <span>Kontakt aufnehmen</span>
                 </Link>

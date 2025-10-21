@@ -98,7 +98,7 @@ const Testimonials = () => {
         {/* Testimonial Carousel */}
         <div className="relative max-w-4xl mx-auto">
           <div className="bg-white rounded-lg shadow-lg p-8 relative">
-            <Quote className="w-12 h-12 text-blue-600 mb-4" />
+            <Quote className="w-12 h-12 text-red-500 mb-4" />
             
             <blockquote className="text-lg md:text-xl text-gray-700 mb-6 italic">
               {testimonials[currentTestimonial].text}
@@ -134,7 +134,7 @@ const Testimonials = () => {
                 key={index}
                 onClick={() => setCurrentTestimonial(index)}
                 className={`w-3 h-3 rounded-full transition-colors duration-200 ${
-                  index === currentTestimonial ? 'bg-blue-600' : 'bg-gray-300'
+                  index === currentTestimonial ? 'bg-red-500' : 'bg-gray-300'
                 }`}
               />
             ))}
@@ -144,17 +144,17 @@ const Testimonials = () => {
         {/* Stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
           <div className="text-center">
-            <div className="text-4xl font-bold text-blue-600 mb-2">24/7</div>
+            <div className="text-4xl font-bold text-red-500 mb-2">24/7</div>
             <div className="text-gray-600">Schneller und regionaler Service</div>
           </div>
           
           <div className="text-center">
-            <div className="text-4xl font-bold text-blue-600 mb-2">22+</div>
+            <div className="text-4xl font-bold text-red-500 mb-2">22+</div>
             <div className="text-gray-600">Jahre Erfahrung</div>
           </div>
           
           <div className="text-center">
-            <div className="text-4xl font-bold text-blue-600 mb-2">150+</div>
+            <div className="text-4xl font-bold text-red-500 mb-2">150+</div>
             <div className="text-gray-600">erfolgreich abgeschlossene Projekte</div>
           </div>
         </div>
