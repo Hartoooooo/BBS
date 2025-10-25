@@ -4,9 +4,11 @@ import { useState } from 'react';
 import { ArrowLeft, ArrowRight, Check, Bath, Home, Building, Users, Shield, Wrench, HelpCircle } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
+import StickyAnfrageButton from '@/components/ui/StickyAnfrageButton';
 
 const AnfragePage = () => {
   const [currentStep, setCurrentStep] = useState(1);
+  const [isStepVisible, setIsStepVisible] = useState(true);
   const [formData, setFormData] = useState({
     projectType: '',
     specificService: '',
@@ -25,15 +27,15 @@ const AnfragePage = () => {
   });
 
   const projectTypes = [
-    { id: 'fliesenarbeiten-bad', label: 'Fliesenarbeiten im Bad', icon: <Bath className="w-6 h-6 text-blue-600" /> },
-    { id: 'fliesenarbeiten-wohnraum', label: 'Fliesenarbeiten Wohnraum', icon: <Home className="w-6 h-6 text-blue-600" /> },
-    { id: 'barrierefreies-bad', label: 'Barrierefreies Bad', icon: <Bath className="w-6 h-6 text-blue-600" /> },
-    { id: 'trockenbau', label: 'Trockenbau', icon: <Building className="w-6 h-6 text-blue-600" /> },
-    { id: 'holz-bautenschutz', label: 'Holz & Bautenschutz', icon: <Home className="w-6 h-6 text-blue-600" /> },
-    { id: 'bauwerksabdichtung', label: 'Bauwerksabdichtung', icon: <Shield className="w-6 h-6 text-blue-600" /> },
-    { id: 'bodenbelagsarbeiten', label: 'Bodenbelagsarbeiten', icon: <Users className="w-6 h-6 text-blue-600" /> },
-    { id: 'wasserschaden', label: 'Wasserschaden', icon: <Wrench className="w-6 h-6 text-blue-600" /> },
-    { id: 'andere', label: 'Andere Leistung', icon: <HelpCircle className="w-6 h-6 text-blue-600" /> }
+    { id: 'fliesenarbeiten-bad', label: 'Fliesenarbeiten im Bad', icon: <Bath className="w-6 h-6 text-red-500" /> },
+    { id: 'fliesenarbeiten-wohnraum', label: 'Fliesenarbeiten Wohnraum', icon: <Home className="w-6 h-6 text-red-500" /> },
+    { id: 'barrierefreies-bad', label: 'Barrierefreies Bad', icon: <Bath className="w-6 h-6 text-red-500" /> },
+    { id: 'trockenbau', label: 'Trockenbau', icon: <Building className="w-6 h-6 text-red-500" /> },
+    { id: 'holz-bautenschutz', label: 'Holz & Bautenschutz', icon: <Home className="w-6 h-6 text-red-500" /> },
+    { id: 'bauwerksabdichtung', label: 'Bauwerksabdichtung', icon: <Shield className="w-6 h-6 text-red-500" /> },
+    { id: 'bodenbelagsarbeiten', label: 'Bodenbelagsarbeiten', icon: <Users className="w-6 h-6 text-red-500" /> },
+    { id: 'wasserschaden', label: 'Wasserschaden', icon: <Wrench className="w-6 h-6 text-red-500" /> },
+    { id: 'andere', label: 'Andere Leistung', icon: <HelpCircle className="w-6 h-6 text-red-500" /> }
   ];
 
   const budgetRanges = [
@@ -89,13 +91,21 @@ const AnfragePage = () => {
 
   const nextStep = () => {
     if (currentStep < 7) {
-      setCurrentStep(currentStep + 1);
+      setIsStepVisible(false);
+      setTimeout(() => {
+        setCurrentStep(currentStep + 1);
+        setIsStepVisible(true);
+      }, 300);
     }
   };
 
   const prevStep = () => {
     if (currentStep > 1) {
-      setCurrentStep(currentStep - 1);
+      setIsStepVisible(false);
+      setTimeout(() => {
+        setCurrentStep(currentStep - 1);
+        setIsStepVisible(true);
+      }, 300);
     }
   };
 
@@ -117,7 +127,7 @@ const AnfragePage = () => {
                 <label 
                   key={type.id} 
                   className={`flex items-start space-x-3 p-4 border rounded-lg cursor-pointer hover:bg-gray-50 transition-all duration-300 ease-out ${
-                    formData.projectType === type.id ? 'bg-blue-50 border-blue-300 -translate-y-1 shadow-md' : ''
+                    formData.projectType === type.id ? 'bg-red-50 border-red-300 -translate-y-1 shadow-md' : ''
                   }`}
                 >
                   <input
@@ -151,9 +161,9 @@ const AnfragePage = () => {
               {/* Toggle Switch Altbau/Neubau */}
               <div className="md:col-span-2 flex justify-center mb-4">
                 <div className="relative inline-flex border border-gray-300 rounded-lg p-1 w-full max-w-md">
-                  {/* Animierter blauer Container */}
+                  {/* Animierter roter Container */}
                   <div
-                    className={`absolute top-1 bottom-1 bg-blue-100 border border-blue-300 rounded-lg transition-all duration-300 ease-in-out ${
+                    className={`absolute top-1 bottom-1 bg-red-100 border border-red-300 rounded-lg transition-all duration-300 ease-in-out ${
                       formData.buildingType === 'neubau' ? 'left-1/2 right-1' : 'left-1 right-1/2'
                     }`}
                   />
@@ -185,7 +195,7 @@ const AnfragePage = () => {
                 <label 
                   key={property.id} 
                   className={`flex items-center space-x-3 p-4 border rounded-lg cursor-pointer hover:bg-gray-50 transition-all duration-300 ease-out ${
-                    formData.propertyType.includes(property.id) ? 'bg-blue-50 border-blue-300 -translate-y-1 shadow-md' : ''
+                    formData.propertyType.includes(property.id) ? 'bg-red-50 border-red-300 -translate-y-1 shadow-md' : ''
                   }`}
                 >
                   <input
@@ -214,7 +224,7 @@ const AnfragePage = () => {
                 value={formData.location}
                 onChange={(e) => handleInputChange('location', e.target.value)}
                 placeholder="z.B. Berlin, Schöneiche, Neuenhagen..."
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 text-gray-900"
                 required
               />
             </div>
@@ -230,7 +240,7 @@ const AnfragePage = () => {
                 <label 
                   key={timeframe.id} 
                   className={`flex items-center space-x-3 p-4 border rounded-lg cursor-pointer hover:bg-gray-50 transition-all duration-300 ease-out ${
-                    formData.timeframe === timeframe.id ? 'bg-blue-50 border-blue-300 -translate-y-1 shadow-md' : ''
+                    formData.timeframe === timeframe.id ? 'bg-red-50 border-red-300 -translate-y-1 shadow-md' : ''
                   }`}
                 >
                   <input
@@ -257,7 +267,7 @@ const AnfragePage = () => {
                 <label 
                   key={budget.id} 
                   className={`flex items-center space-x-3 p-4 border rounded-lg cursor-pointer hover:bg-gray-50 transition-all duration-300 ease-out ${
-                    formData.budget === budget.id ? 'bg-blue-50 border-blue-300 -translate-y-1 shadow-md' : ''
+                    formData.budget === budget.id ? 'bg-red-50 border-red-300 -translate-y-1 shadow-md' : ''
                   }`}
                 >
                   <input
@@ -286,7 +296,7 @@ const AnfragePage = () => {
                   type="text"
                   value={formData.contactInfo.name}
                   onChange={(e) => handleInputChange('contactInfo.name', e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
                   required
                 />
               </div>
@@ -297,7 +307,7 @@ const AnfragePage = () => {
                     type="email"
                     value={formData.contactInfo.email}
                     onChange={(e) => handleInputChange('contactInfo.email', e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
                     required
                   />
                 </div>
@@ -307,7 +317,7 @@ const AnfragePage = () => {
                     type="tel"
                     value={formData.contactInfo.phone}
                     onChange={(e) => handleInputChange('contactInfo.phone', e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
                   />
                 </div>
               </div>
@@ -317,7 +327,7 @@ const AnfragePage = () => {
                   type="text"
                   value={formData.contactInfo.address}
                   onChange={(e) => handleInputChange('contactInfo.address', e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
                   required
                 />
               </div>
@@ -327,7 +337,7 @@ const AnfragePage = () => {
                   value={formData.contactInfo.message}
                   onChange={(e) => handleInputChange('contactInfo.message', e.target.value)}
                   rows={4}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
                   placeholder="Beschreiben Sie Ihr Projekt genauer..."
                 />
               </div>
@@ -435,15 +445,29 @@ const AnfragePage = () => {
               </div>
               <div className="w-full bg-gray-200 rounded-full h-3">
                 <div 
-                  className="bg-blue-600 h-3 rounded-full transition-all duration-300 ease-in-out"
+                  className="bg-red-500 h-3 rounded-full transition-all duration-300 ease-in-out"
                   style={{ width: `${(currentStep / 7) * 100}%` }}
                 ></div>
               </div>
             </div>
-            {renderStep()}
+            <div 
+              className={`transition-all duration-500 ease-out ${
+                isStepVisible 
+                  ? 'opacity-100 translate-y-0' 
+                  : 'opacity-0 translate-y-4'
+              }`}
+            >
+              {renderStep()}
+            </div>
             
             {/* Navigation Buttons */}
-            <div className="flex justify-center items-center gap-4 mt-8">
+            <div 
+              className={`flex justify-center items-center gap-4 mt-8 transition-all duration-500 ease-out delay-100 ${
+                isStepVisible 
+                  ? 'opacity-100 translate-y-0' 
+                  : 'opacity-0 translate-y-4'
+              }`}
+            >
               <Link 
                 href="/"
                 className={`flex items-center px-6 py-3 rounded-lg font-medium ${
@@ -472,7 +496,7 @@ const AnfragePage = () => {
                     (currentStep === 5 && !formData.budget) ||
                     (currentStep === 6 && (!formData.contactInfo.name || !formData.contactInfo.email || !formData.contactInfo.address))
                   }
-                  className="flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 hover:cursor-pointer disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed"
+                  className="flex items-center px-6 py-3 bg-red-500 text-white rounded-lg font-medium hover:bg-red-600 hover:cursor-pointer disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed"
                 >
                   Weiter
                   <ArrowRight className="w-4 h-4 ml-2" />
@@ -490,6 +514,7 @@ const AnfragePage = () => {
           </div>
         </form>
       </div>
+      <StickyAnfrageButton />
     </div>
   );
 };

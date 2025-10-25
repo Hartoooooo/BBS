@@ -3,9 +3,13 @@
 import { useState } from 'react';
 import { ChevronDown, ChevronUp, Hammer } from 'lucide-react';
 import Link from 'next/link';
+import { useScrollAnimation } from '@/lib/useScrollAnimation';
 
 const FAQ = () => {
   const [openItems, setOpenItems] = useState<number[]>([]);
+  const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation<HTMLDivElement>();
+  const { ref: faqRef, isVisible: faqVisible } = useScrollAnimation<HTMLDivElement>();
+  const { ref: ctaRef, isVisible: ctaVisible } = useScrollAnimation<HTMLDivElement>();
 
   const toggleItem = (index: number) => {
     setOpenItems(prev => 
@@ -50,7 +54,14 @@ const FAQ = () => {
     <section id="faq" className="py-20 bg-gray-50">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-16">
+        <div 
+          ref={headerRef}
+          className={`text-center mb-16 transition-all duration-1200 ease-out ${
+            headerVisible 
+              ? 'opacity-100 translate-y-0' 
+              : 'opacity-0 translate-y-8'
+          }`}
+        >
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
             Ihre Fragen unsere Antworten: BBS Barrierefreies Bauen und Sanieren
           </h2>
@@ -60,7 +71,14 @@ const FAQ = () => {
         </div>
 
         {/* FAQ Items */}
-        <div className="space-y-4">
+        <div 
+          ref={faqRef}
+          className={`space-y-4 transition-all duration-1200 ease-out delay-200 ${
+            faqVisible 
+              ? 'opacity-100 translate-y-0' 
+              : 'opacity-0 translate-y-8'
+          }`}
+        >
           {faqs.map((faq, index) => (
             <div key={index} className="bg-white rounded-lg shadow-sm border border-gray-200">
               <button
@@ -89,7 +107,14 @@ const FAQ = () => {
         </div>
 
         {/* Contact CTA */}
-        <div className="text-center mt-12">
+        <div 
+          ref={ctaRef}
+          className={`text-center mt-12 transition-all duration-1200 ease-out delay-400 ${
+            ctaVisible 
+              ? 'opacity-100 translate-y-0' 
+              : 'opacity-0 translate-y-8'
+          }`}
+        >
           <p className="text-lg text-gray-600 mb-6">
             Haben Sie weitere Fragen? Kontaktieren Sie uns gerne!
           </p>

@@ -1,10 +1,22 @@
+'use client';
+
 import { Phone, Mail, MapPin, Clock, Send } from 'lucide-react';
+import { useScrollAnimation } from '@/lib/useScrollAnimation';
 
 const Contact = () => {
+  const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation<HTMLDivElement>();
+  const { ref: contentRef, isVisible: contentVisible } = useScrollAnimation<HTMLDivElement>();
   return (
     <section id="contact" className="py-20 bg-blue-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+        <div 
+          ref={headerRef}
+          className={`text-center mb-16 transition-all duration-1200 ease-out ${
+            headerVisible 
+              ? 'opacity-100 translate-y-0' 
+              : 'opacity-0 translate-y-8'
+          }`}
+        >
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
             Kontaktieren Sie uns
           </h2>
@@ -13,7 +25,14 @@ const Contact = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div 
+          ref={contentRef}
+          className={`grid grid-cols-1 lg:grid-cols-2 gap-12 transition-all duration-1200 ease-out delay-200 ${
+            contentVisible 
+              ? 'opacity-100 translate-y-0' 
+              : 'opacity-0 translate-y-8'
+          }`}
+        >
           {/* Kontakt-Informationen */}
           <div>
             <h3 className="text-2xl font-bold text-gray-900 mb-8">

@@ -7,6 +7,7 @@ import Testimonials from '@/components/sections/Testimonials';
 import About from '@/components/sections/About';
 import FAQ from '@/components/sections/FAQ';
 import Contact from '@/components/sections/Contact';
+import StickyAnfrageButton from '@/components/ui/StickyAnfrageButton';
 
 export default function Home() {
   return (
@@ -20,6 +21,7 @@ export default function Home() {
       <FAQ />
       <Contact />
       <Footer />
+      <StickyAnfrageButton />
     </main>
   );
 }

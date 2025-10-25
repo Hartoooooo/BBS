@@ -1,3 +1,5 @@
+'use client';
+
 import { 
   Bath, 
   Building, 
@@ -6,8 +8,11 @@ import {
   Package,
   Droplet 
 } from 'lucide-react';
+import { useScrollAnimation } from '@/lib/useScrollAnimation';
 
 const Services = () => {
+  const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation<HTMLDivElement>();
+  const { ref: servicesRef, isVisible: servicesVisible } = useScrollAnimation<HTMLDivElement>();
   const services = [
     {
       icon: <Bath className="w-12 h-12 text-red-500" />,
@@ -45,9 +50,16 @@ const Services = () => {
     <section id="services" className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-16">
+        <div 
+          ref={headerRef}
+          className={`text-center mb-16 transition-all duration-1200 ease-out ${
+            headerVisible 
+              ? 'opacity-100 translate-y-0' 
+              : 'opacity-0 translate-y-8'
+          }`}
+        >
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Fliesenleger Schöneiche | Bad Umbau Berlin Brandenburg | Barrierefreies Bauen Charlottenburg
+            Fliesenleger Berlin & Brandenburg | Bad Umbau Berlin & Brandenburg | Barrierefreies Bauen Berlin & Brandenburg
           </h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
             Unsere Dienstleistungen umfassen unter anderem folgende Leistungen. Falls Ihre gewünschte 
@@ -57,11 +69,18 @@ const Services = () => {
         </div>
 
         {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+        <div 
+          ref={servicesRef}
+          className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16 transition-all duration-1200 ease-out delay-200 ${
+            servicesVisible 
+              ? 'opacity-100 translate-y-0' 
+              : 'opacity-0 translate-y-8'
+          }`}
+        >
           {services.map((service, index) => (
             <div 
               key={index} 
-              className="bg-gray-50 rounded-lg p-6 hover:shadow-lg transition-shadow duration-200"
+              className="bg-gray-50 rounded-lg p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
             >
               <div className="mb-4">{service.icon}</div>
               <h3 className="text-xl font-semibold text-gray-900 mb-3">

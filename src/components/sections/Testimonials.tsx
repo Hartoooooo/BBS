@@ -3,6 +3,7 @@
 
 import { useState, useEffect } from 'react';
 import { Quote } from 'lucide-react';
+import { useScrollAnimation } from '@/lib/useScrollAnimation';
 
 const GoogleIcon = () => (
   <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -15,6 +16,9 @@ const GoogleIcon = () => (
 
 const Testimonials = () => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation<HTMLDivElement>();
+  const { ref: carouselRef, isVisible: carouselVisible } = useScrollAnimation<HTMLDivElement>();
+  const { ref: statsRef, isVisible: statsVisible } = useScrollAnimation<HTMLDivElement>();
 
   type Testimonial = {
     text: string;
@@ -70,7 +74,14 @@ const Testimonials = () => {
     <section className="py-20 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-16">
+        <div 
+          ref={headerRef}
+          className={`text-center mb-16 transition-all duration-1200 ease-out ${
+            headerVisible 
+              ? 'opacity-100 translate-y-0' 
+              : 'opacity-0 translate-y-8'
+          }`}
+        >
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
             Was unsere Kunden sagen
           </h2>
@@ -96,7 +107,14 @@ const Testimonials = () => {
         </div>
 
         {/* Testimonial Carousel */}
-        <div className="relative max-w-4xl mx-auto">
+        <div 
+          ref={carouselRef}
+          className={`relative max-w-4xl mx-auto transition-all duration-1200 ease-out delay-200 ${
+            carouselVisible 
+              ? 'opacity-100 translate-y-0' 
+              : 'opacity-0 translate-y-8'
+          }`}
+        >
           <div className="bg-white rounded-lg shadow-lg p-8 relative">
             <Quote className="w-12 h-12 text-red-500 mb-4" />
             
@@ -142,7 +160,14 @@ const Testimonials = () => {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
+        <div 
+          ref={statsRef}
+          className={`grid grid-cols-1 md:grid-cols-3 gap-8 mt-16 transition-all duration-1200 ease-out delay-400 ${
+            statsVisible 
+              ? 'opacity-100 translate-y-0' 
+              : 'opacity-0 translate-y-8'
+          }`}
+        >
           <div className="text-center">
             <div className="text-4xl font-bold text-red-500 mb-2">24/7</div>
             <div className="text-gray-600">Schneller und regionaler Service</div>
