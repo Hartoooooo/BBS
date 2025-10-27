@@ -33,78 +33,8 @@ const Contact = () => {
               : 'opacity-0 translate-y-8'
           }`}
         >
-          {/* Kontakt-Informationen */}
-          <div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-8">
-              Sprechen Sie uns an
-            </h3>
-            
-            <div className="space-y-6">
-              <div className="flex items-start">
-                <Phone className="w-6 h-6 text-red-500 mr-4 mt-1 flex-shrink-0" />
-                <div>
-                  <h4 className="font-semibold text-gray-900 mb-1">Telefon</h4>
-                  <p className="text-gray-600 mb-2">Rufen Sie uns direkt an:</p>
-                  <a 
-                    href="tel:+493092371277" 
-                    className="text-red-500 hover:text-red-600 font-semibold text-lg"
-                  >
-                    +49 (0) 30 923 712 77
-                  </a>
-                </div>
-              </div>
-
-              <div className="flex items-start">
-                <Mail className="w-6 h-6 text-red-500 mr-4 mt-1 flex-shrink-0" />
-                <div>
-                  <h4 className="font-semibold text-gray-900 mb-1">E-Mail</h4>
-                  <p className="text-gray-600 mb-2">Schreiben Sie uns eine Nachricht:</p>
-                  <a 
-                    href="mailto:service@b-b-s.berlin" 
-                    className="text-red-500 hover:text-red-600 font-semibold"
-                  >
-                    service@b-b-s.berlin
-                  </a>
-                </div>
-              </div>
-
-              <div className="flex items-start">
-                <MapPin className="w-6 h-6 text-red-500 mr-4 mt-1 flex-shrink-0" />
-                <div>
-                  <h4 className="font-semibold text-gray-900 mb-1">Standort</h4>
-                  <p className="text-gray-600">
-                    Petershagener Straße 27<br />
-                    15566 Schöneiche bei Berlin<br />
-                    Deutschland
-                  </p>
-                  <a 
-                    href="https://www.google.com/maps/search/?api=1&query=BBS+Barrierefreies+Bauen+und+Sanieren+Petershagener+Straße+27+15566+Schöneiche+bei+Berlin"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-red-500 hover:text-red-600 font-semibold inline-flex items-center mt-2"
-                  >
-                    📍 Auf Google Maps anzeigen
-                  </a>
-                </div>
-              </div>
-
-              <div className="flex items-start">
-                <Clock className="w-6 h-6 text-red-500 mr-4 mt-1 flex-shrink-0" />
-                <div>
-                  <h4 className="font-semibold text-gray-900 mb-1">Öffnungszeiten</h4>
-                  <div className="text-gray-600 space-y-1">
-                    <div>Montag - Donnerstag: 8.00-17.00 Uhr</div>
-                    <div>Freitag: 8.00-15.00 Uhr</div>
-                    <div>Samstag: Nur Notfälle</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
           {/* Kontakt-Formular */}
-          <div>
+          <div className="lg:order-2">
             <div className="bg-white rounded-lg shadow-lg p-8">
               <h3 className="text-2xl font-bold text-gray-900 mb-6">
                 Nachricht senden
@@ -233,6 +163,74 @@ const Contact = () => {
                 </button>
               </form>
             </div>
+          </div>
+
+          {/* Kontakt-Informationen */}
+          <div className="lg:order-1">
+            <h3 className="text-2xl font-bold text-gray-900 mb-8">
+              Sprechen Sie uns an
+            </h3>
+            
+            <div className="space-y-6">
+              <div className="flex items-start">
+                <Phone className="w-6 h-6 text-red-500 mr-4 mt-1 flex-shrink-0" />
+                <div>
+                  <h4 className="font-semibold text-gray-900 mb-1">Telefon</h4>
+                  <p className="text-gray-600 mb-2">Rufen Sie uns direkt an:</p>
+                  <a 
+                    href="tel:+493092371277" 
+                    className="text-red-500 hover:text-red-600 font-semibold text-lg"
+                  >
+                    +49 (0) 30 923 712 77
+                  </a>
+                </div>
+              </div>
+
+              <div className="flex items-start">
+                <Mail className="w-6 h-6 text-red-500 mr-4 mt-1 flex-shrink-0" />
+                <div>
+                  <h4 className="font-semibold text-gray-900 mb-1">E-Mail</h4>
+                  <p className="text-gray-600 mb-2">Schreiben Sie uns eine Nachricht:</p>
+                  <a 
+                    href="mailto:service@b-b-s.berlin" 
+                    className="text-red-500 hover:text-red-600 font-semibold"
+                  >
+                    service@b-b-s.berlin
+                  </a>
+                </div>
+              </div>
+
+              <div className="flex items-start">
+                <MapPin className="w-6 h-6 text-red-500 mr-4 mt-1 flex-shrink-0" />
+                <div>
+                  <h4 className="font-semibold text-gray-900 mb-1">Standort</h4>
+                  <p className="text-gray-600">
+                    Petershagener Straße 27<br />
+                    15566 Schöneiche bei Berlin<br />
+                    Deutschland
+                  </p>
+                  <a 
+                    href="https://www.google.com/maps/search/?api=1&query=BBS+Barrierefreies+Bauen+und+Sanieren+Petershagener+Straße+27+15566+Schöneiche+bei+Berlin"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-red-500 hover:text-red-600 font-semibold inline-flex items-center mt-2"
+                  >
+                    📍 Auf Google Maps anzeigen
+                  </a>
+                </div>
+              </div>
+
+              <div className="flex items-start">
+                <Clock className="w-6 h-6 text-red-500 mr-4 mt-1 flex-shrink-0" />
+                <div>
+                  <h4 className="font-semibold text-gray-900 mb-1">Öffnungszeiten</h4>
+                  <div className="text-gray-600 space-y-1">
+                    <div>Montag - Freitag: 7.00-16.00 Uhr</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>

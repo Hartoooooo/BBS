@@ -71,16 +71,8 @@ const Footer = () => {
             </h3>
             <div className="space-y-2 text-gray-400">
               <div>
-                <div className="font-medium">Montag - Donnerstag</div>
-                <div>8.00-17.00 Uhr</div>
-              </div>
-              <div>
-                <div className="font-medium">Freitags</div>
-                <div>8.00-15.00 Uhr</div>
-              </div>
-              <div>
-                <div className="font-medium">Samstags</div>
-                <div>Ausschließlich Notfälle</div>
+                <div className="font-medium">Montag - Freitag</div>
+                <div>7.00-16.00 Uhr</div>
               </div>
             </div>
           </div>
