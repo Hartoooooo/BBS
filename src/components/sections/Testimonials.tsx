@@ -93,7 +93,7 @@ const Testimonials = () => {
                 </svg>
               ))}
             </div>
-            <span className="ml-2 text-gray-600">5,0 (5 Bewertungen)</span>
+            <span className="ml-2 text-gray-600">5,0 (5)</span>
             <a
               href="https://maps.app.goo.gl/H5Vvn7cMA8UXGQAF9"
               target="_blank"
@@ -101,7 +101,8 @@ const Testimonials = () => {
               className="ml-3 bg-white text-blue-600 border border-blue-600 px-4 py-2 rounded-lg font-semibold hover:bg-blue-50 transition-colors inline-flex items-center gap-2"
             >
               <GoogleIcon />
-              Bewerten Sie uns
+              <span className="md:hidden">Bewerten</span>
+              <span className="hidden md:inline">Bewerten Sie uns</span>
             </a>
           </div>
         </div>

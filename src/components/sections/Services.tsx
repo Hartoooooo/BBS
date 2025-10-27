@@ -6,7 +6,8 @@ import {
   TreePine, 
   Shield,
   Package,
-  Droplet 
+  Droplet,
+  Layers 
 } from 'lucide-react';
 import { useScrollAnimation } from '@/lib/useScrollAnimation';
 import { useState, useRef, useEffect } from 'react';
@@ -39,7 +40,7 @@ const Services = () => {
       description: 'Fachgerechte Abdichtung von Gebäuden gegen Feuchtigkeit und Wasser für dauerhaften Schutz.',
     },
     {
-      icon: <Package className="w-12 h-12 text-red-500" />,
+      icon: <Layers className="w-12 h-12 text-red-500" />,
       title: 'Bodenbelagsarbeiten',
       description: 'Verlegung von Fliesen, Parkett, Laminat und anderen Bodenbelägen mit höchster Präzision.',
     },
@@ -95,7 +96,7 @@ const Services = () => {
           }`}
         >
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Fliesenleger Berlin & Brandenburg | Bad Umbau Berlin & Brandenburg | Barrierefreies Bauen Berlin & Brandenburg
+            Unser Service in Berlin & Brandenburg
           </h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
             Unsere Dienstleistungen umfassen unter anderem folgende Leistungen. Falls Ihre gewünschte 

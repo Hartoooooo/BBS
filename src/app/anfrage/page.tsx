@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { ArrowLeft, ArrowRight, Check, Bath, Home, Building, Users, Shield, Wrench, HelpCircle } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Check, Bath, Home, Building, Users, Shield, Wrench, HelpCircle, Layers } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import StickyAnfrageButton from '@/components/ui/StickyAnfrageButton';
@@ -33,7 +33,7 @@ const AnfragePage = () => {
     { id: 'trockenbau', label: 'Trockenbau', icon: <Building className="w-6 h-6 text-red-500" /> },
     { id: 'holz-bautenschutz', label: 'Holz & Bautenschutz', icon: <Home className="w-6 h-6 text-red-500" /> },
     { id: 'bauwerksabdichtung', label: 'Bauwerksabdichtung', icon: <Shield className="w-6 h-6 text-red-500" /> },
-    { id: 'bodenbelagsarbeiten', label: 'Bodenbelagsarbeiten', icon: <Users className="w-6 h-6 text-red-500" /> },
+    { id: 'bodenbelagsarbeiten', label: 'Bodenbelagsarbeiten', icon: <Layers className="w-6 h-6 text-red-500" /> },
     { id: 'wasserschaden', label: 'Wasserschaden', icon: <Wrench className="w-6 h-6 text-red-500" /> },
     { id: 'andere', label: 'Andere Leistung', icon: <HelpCircle className="w-6 h-6 text-red-500" /> }
   ];
@@ -481,7 +481,14 @@ const AnfragePage = () => {
                 }}
               >
                 <ArrowLeft className="w-4 h-4 mr-2" />
-                {currentStep === 1 ? 'Zur Startseite' : 'Zurück'}
+                {currentStep === 1 ? (
+                  <>
+                    <span className="md:hidden">Startseite</span>
+                    <span className="hidden md:inline">Zur Startseite</span>
+                  </>
+                ) : (
+                  'Zurück'
+                )}
               </Link>
 
               {currentStep < 7 ? (

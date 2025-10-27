@@ -133,12 +133,17 @@ const Footer = () => {
         <div className="border-t border-gray-800 mt-12 pt-8">
           <div className="text-center">
             <div className="text-gray-400 text-sm">
-              <div>© 2025 BBS Björn Hartmann Barrierefreies Bauen und Sanieren</div>
-              <div className="mt-1">
+              <div>© 2025 BBS Björn Hartmann</div>
+              <div className="mt-1 text-xs md:text-sm">
                 Umsetzung von{' '}
-                <span className="text-gray-400">
+                <a 
+                  href="https://www.neoklar.de" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-gray-400 hover:text-white transition-colors duration-200"
+                >
                   Neoklar<sup className="text-[10px]">TM</sup>
-                </span>
+                </a>
               </div>
             </div>
           </div>

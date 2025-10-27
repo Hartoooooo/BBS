@@ -24,19 +24,28 @@ const Hero = () => {
             <div className="text-left">
               {/* Haupttitel */}
               <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4">
-                <span className="text-gray-900">Ihr Partner für </span>
-                <span className="text-blue-600">barrierefreies</span>
-                <span className="text-gray-900"> Wohnen in </span>
-                <span className="text-blue-600">Berlin & Brandenburg</span>
+                {/* Mobile Version */}
+                <span className="md:hidden">
+                  <span className="text-gray-900">Ihr Partner für </span>
+                  <span className="text-blue-600">barrierefreies</span>
+                  <span className="text-gray-900"> Bauen & Sanieren</span>
+                </span>
+                {/* Desktop Version */}
+                <span className="hidden md:inline">
+                  <span className="text-gray-900">Ihr Partner für </span>
+                  <span className="text-blue-600">barrierefreies</span>
+                  <span className="text-gray-900"> Wohnen in </span>
+                  <span className="text-blue-600">Berlin & Brandenburg</span>
+                </span>
               </h1>
               
               {/* Untertitel */}
               <p className="text-lg md:text-xl text-gray-700 mb-6">
-                Seit über 22 Jahren Ihr Experte für Fliesenarbeiten in Berlin & Brandenburg. 
-                Wir sind spezialisiert auf barrierefreies Bauen, professionelle Badsanierung und komplette Badumbauten.
+                <span className="block">Seit über 22 Jahren Ihr Experte für Fliesenarbeiten in Berlin & Brandenburg.</span>
+                <span className="hidden md:inline"> Wir sind spezialisiert auf barrierefreies Bauen, professionelle Badsanierung und komplette Badumbauten.</span>
               </p>
 
-              <p className="text-base md:text-lg text-gray-600 mb-8">
+              <p className="hidden md:block text-base md:text-lg text-gray-600 mb-8">
                 Ob präventive Sanierung oder kompletter Umbau – wir bieten maßgeschneiderte 
                 Lösungen für Privat- und Gewerbekunden.
               </p>
@@ -49,7 +58,7 @@ const Hero = () => {
                   ))}
                 </div>
                 <p className="text-sm text-gray-700 font-medium">
-                  5,0 (5 Bewertungen)
+                  5,0 (5)
                 </p>
               </div>
 

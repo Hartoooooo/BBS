@@ -36,7 +36,8 @@ const About = () => {
                 : 'opacity-0 translate-y-8'
             }`}
           >
-            Über uns – Ihr Partner für barrierefreies Bauen und Sanieren in Berlin & Brandenburg
+            <span className="lg:hidden">Über uns</span>
+            <span className="hidden lg:inline">Über uns – Ihr Partner für barrierefreies Bauen und Sanieren in Berlin & Brandenburg</span>
           </h2>
           
           <div 
@@ -52,10 +53,12 @@ const About = () => {
               <div className="aspect-square bg-gray-300 rounded-lg flex items-center justify-center overflow-hidden">
                 <Users className="w-24 h-24 text-gray-500" />
               </div>
-              <div className="mt-4 text-center">
-                <h3 className="font-bold text-gray-900 text-xl mb-1">Björn Hartmann</h3>
-                <p className="text-gray-700 font-medium mb-1">BBS Barrierefreies Bauen und Sanieren</p>
-                <p className="text-gray-600">Ihr persönlicher Ansprechpartner</p>
+              
+              {/* Björn Hartmann Text - Nur bei Mobile sichtbar, direkt unter dem Bild */}
+              <div className="mt-4 lg:hidden text-center">
+                <h3 className="font-bold text-gray-900 text-base mb-1">Björn Hartmann</h3>
+                <p className="text-gray-700 font-medium mb-1 text-xs">BBS Barrierefreies Bauen und Sanieren</p>
+                <p className="text-gray-600 text-xs">Ihr persönlicher Ansprechpartner</p>
               </div>
             </div>
             
@@ -68,7 +71,7 @@ const About = () => {
               </p>
 
               {/* Features */}
-              <div className="space-y-4">
+              <div className="space-y-4 mb-4">
                 {features.map((feature, index) => (
                   <div key={index} className="flex items-start">
                     <div className="flex-shrink-0 mr-4">
@@ -86,6 +89,13 @@ const About = () => {
                     </div>
                   </div>
                 ))}
+              </div>
+
+              {/* Björn Hartmann Text auf der rechten Seite - Nur bei Desktop sichtbar */}
+              <div className="hidden lg:block">
+                <h3 className="font-bold text-gray-900 text-lg mb-1">Björn Hartmann</h3>
+                <p className="text-gray-700 font-medium mb-1 text-sm">BBS Barrierefreies Bauen und Sanieren</p>
+                <p className="text-gray-600 text-sm">Ihr persönlicher Ansprechpartner</p>
               </div>
             </div>
           </div>
