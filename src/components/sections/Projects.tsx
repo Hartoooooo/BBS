@@ -1,12 +1,14 @@
 'use client';
 
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useScrollAnimation } from '@/lib/useScrollAnimation';
 
 const Projects = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
   const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation<HTMLDivElement>();
   const { ref: slideshowRef, isVisible: slideshowVisible } = useScrollAnimation<HTMLDivElement>();
 
@@ -23,6 +25,38 @@ const Projects = () => {
 
   const prevSlide = () => {
     setCurrentSlide((prev) => (prev - 1 + images.length) % images.length);
+  };
+
+  // Scroll-Handler für aktive Karte (Mobile)
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!scrollContainerRef.current) return;
+      
+      const container = scrollContainerRef.current;
+      const scrollLeft = container.scrollLeft;
+      const cardWidth = container.offsetWidth;
+      const index = Math.round(scrollLeft / cardWidth);
+      
+      setActiveIndex(index);
+    };
+
+    const container = scrollContainerRef.current;
+    if (container) {
+      container.addEventListener('scroll', handleScroll);
+      return () => container.removeEventListener('scroll', handleScroll);
+    }
+  }, []);
+
+  // Funktion zum Scrollen zu einem bestimmten Index (Mobile)
+  const scrollToIndex = (index: number) => {
+    if (!scrollContainerRef.current) return;
+    
+    const container = scrollContainerRef.current;
+    const cardWidth = container.offsetWidth;
+    container.scrollTo({
+      left: cardWidth * index,
+      behavior: 'smooth'
+    });
   };
 
   return (
@@ -46,10 +80,54 @@ const Projects = () => {
           </p>
         </div>
 
-        {/* Slideshow */}
+        {/* Mobile: Horizontal Scroll */}
+        <div className="md:hidden">
+          <div 
+            ref={scrollContainerRef}
+            className={`overflow-x-auto scrollbar-hide -mx-4 px-4 snap-x snap-mandatory transition-all duration-1200 ease-out delay-200 ${
+              slideshowVisible 
+                ? 'opacity-100 translate-y-0' 
+                : 'opacity-0 translate-y-8'
+            }`}
+          >
+            <div className="flex gap-4 pb-4">
+              {images.map((image, index) => (
+                <div 
+                  key={index} 
+                  className="relative w-[calc(100vw-2rem)] h-96 flex-shrink-0 snap-center rounded-lg overflow-hidden shadow-lg bg-white"
+                >
+                  <Image
+                    src={image}
+                    alt={`Beispielprojekt ${index + 1}`}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+          
+          {/* Navigation Dots */}
+          <div className="flex justify-center gap-2 mt-4">
+            {images.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => scrollToIndex(index)}
+                className={`h-1.5 rounded-full transition-all duration-300 ${
+                  index === activeIndex 
+                    ? 'w-8 bg-red-500' 
+                    : 'w-1.5 bg-gray-300 hover:bg-gray-400'
+                }`}
+                aria-label={`Gehe zu Bild ${index + 1}`}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Desktop: Slideshow */}
         <div 
           ref={slideshowRef}
-          className={`relative w-full h-96 md:h-[500px] lg:h-[600px] group bg-white rounded-lg overflow-hidden shadow-lg transition-all duration-1200 ease-out delay-200 ${
+          className={`hidden md:block relative w-full h-[500px] lg:h-[600px] group bg-white rounded-lg overflow-hidden shadow-lg transition-all duration-1200 ease-out delay-200 ${
             slideshowVisible 
               ? 'opacity-100 translate-y-0' 
               : 'opacity-0 translate-y-8'
