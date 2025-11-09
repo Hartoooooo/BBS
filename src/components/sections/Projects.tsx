@@ -84,23 +84,28 @@ const Projects = () => {
         <div className="md:hidden">
           <div 
             ref={scrollContainerRef}
-            className={`overflow-x-auto scrollbar-hide -mx-4 px-4 snap-x snap-mandatory transition-all duration-1200 ease-out delay-200 ${
-              slideshowVisible 
-                ? 'opacity-100 translate-y-0' 
-                : 'opacity-0 translate-y-8'
-            }`}
+            className="overflow-x-auto scrollbar-hide -mx-4 px-4 snap-x snap-mandatory"
+            style={{ height: '400px' }}
           >
-            <div className="flex gap-4 pb-4">
+            <div className="flex gap-4 pb-4" style={{ height: '100%' }}>
               {images.map((image, index) => (
                 <div 
                   key={index} 
-                  className="relative w-[calc(100vw-2rem)] h-96 flex-shrink-0 snap-center rounded-lg overflow-hidden shadow-lg bg-white"
+                  className="relative flex-shrink-0 snap-center rounded-lg overflow-hidden shadow-lg bg-gray-200"
+                  style={{ 
+                    width: 'calc(100vw - 2rem)',
+                    height: '100%',
+                    minHeight: '400px'
+                  }}
                 >
                   <Image
                     src={image}
                     alt={`Beispielprojekt ${index + 1}`}
                     fill
                     className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 0px"
+                    priority={index === 0}
+                    unoptimized={false}
                   />
                 </div>
               ))}

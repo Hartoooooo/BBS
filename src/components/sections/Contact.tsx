@@ -112,17 +112,13 @@ const Contact = () => {
                     required
                   >
                     <option value="" disabled>Bitte wählen...</option>
-                    <option value="badumbau">Barrierefreier Badumbau</option>
-                    <option value="treppenlift">Treppenlift</option>
-                    <option value="rampe">Rampen & Zugänge</option>
-                    <option value="beratung">Kostenlose Beratung</option>
-                    <option value="notfall">Notfall</option>
-                    <option value="barrierefrei-bad">Barrierefrei Bad</option>
+                    <option value="barrierefreies-bad">Barrierefreies Bad</option>
                     <option value="trockenbau">Trockenbau</option>
                     <option value="holz-bautenschutz">Holz & Bautenschutz</option>
                     <option value="bauwerksabdichtung">Bauwerksabdichtung</option>
                     <option value="bodenbelagsarbeiten">Bodenbelagsarbeiten</option>
-                    <option value="wasserschadensanierung">Wasserschadensanierung & Trocknung</option>
+                    <option value="wasserschadensanierung">Wasserschadensanierung</option>
+                    <option value="beratung">Kostenlose Beratung</option>
                     <option value="sonstiges">Sonstiges</option>
                   </select>
                 </div>
