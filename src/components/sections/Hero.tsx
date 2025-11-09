@@ -27,15 +27,15 @@ const Hero = () => {
                 {/* Mobile Version */}
                 <span className="md:hidden">
                   <span className="text-gray-900">Ihr Partner für </span>
-                  <span className="text-blue-600">barrierefreies</span>
+                  <span className="text-red-500">barrierefreies</span>
                   <span className="text-gray-900"> Bauen & Sanieren</span>
                 </span>
                 {/* Desktop Version */}
                 <span className="hidden md:inline">
                   <span className="text-gray-900">Ihr Partner für </span>
-                  <span className="text-blue-600">barrierefreies</span>
+                  <span className="text-red-500">barrierefreies</span>
                   <span className="text-gray-900"> Wohnen in </span>
-                  <span className="text-blue-600">Berlin & Brandenburg</span>
+                  <span className="text-gray-900">Berlin & Brandenburg</span>
                 </span>
               </h1>
               
@@ -64,11 +64,11 @@ const Hero = () => {
 
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 justify-start">
-                <Link href="/anfrage" className="bg-blue-600 text-white px-6 py-3 rounded-lg text-base font-semibold hover:bg-blue-700 transition-all duration-200 shadow-lg hover:shadow-xl hover:-translate-y-1 text-center flex items-center justify-center gap-2">
+                <Link href="/anfrage" className="bg-red-500 text-white px-6 py-3 rounded-lg text-base font-semibold hover:bg-red-600 transition-all duration-200 shadow-lg hover:shadow-xl hover:-translate-y-1 text-center flex items-center justify-center gap-2">
                   <Hammer className="w-6 h-6" />
                   <span>Kostenfreie Anfrage</span>
                 </Link>
-                <Link href="#contact" className="bg-red-500 text-white px-6 py-3 rounded-lg text-base font-semibold hover:bg-red-600 transition-all duration-200 shadow-lg hover:shadow-xl hover:-translate-y-1 flex items-center justify-center gap-2">
+                <Link href="#contact" className="border-2 border-red-500 text-red-500 px-6 py-3 rounded-lg text-base font-semibold bg-transparent hover:bg-red-500/10 transition-all duration-200 shadow-lg hover:shadow-xl hover:-translate-y-1 flex items-center justify-center gap-2">
                   <Phone className="w-5 h-5" />
                   <span>Kontakt aufnehmen</span>
                 </Link>
