@@ -97,7 +97,7 @@ const CookieBanner = () => {
                 </div>
                 <button
                   onClick={() => setIsVisible(false)}
-                  className="ml-4 text-gray-400 hover:text-gray-600 transition-colors"
+                  className="ml-4 text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
                   aria-label="Banner schließen"
                 >
                   <X className="w-5 h-5" />
@@ -107,20 +107,20 @@ const CookieBanner = () => {
               <div className="flex flex-col sm:flex-row gap-3 mt-6">
                 <button
                   onClick={handleRejectAll}
-                  className="px-6 py-3 rounded-lg font-semibold bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors duration-200"
+                  className="px-6 py-3 rounded-lg font-semibold bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors duration-200 cursor-pointer"
                 >
                   Nur notwendige
                 </button>
                 <button
                   onClick={() => setShowSettings(true)}
-                  className="px-6 py-3 rounded-lg font-semibold bg-white border-2 border-gray-300 text-gray-700 hover:border-gray-400 transition-colors duration-200 flex items-center justify-center gap-2"
+                  className="px-6 py-3 rounded-lg font-semibold bg-white border-2 border-gray-300 text-gray-700 hover:border-gray-400 transition-colors duration-200 flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <Settings className="w-4 h-4" />
                   Einstellungen
                 </button>
                 <button
                   onClick={handleAcceptAll}
-                  className="px-6 py-3 rounded-lg font-semibold bg-red-500 text-white hover:bg-red-600 transition-colors duration-200 flex-1 sm:flex-initial"
+                  className="px-6 py-3 rounded-lg font-semibold bg-red-500 text-white hover:bg-red-600 transition-colors duration-200 flex-1 sm:flex-initial cursor-pointer"
                 >
                   Alle akzeptieren
                 </button>
@@ -128,11 +128,11 @@ const CookieBanner = () => {
 
               <div className="mt-4 text-xs text-gray-500">
                 Weitere Informationen finden Sie in unserer{' '}
-                <Link href="/datenschutz" className="text-red-500 hover:text-red-600 underline">
+                <Link href="/datenschutz" className="text-red-500 hover:text-red-600 underline cursor-pointer">
                   Datenschutzerklärung
                 </Link>
                 {' '}und auf unserer{' '}
-                <Link href="/cookies" className="text-red-500 hover:text-red-600 underline">
+                <Link href="/cookies" className="text-red-500 hover:text-red-600 underline cursor-pointer">
                   Cookie-Seite
                 </Link>
                 .
@@ -146,7 +146,7 @@ const CookieBanner = () => {
                 </h3>
                 <button
                   onClick={() => setShowSettings(false)}
-                  className="text-gray-400 hover:text-gray-600 transition-colors"
+                  className="text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
                   aria-label="Zurück"
                 >
                   <X className="w-5 h-5" />
@@ -222,13 +222,13 @@ const CookieBanner = () => {
               <div className="flex flex-col sm:flex-row gap-3">
                 <button
                   onClick={() => setShowSettings(false)}
-                  className="px-6 py-3 rounded-lg font-semibold bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors duration-200"
+                  className="px-6 py-3 rounded-lg font-semibold bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors duration-200 cursor-pointer"
                 >
                   Abbrechen
                 </button>
                 <button
                   onClick={handleSavePreferences}
-                  className="px-6 py-3 rounded-lg font-semibold bg-red-500 text-white hover:bg-red-600 transition-colors duration-200 flex-1 sm:flex-initial"
+                  className="px-6 py-3 rounded-lg font-semibold bg-red-500 text-white hover:bg-red-600 transition-colors duration-200 flex-1 sm:flex-initial cursor-pointer"
                 >
                   Einstellungen speichern
                 </button>
