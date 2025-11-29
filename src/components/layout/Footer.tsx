@@ -104,11 +104,9 @@ const Footer = () => {
                 <MapPin className="w-5 h-5 mr-3 flex-shrink-0 mt-0.5" />
                 <div>
                   <div className="font-medium">Unser Standort</div>
-                  <div>Petershagener Straße 27</div>
-                  <div>15566 Schöneiche bei Berlin</div>
-                  <div>Deutschland</div>
+                  <div>Schöneiche bei Berlin</div>
                   <a 
-                    href="https://www.google.com/maps/search/?api=1&query=BBS+Barrierefreies+Bauen+und+Sanieren+Petershagener+Straße+27+15566+Schöneiche+bei+Berlin"
+                    href="https://www.google.com/maps/search/?api=1&query=BBS+Barrierefreies+Bauen+und+Sanieren+Schöneiche+bei+Berlin"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-blue-400 hover:text-blue-300 text-sm mt-1 inline-block"
@@ -123,8 +121,8 @@ const Footer = () => {
 
         {/* Bottom Bar */}
         <div className="border-t border-gray-800 mt-12 pt-8">
-          <div className="text-center">
-            <div className="text-gray-400 text-sm">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <div className="text-gray-400 text-sm text-center md:text-left">
               <div>© 2025 BBS Björn Hartmann</div>
               <div className="mt-1 text-xs md:text-sm">
                 Umsetzung von{' '}
@@ -137,6 +135,19 @@ const Footer = () => {
                   Neoklar<sup className="text-[10px]">TM</sup>
                 </a>
               </div>
+            </div>
+            <div className="flex flex-wrap justify-center md:justify-end gap-4 text-xs md:text-sm">
+              <Link href="/impressum" className="text-gray-400 hover:text-white transition-colors duration-200">
+                Impressum
+              </Link>
+              <span className="text-gray-600">|</span>
+              <Link href="/datenschutz" className="text-gray-400 hover:text-white transition-colors duration-200">
+                Datenschutz
+              </Link>
+              <span className="text-gray-600">|</span>
+              <Link href="/cookies" className="text-gray-400 hover:text-white transition-colors duration-200">
+                Cookies
+              </Link>
             </div>
           </div>
         </div>

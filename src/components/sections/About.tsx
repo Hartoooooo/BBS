@@ -1,6 +1,7 @@
 'use client';
 
-import { Award, CheckCircle, Users, Shield } from 'lucide-react';
+import { Award, CheckCircle } from 'lucide-react';
+import Image from 'next/image';
 import { useScrollAnimation } from '@/lib/useScrollAnimation';
 
 const About = () => {
@@ -15,11 +16,6 @@ const About = () => {
     {
       icon: <CheckCircle className="w-8 h-8 text-red-500" />,
       title: 'Über 150 erfolgreich abgeschlossene Projekte',
-      description: ''
-    },
-    {
-      icon: <Shield className="w-8 h-8 text-red-500" />,
-      title: 'Kostenloser Beratungs- & Zustandscheck für Ihr Objekt',
       description: ''
     },
   ];
@@ -50,15 +46,23 @@ const About = () => {
           >
             {/* Bild Platzhalter - 30% */}
             <div className="w-full lg:w-[30%] flex-shrink-0">
-              <div className="aspect-square bg-gray-300 rounded-lg flex items-center justify-center overflow-hidden">
-                <Users className="w-24 h-24 text-gray-500" />
-              </div>
-              
-              {/* Björn Hartmann Text - Nur bei Mobile sichtbar, direkt unter dem Bild */}
-              <div className="mt-4 lg:hidden text-center">
-                <h3 className="font-bold text-gray-900 text-base mb-1">Björn Hartmann</h3>
-                <p className="text-gray-700 font-medium mb-1 text-xs">BBS Barrierefreies Bauen und Sanieren</p>
-                <p className="text-gray-600 text-xs">Ihr persönlicher Ansprechpartner</p>
+              <div className="aspect-[4/3] bg-gray-300 rounded-lg overflow-hidden relative">
+                <Image
+                  src="/Bjoern.webp"
+                  alt="Björn Hartmann - BBS Barrierefreies Bauen und Sanieren"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 30vw"
+                  priority
+                />
+                {/* Gradient Overlay von unten (schwarz) bis 25% (transparent) */}
+                <div className="absolute bottom-0 left-0 right-0 h-1/4 bg-gradient-to-t from-black via-black/70 to-transparent"></div>
+                
+                {/* Björn Hartmann Text unten auf dem Bild */}
+                <div className="absolute bottom-0 left-0 right-0 p-6">
+                  <h3 className="font-bold text-white text-lg md:text-xl mb-1 drop-shadow-lg">Björn Hartmann</h3>
+                  <p className="text-white/80 text-xs drop-shadow-md">Ihr persönlicher Ansprechpartner</p>
+                </div>
               </div>
             </div>
             
@@ -91,12 +95,6 @@ const About = () => {
                 ))}
               </div>
 
-              {/* Björn Hartmann Text auf der rechten Seite - Nur bei Desktop sichtbar */}
-              <div className="hidden lg:block">
-                <h3 className="font-bold text-gray-900 text-lg mb-1">Björn Hartmann</h3>
-                <p className="text-gray-700 font-medium mb-1 text-sm">BBS Barrierefreies Bauen und Sanieren</p>
-                <p className="text-gray-600 text-sm">Ihr persönlicher Ansprechpartner</p>
-              </div>
             </div>
           </div>
         </div>

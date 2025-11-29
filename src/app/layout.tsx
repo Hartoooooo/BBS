@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import StructuredData from "@/components/seo/StructuredData";
+import CookieBanner from "@/components/ui/CookieBanner";
+import Analytics from "@/components/analytics/Analytics";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,8 +17,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.artdesignbau.de'),
-  title: "BBS - Barrierefreies Bauen und Sanieren | Bad Umbau Berlin Brandenburg | Fliesenleger Schöneiche",
-  description: "Fliesenleger & Badumbau Experte in Schöneiche, Berlin, Brandenburg & Strausberg. Spezialist für barrierefreies Bauen in West-Berlin/Charlottenburg. Bad Sanierung Berlin, Bad Umbau Brandenburg. Über 22 Jahre Erfahrung.",
+  title: "BBS - Barrierefreies Bauen und Sanieren",
+  description: "Ihr vertrauensvoller Partner für barrierefreies Bauen und Sanieren in Berlin und Brandenburg. Mit über 20 Jahren Erfahrung realisieren wir Ihre Badumbauten, Fliesenarbeiten und barrierefreien Lösungen mit Herz und Handwerk.",
   keywords: "fliesenleger schöneiche, bad umbau, bad sanierung berlin, bad umbau brandenburg, barrierefreies bauen west-berlin, barrierefreies bauen charlottenburg, barrierefreies bauen und sanieren, fliesenleger brandenburg, fliesenleger strausberg, badumbau berlin, badsanierung brandenburg, altersgerechter badumbau, barrierefreie badsanierung",
   authors: [{ name: "BBS Björn Hartmann" }],
   creator: "BBS Barrierefreies Bauen und Sanieren",
@@ -49,8 +51,8 @@ export const metadata: Metadata = {
     locale: 'de_DE',
     url: 'https://www.artdesignbau.de',
     siteName: 'BBS - Barrierefreies Bauen und Sanieren',
-    title: 'BBS - Bad Umbau & Fliesenleger Schöneiche | Barrierefreies Bauen Berlin Brandenburg',
-    description: 'Fliesenleger & Badumbau Experte in Schöneiche, Berlin, Brandenburg & Strausberg. Bad Sanierung Berlin. Barrierefreies Bauen West-Berlin/Charlottenburg.',
+    title: 'BBS - Barrierefreies Bauen und Sanieren',
+    description: 'Ihr Partner für barrierefreies Bauen und Sanieren in Berlin und Brandenburg. Mit über 20 Jahren Erfahrung realisieren wir Ihre Badumbauten und Fliesenarbeiten.',
     images: [
       {
         url: '/hero-bathroom.webp',
@@ -68,8 +70,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'BBS - Bad Umbau & Fliesenleger Schöneiche | Barrierefreies Bauen',
-    description: 'Fliesenleger & Badumbau Experte in Schöneiche, Berlin, Brandenburg & Strausberg. Bad Sanierung Berlin.',
+    title: 'BBS - Barrierefreies Bauen und Sanieren',
+    description: 'Ihr Partner für barrierefreies Bauen und Sanieren in Berlin und Brandenburg. Mit über 20 Jahren Erfahrung realisieren wir Ihre Badumbauten.',
     images: ['/hero-bathroom.webp'],
   },
   alternates: {
@@ -91,6 +93,8 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
+        <CookieBanner />
+        <Analytics />
       </body>
     </html>
   );

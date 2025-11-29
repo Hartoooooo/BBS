@@ -5,10 +5,10 @@ import {
   Building, 
   TreePine, 
   Shield,
-  Package,
   Droplet,
   Layers 
 } from 'lucide-react';
+import Image from 'next/image';
 import { useScrollAnimation } from '@/lib/useScrollAnimation';
 import { useState, useRef, useEffect } from 'react';
 
@@ -23,31 +23,37 @@ const Services = () => {
       icon: <Bath className="w-12 h-12 text-red-500" />,
       title: 'Barrierefreies Bad',
       description: 'Komplette Badumbauten für mehr Sicherheit und Komfort – bodengleiche Duschen, Haltegriffe und barrierefreie Lösungen.',
+      image: '/20250929_1107_Barrierefreies Badezimmerdesign_remix_01k6abgsq0ezv930dvr6gdh36k.webp',
     },
     {
       icon: <Building className="w-12 h-12 text-red-500" />,
       title: 'Trockenbau',
       description: 'Professionelle Trockenbauarbeiten für Wände, Decken und Raumteilungen – schnell und sauber umgesetzt.',
+      image: '/Trockenbau.png',
     },
     {
       icon: <TreePine className="w-12 h-12 text-red-500" />,
       title: 'Holz & Bautenschutz',
       description: 'Schutz und Pflege von Holzkonstruktionen sowie umfassende Bautenschutzmaßnahmen für langlebige Bausubstanz.',
+      image: '/Holzschutz.webp',
     },
     {
       icon: <Shield className="w-12 h-12 text-red-500" />,
       title: 'Bauwerksabdichtung',
       description: 'Fachgerechte Abdichtung von Gebäuden gegen Feuchtigkeit und Wasser für dauerhaften Schutz.',
+      image: '/Bauwerksabdichtung.webp',
     },
     {
       icon: <Layers className="w-12 h-12 text-red-500" />,
       title: 'Bodenbelagsarbeiten',
       description: 'Verlegung von Fliesen, Parkett, Laminat und anderen Bodenbelägen mit höchster Präzision.',
+      image: '/bodenbelagsarbeiten.webp',
     },
     {
       icon: <Droplet className="w-12 h-12 text-red-500" />,
       title: 'Wasserschadensanierung',
       description: 'Schnelle und professionelle Sanierung von Wasserschäden – Trocknung, Reparatur und Wiederherstellung.',
+      image: '/wasserschaden.webp',
     },
   ];
 
@@ -124,17 +130,49 @@ const Services = () => {
                 {services.map((service, index) => (
                   <div 
                     key={index} 
-                    className="bg-gray-50 rounded-lg p-6 hover:shadow-lg transition-all duration-300 w-[calc(100vw-2rem)] flex-shrink-0 snap-center"
+                    className="bg-gray-50 rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300 w-[calc(100vw-2rem)] flex-shrink-0 snap-center flex flex-col"
                   >
-                    <div className="mb-4">{service.icon}</div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-3">
-                      {service.title}
-                    </h3>
-                    <p className="text-gray-600">
-                      {service.description}
-                    </p>
+                    {service.image ? (
+                      <div className="relative h-64 w-full">
+                        <Image
+                          src={service.image}
+                          alt={service.title}
+                          fill
+                          className="object-cover"
+                        />
+                        {/* Gradient Overlay von unten */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent"></div>
+                        {/* Titel über dem Bild */}
+                        <div className="absolute bottom-0 left-0 right-0 p-6">
+                          <h3 className="text-xl font-semibold text-white mb-0">
+                            {service.title}
+                          </h3>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="p-6 pb-0">
+                        <div className="mb-4">{service.icon}</div>
+                        <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                          {service.title}
+                        </h3>
+                      </div>
+                    )}
+                    <div className={`flex-1 flex flex-col ${service.image ? 'p-6 pt-0' : 'px-6 pb-6'}`}>
+                      {service.image && (
+                        <p className="text-gray-600 mt-4">
+                          {service.description}
+                        </p>
+                      )}
+                      {!service.image && (
+                        <p className="text-gray-600">
+                          {service.description}
+                        </p>
+                      )}
+                    </div>
                   </div>
                 ))}
+                {/* Leeres Element am Ende für korrekte Zentrierung der letzten Karte */}
+                <div className="w-[calc((100vw-2rem)/2)] flex-shrink-0"></div>
               </div>
             </div>
             
@@ -160,15 +198,45 @@ const Services = () => {
             {services.map((service, index) => (
               <div 
                 key={index} 
-                className="bg-gray-50 rounded-lg p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+                className="bg-gray-50 rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col"
               >
-                <div className="mb-4">{service.icon}</div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">
-                  {service.title}
-                </h3>
-                <p className="text-gray-600">
-                  {service.description}
-                </p>
+                {service.image ? (
+                  <div className="relative h-64 w-full">
+                    <Image
+                      src={service.image}
+                      alt={service.title}
+                      fill
+                      className="object-cover"
+                    />
+                    {/* Gradient Overlay von unten */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
+                    {/* Titel über dem Bild */}
+                    <div className="absolute bottom-0 left-0 right-0 p-6">
+                      <h3 className="text-xl font-semibold text-white mb-0">
+                        {service.title}
+                      </h3>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="p-6 pb-0">
+                    <div className="mb-4">{service.icon}</div>
+                    <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                      {service.title}
+                    </h3>
+                  </div>
+                )}
+                <div className={`flex-1 flex flex-col ${service.image ? 'p-6 pt-0' : 'px-6 pb-6'}`}>
+                  {service.image && (
+                    <p className="text-gray-600 mt-4">
+                      {service.description}
+                    </p>
+                  )}
+                  {!service.image && (
+                    <p className="text-gray-600">
+                      {service.description}
+                    </p>
+                  )}
+                </div>
               </div>
             ))}
           </div>

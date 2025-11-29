@@ -40,7 +40,13 @@ const Contact = () => {
                 Nachricht senden
               </h3>
               
-              <form className="space-y-6">
+              <form 
+                action="https://formsubmit.co/hartmanntimon@gmail.com" 
+                method="POST"
+                className="space-y-6"
+              >
+                <input type="hidden" name="_captcha" value="false" />
+                <input type="hidden" name="_next" value="/" />
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-2">

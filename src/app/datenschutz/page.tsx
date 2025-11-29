@@ -4,6 +4,10 @@ import { ArrowLeft } from 'lucide-react';
 export const metadata = {
   title: 'Datenschutzerklärung | BBS - Barrierefreies Bauen und Sanieren',
   description: 'Datenschutzerklärung von BBS Barrierefreies Bauen und Sanieren',
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default function DatenschutzPage() {
@@ -98,11 +102,103 @@ export default function DatenschutzPage() {
 
           {/* Cookies */}
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">4. Cookies</h2>
-            <p className="text-gray-700">
-              Unsere Website verwendet keine Tracking-Cookies. Es werden lediglich technisch notwendige Cookies eingesetzt, 
-              die für den Betrieb der Website erforderlich sind.
-            </p>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">4. Cookies und Tracking-Technologien</h2>
+            <div className="space-y-4 text-gray-700">
+              <p>
+                Unsere Website verwendet Cookies und ähnliche Tracking-Technologien, um Ihnen die bestmögliche Erfahrung 
+                zu bieten und unsere Website zu verbessern.
+              </p>
+              
+              <div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">4.1 Was sind Cookies?</h3>
+                <p className="mb-2">
+                  Cookies sind kleine Textdateien, die auf Ihrem Endgerät gespeichert werden, wenn Sie unsere Website besuchen. 
+                  Sie ermöglichen es uns, bestimmte Informationen zu speichern und später wieder abzurufen.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">4.2 Arten von Cookies</h3>
+                <p className="mb-3">Wir verwenden folgende Arten von Cookies:</p>
+                
+                <div className="bg-gray-50 p-4 rounded-lg mb-3">
+                  <h4 className="font-semibold text-gray-900 mb-2">Notwendige Cookies</h4>
+                  <p className="mb-2">
+                    Diese Cookies sind für das ordnungsgemäße Funktionieren der Website erforderlich. Sie ermöglichen grundlegende 
+                    Funktionen wie Seitennavigation und Zugriff auf sichere Bereiche der Website.
+                  </p>
+                  <p className="text-sm text-gray-600">
+                    <strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse)
+                  </p>
+                </div>
+
+                <div className="bg-gray-50 p-4 rounded-lg mb-3">
+                  <h4 className="font-semibold text-gray-900 mb-2">Analyse-Cookies</h4>
+                  <p className="mb-2">
+                    Diese Cookies helfen uns zu verstehen, wie Besucher mit unserer Website interagieren, indem Informationen 
+                    anonym gesammelt und gemeldet werden. Wir verwenden folgende Analyse-Dienste:
+                  </p>
+                  <ul className="list-disc list-inside space-y-1 mb-2 text-sm">
+                    <li>
+                      <strong>Google Analytics:</strong> Ein Webanalysedienst von Google LLC zur Analyse der Website-Nutzung. 
+                      Die Daten werden anonymisiert übertragen und gespeichert.
+                    </li>
+                    <li>
+                      <strong>Microsoft Clarity:</strong> Ein Analyse-Tool von Microsoft Corporation zur Analyse des Nutzerverhaltens 
+                      durch Heatmaps und Session-Aufzeichnungen.
+                    </li>
+                  </ul>
+                  <p className="text-sm text-gray-600">
+                    <strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. a DSGVO (Einwilligung)
+                  </p>
+                  <p className="text-sm text-gray-600 mt-2">
+                    <strong>Weitere Informationen:</strong>{' '}
+                    <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-red-500 hover:text-red-600 underline">
+                      Google Datenschutzerklärung
+                    </a>
+                    {' | '}
+                    <a href="https://privacy.microsoft.com/de-de/privacystatement" target="_blank" rel="noopener noreferrer" className="text-red-500 hover:text-red-600 underline">
+                      Microsoft Datenschutzerklärung
+                    </a>
+                  </p>
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">4.3 Cookie-Verwaltung</h3>
+                <p className="mb-2">
+                  Sie können Ihre Cookie-Präferenzen jederzeit über unseren Cookie-Banner oder die Einstellungen Ihres Browsers 
+                  verwalten. Bitte beachten Sie, dass das Deaktivieren bestimmter Cookies die Funktionalität unserer Website 
+                  beeinträchtigen kann.
+                </p>
+                <p className="mb-2">
+                  Weitere Informationen finden Sie auf unserer{' '}
+                  <Link href="/cookies" className="text-red-500 hover:text-red-600 underline">
+                    Cookie-Richtlinie
+                  </Link>
+                  .
+                </p>
+              </div>
+
+              <div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">4.4 Opt-Out-Möglichkeiten</h3>
+                <p className="mb-2">Sie können der Verwendung von Analyse-Cookies widersprechen:</p>
+                <ul className="list-disc list-inside space-y-1 text-sm">
+                  <li>
+                    <strong>Google Analytics:</strong>{' '}
+                    <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer" className="text-red-500 hover:text-red-600 underline">
+                      Browser-Add-on zur Deaktivierung von Google Analytics
+                    </a>
+                  </li>
+                  <li>
+                    <strong>Microsoft Clarity:</strong> Über unsere Cookie-Einstellungen oder direkt in den{' '}
+                    <a href="https://clarity.microsoft.com/opt-out" target="_blank" rel="noopener noreferrer" className="text-red-500 hover:text-red-600 underline">
+                      Clarity-Einstellungen
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </section>
 
           {/* Ihre Rechte */}

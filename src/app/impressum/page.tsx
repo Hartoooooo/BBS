@@ -4,6 +4,10 @@ import { ArrowLeft } from 'lucide-react';
 export const metadata = {
   title: 'Impressum | BBS - Barrierefreies Bauen und Sanieren',
   description: 'Impressum und rechtliche Informationen von BBS Barrierefreies Bauen und Sanieren',
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default function ImpressumPage() {
