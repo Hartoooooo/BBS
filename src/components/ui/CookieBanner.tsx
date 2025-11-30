@@ -40,7 +40,7 @@ const CookieBanner = () => {
     const allAccepted: CookiePreferences = {
       necessary: true,
       analytics: true,
-      marketing: true,
+      marketing: false, // Marketing-Cookies werden nicht verwendet
     };
     setCookiePreferences(allAccepted);
     setCookieConsent(true);
@@ -205,29 +205,6 @@ const CookieBanner = () => {
                       className="sr-only peer"
                     />
                     <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-red-500"></div>
-                  </label>
-                </div>
-
-                {/* Marketing Cookies */}
-                <div className="flex items-start justify-between p-4 border-2 border-gray-200 rounded-lg">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-1">
-                      <h4 className="font-semibold text-gray-900">Marketing-Cookies</h4>
-                    </div>
-                    <p className="text-sm text-gray-600">
-                      Diese Cookies werden verwendet, um Besuchern auf anderen Websites relevante Werbung 
-                      und Marketingkampagnen anzuzeigen. Aktuell verwenden wir keine Marketing-Cookies.
-                    </p>
-                  </div>
-                  <label className="ml-4 relative inline-flex items-center cursor-pointer opacity-50">
-                    <input
-                      type="checkbox"
-                      checked={preferences.marketing}
-                      onChange={() => togglePreference('marketing')}
-                      disabled
-                      className="sr-only peer"
-                    />
-                    <div className="w-11 h-6 bg-gray-200 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-red-500"></div>
                   </label>
                 </div>
               </div>
