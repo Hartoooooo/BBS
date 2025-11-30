@@ -198,45 +198,48 @@ const Services = () => {
             {services.map((service, index) => (
               <div 
                 key={index} 
-                className="bg-gray-50 rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col"
+                className="group bg-gray-50 rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col h-[300px]"
               >
                 {service.image ? (
-                  <div className="relative h-64 w-full">
+                  <div className="relative h-full w-full flex-shrink-0">
                     <Image
                       src={service.image}
                       alt={service.title}
                       fill
-                      className="object-cover"
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
                     />
                     {/* Gradient Overlay von unten */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
-                    {/* Titel über dem Bild */}
-                    <div className="absolute bottom-0 left-0 right-0 p-6">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent"></div>
+                    
+                    {/* Titel über dem Bild - immer sichtbar */}
+                    <div className="absolute bottom-0 left-0 right-0 p-6 z-10">
                       <h3 className="text-xl font-semibold text-white mb-0">
                         {service.title}
                       </h3>
                     </div>
+                    
+                    {/* Beschreibung Overlay - nur beim Hovern sichtbar */}
+                    <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-6 z-20">
+                      <p className="text-white text-sm leading-relaxed text-center transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 font-medium">
+                        {service.description}
+                      </p>
+                    </div>
                   </div>
                 ) : (
-                  <div className="p-6 pb-0">
-                    <div className="mb-4">{service.icon}</div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-3">
-                      {service.title}
-                    </h3>
-                  </div>
+                  <>
+                    <div className="p-6 pb-0 flex-shrink-0">
+                      <div className="mb-4">{service.icon}</div>
+                      <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                        {service.title}
+                      </h3>
+                    </div>
+                    <div className="flex-1 flex flex-col px-6 pb-6">
+                      <p className="text-gray-600">
+                        {service.description}
+                      </p>
+                    </div>
+                  </>
                 )}
-                <div className={`flex-1 flex flex-col ${service.image ? 'p-6 pt-0' : 'px-6 pb-6'}`}>
-                  {service.image && (
-                    <p className="text-gray-600 mt-4">
-                      {service.description}
-                    </p>
-                  )}
-                  {!service.image && (
-                    <p className="text-gray-600">
-                      {service.description}
-                    </p>
-                  )}
-                </div>
               </div>
             ))}
           </div>

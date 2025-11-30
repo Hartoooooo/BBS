@@ -21,6 +21,19 @@ const CookieBanner = () => {
       const savedPreferences = getCookiePreferences();
       setPreferences(savedPreferences);
     }
+
+    // Event-Listener für manuelles Öffnen des Cookie-Banners
+    const handleOpenCookieSettings = () => {
+      setIsVisible(true);
+      const savedPreferences = getCookiePreferences();
+      setPreferences(savedPreferences);
+    };
+
+    window.addEventListener('openCookieSettings', handleOpenCookieSettings);
+
+    return () => {
+      window.removeEventListener('openCookieSettings', handleOpenCookieSettings);
+    };
   }, []);
 
   const handleAcceptAll = () => {

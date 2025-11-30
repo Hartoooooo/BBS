@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { ArrowLeft, Cookie, Shield, BarChart3, Megaphone } from 'lucide-react';
+import CookieSettingsButton from '@/components/ui/CookieSettingsButton';
 
 export const metadata = {
   title: 'Cookie-Richtlinie | BBS - Barrierefreies Bauen und Sanieren',
@@ -16,13 +17,16 @@ export default function CookiesPage() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-8">
-          <Link href="/" className="inline-flex items-center text-blue-600 hover:text-blue-700 mb-4">
+          <Link href="/" className="inline-flex items-center text-blue-600 hover:text-blue-700 mb-4 cursor-pointer">
             <ArrowLeft className="w-5 h-5 mr-2" />
             Zurück zur Startseite
           </Link>
-          <div className="flex items-center gap-3 mb-2">
-            <Cookie className="w-8 h-8 text-red-500" />
-            <h1 className="text-4xl font-bold text-gray-900">Cookie-Richtlinie</h1>
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-3">
+              <Cookie className="w-8 h-8 text-red-500" />
+              <h1 className="text-4xl font-bold text-gray-900">Cookie-Richtlinie</h1>
+            </div>
+            <CookieSettingsButton />
           </div>
           <p className="text-gray-600">Letzte Aktualisierung: {new Date().toLocaleDateString('de-DE', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
         </div>
@@ -160,8 +164,8 @@ export default function CookiesPage() {
             </p>
             <ul className="list-disc list-inside space-y-2 text-gray-700 mb-4">
               <li>
-                <strong>Cookie-Banner:</strong> Beim ersten Besuch unserer Website können Sie Ihre Cookie-Präferenzen 
-                über unseren Cookie-Banner festlegen.
+                <strong>Cookie-Einstellungen:</strong> Sie können Ihre Cookie-Präferenzen jederzeit über den Button 
+                oben auf dieser Seite oder über unseren Cookie-Banner anpassen.
               </li>
               <li>
                 <strong>Browser-Einstellungen:</strong> Die meisten Browser erlauben es Ihnen, Cookies zu verwalten. 

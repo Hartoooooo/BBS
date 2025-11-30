@@ -122,7 +122,22 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="border-t border-gray-800 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <div className="text-gray-400 text-sm text-center md:text-left">
+            {/* Rechtliche Links - auf Mobile oben, auf Desktop rechts */}
+            <div className="flex flex-wrap justify-center md:justify-end gap-4 text-xs md:text-sm order-1 md:order-2">
+              <Link href="/impressum" className="text-gray-400 hover:text-white transition-colors duration-200 cursor-pointer">
+                Impressum
+              </Link>
+              <span className="text-gray-600">|</span>
+              <Link href="/datenschutz" className="text-gray-400 hover:text-white transition-colors duration-200 cursor-pointer">
+                Datenschutz
+              </Link>
+              <span className="text-gray-600">|</span>
+              <Link href="/cookies" className="text-gray-400 hover:text-white transition-colors duration-200 cursor-pointer">
+                Cookies
+              </Link>
+            </div>
+            {/* Copyright - auf Mobile unten, auf Desktop links */}
+            <div className="text-gray-400 text-sm text-center md:text-left order-2 md:order-1">
               <div>© 2025 BBS Björn Hartmann</div>
               <div className="mt-1 text-xs md:text-sm">
                 Umsetzung von{' '}
@@ -130,24 +145,11 @@ const Footer = () => {
                   href="https://www.neoklar.de" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="text-gray-400 hover:text-white transition-colors duration-200"
+                  className="text-gray-400 hover:text-white transition-colors duration-200 cursor-pointer"
                 >
                   Neoklar<sup className="text-[10px]">TM</sup>
                 </a>
               </div>
-            </div>
-            <div className="flex flex-wrap justify-center md:justify-end gap-4 text-xs md:text-sm">
-              <Link href="/impressum" className="text-gray-400 hover:text-white transition-colors duration-200">
-                Impressum
-              </Link>
-              <span className="text-gray-600">|</span>
-              <Link href="/datenschutz" className="text-gray-400 hover:text-white transition-colors duration-200">
-                Datenschutz
-              </Link>
-              <span className="text-gray-600">|</span>
-              <Link href="/cookies" className="text-gray-400 hover:text-white transition-colors duration-200">
-                Cookies
-              </Link>
             </div>
           </div>
         </div>
