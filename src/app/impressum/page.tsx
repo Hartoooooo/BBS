@@ -58,7 +58,7 @@ export default function ImpressumPage() {
           <section>
             <h2 className="text-2xl font-bold text-gray-900 mb-4">Quellenangaben für die verwendeten Bilder und Grafiken</h2>
             <div className="text-gray-700">
-              <p>www.shutterstock.de, AI-generierte Bilder, BBS Barrierefreies Bauen und Sanieren</p>
+              <p>AI-generierte Bilder, BBS Barrierefreies Bauen und Sanieren</p>
             </div>
           </section>
 

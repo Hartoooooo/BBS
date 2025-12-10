@@ -207,25 +207,15 @@ const Contact = () => {
                 <div>
                   <h4 className="font-semibold text-gray-900 mb-1">Standort</h4>
                   <p className="text-gray-600">
-                    Petershagener Straße 27<br />
-                    15566 Schöneiche bei Berlin<br />
-                    Deutschland
+                    Schöneiche bei Berlin
                   </p>
-                  <a 
-                    href="https://www.google.com/maps/search/?api=1&query=BBS+Barrierefreies+Bauen+und+Sanieren+Petershagener+Straße+27+15566+Schöneiche+bei+Berlin"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-red-500 hover:text-red-600 font-semibold inline-flex items-center mt-2"
-                  >
-                    📍 Auf Google Maps anzeigen
-                  </a>
                 </div>
               </div>
 
               <div className="flex items-start">
                 <Clock className="w-6 h-6 text-red-500 mr-4 mt-1 flex-shrink-0" />
                 <div>
-                  <h4 className="font-semibold text-gray-900 mb-1">Öffnungszeiten</h4>
+                  <h4 className="font-semibold text-gray-900 mb-1">Erreichbarkeit</h4>
                   <div className="text-gray-600 space-y-1">
                     <div>Montag - Freitag: 7.00-16.00 Uhr</div>
                   </div>

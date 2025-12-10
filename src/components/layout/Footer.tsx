@@ -63,11 +63,11 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Öffnungszeiten */}
+          {/* Erreichbarkeit */}
           <div>
             <h3 className="font-semibold text-lg mb-4 flex items-center">
               <Clock className="w-5 h-5 mr-2" />
-              Öffnungszeiten
+              Erreichbarkeit
             </h3>
             <div className="space-y-2 text-gray-400">
               <div>

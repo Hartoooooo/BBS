@@ -24,17 +24,18 @@ const Hero = () => {
             <div className="text-left">
               {/* Haupttitel */}
               <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4">
-                {/* Mobile Version */}
+                {/* Mobile Version - Optimiert mit lokalen Keywords */}
                 <span className="md:hidden">
                   <span className="text-gray-900">Ihr Partner für </span>
                   <span className="text-red-500">barrierefreies</span>
-                  <span className="text-gray-900"> Bauen & Sanieren</span>
+                  <span className="text-gray-900"> Bauen in </span>
+                  <span className="text-gray-900">Berlin & Brandenburg</span>
                 </span>
                 {/* Desktop Version */}
                 <span className="hidden md:inline">
                   <span className="text-gray-900">Ihr Partner für </span>
                   <span className="text-red-500">barrierefreies</span>
-                  <span className="text-gray-900"> Wohnen in </span>
+                  <span className="text-gray-900"> Bauen in </span>
                   <span className="text-gray-900">Berlin & Brandenburg</span>
                 </span>
               </h1>

@@ -13,10 +13,22 @@ const Projects = () => {
   const { ref: slideshowRef, isVisible: slideshowVisible } = useScrollAnimation<HTMLDivElement>();
 
   const images = [
-    '/Beispielbild-Bad.webp',
-    '/Bad-neu-3.webp',
-    '/Bad-neu.webp',
-    '/Beispielbild-Bad-2.webp'
+    { 
+      src: '/Beispielbild-Bad.webp', 
+      alt: 'Barrierefreies Bad mit bodengleicher Dusche - Beispielprojekt Berlin Brandenburg' 
+    },
+    { 
+      src: '/Bad-neu-3.webp', 
+      alt: 'Moderner Badumbau mit Fliesenarbeiten - BBS Projekt Schöneiche' 
+    },
+    { 
+      src: '/Bad-neu.webp', 
+      alt: 'Barrierefreie Badsanierung mit Haltegriffen - Beispielprojekt Brandenburg' 
+    },
+    { 
+      src: '/Beispielbild-Bad-2.webp', 
+      alt: 'Luxuriöses barrierefreies Badezimmerdesign - BBS Badumbau Berlin' 
+    }
   ];
 
   const nextSlide = () => {
@@ -99,8 +111,8 @@ const Projects = () => {
                   }}
                 >
                   <Image
-                    src={image}
-                    alt={`Beispielprojekt ${index + 1}`}
+                    src={image.src}
+                    alt={image.alt}
                     fill
                     className="object-cover"
                     sizes="(max-width: 768px) 100vw, 0px"
@@ -139,8 +151,8 @@ const Projects = () => {
           }`}
         >
           <Image
-            src={images[currentSlide]}
-            alt={`Beispielprojekt ${currentSlide + 1}`}
+            src={images[currentSlide].src}
+            alt={images[currentSlide].alt}
             fill
             className="object-cover transition-opacity duration-500"
           />
