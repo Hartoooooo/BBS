@@ -4,8 +4,10 @@ import { useState } from 'react';
 import { ArrowLeft, ArrowRight, Check, Bath, Home, Building, Shield, Wrench, HelpCircle, Layers, CheckCircle2 } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 const AnfragePage = () => {
+  const router = useRouter();
   const [currentStep, setCurrentStep] = useState(1);
   const [isStepVisible, setIsStepVisible] = useState(true);
   const [formData, setFormData] = useState({
@@ -144,8 +146,12 @@ const AnfragePage = () => {
       });
       
       if (response.ok) {
+        // Erfolgsmeldung anzeigen und dann zur Startseite weiterleiten
         alert('Vielen Dank für Ihre Anfrage! Wir melden uns schnellstmöglich bei Ihnen.');
-        // Optional: Formular zurücksetzen oder zur Startseite weiterleiten
+        // Kurze Verzögerung, damit der Benutzer die Meldung sieht
+        setTimeout(() => {
+          router.push('/');
+        }, 500);
       } else {
         alert('Es gab einen Fehler beim Senden Ihrer Anfrage. Bitte versuchen Sie es erneut.');
       }

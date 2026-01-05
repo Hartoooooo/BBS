@@ -46,7 +46,7 @@ const FAQ = () => {
     },
     {
       question: 'Welche Förderungen gibt es für barrierefreie Umbauten?',
-      answer: 'Es gibt verschiedene Fördermöglichkeiten wie KfW-Zuschüsse (bis zu 6.250 €), Pflegekassenzuschüsse (bis zu 4.000 € pro Person) und regionale Förderungen. Wir beraten Sie gerne über die für Sie passenden Fördermöglichkeiten.'
+      answer: 'Es gibt verschiedene Fördermöglichkeiten wie zinsgünstige KfW Kredite, Pflegekassenzuschüsse (bis zu 4.180 €) und regionale Förderungen. Wir beraten Sie gerne über die für Sie passenden Fördermöglichkeiten.'
     }
   ];
 

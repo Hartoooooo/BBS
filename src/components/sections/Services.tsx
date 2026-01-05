@@ -164,9 +164,9 @@ const Services = () => {
                         </p>
                       )}
                       {!service.image && (
-                        <p className="text-gray-600">
-                          {service.description}
-                        </p>
+                      <p className="text-gray-600">
+                        {service.description}
+                      </p>
                       )}
                     </div>
                   </div>
@@ -228,16 +228,16 @@ const Services = () => {
                 ) : (
                   <>
                     <div className="p-6 pb-0 flex-shrink-0">
-                      <div className="mb-4">{service.icon}</div>
-                      <h3 className="text-xl font-semibold text-gray-900 mb-3">
-                        {service.title}
-                      </h3>
+                    <div className="mb-4">{service.icon}</div>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                    {service.title}
+                  </h3>
                     </div>
                     <div className="flex-1 flex flex-col px-6 pb-6">
-                      <p className="text-gray-600">
-                        {service.description}
-                      </p>
-                    </div>
+                  <p className="text-gray-600">
+                    {service.description}
+                  </p>
+                </div>
                   </>
                 )}
               </div>

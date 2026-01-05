@@ -167,7 +167,7 @@ export default function StructuredData() {
         "name": "Welche Förderungen gibt es für barrierefreie Umbauten?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Es gibt verschiedene Fördermöglichkeiten wie KfW-Zuschüsse, Pflegekassenzuschüsse und regionale Förderungen. Wir beraten Sie gerne über die für Sie passenden Fördermöglichkeiten und unterstützen Sie bei der Antragsstellung."
+          "text": "Es gibt verschiedene Fördermöglichkeiten wie zinsgünstige KfW Kredite, Pflegekassenzuschüsse (bis zu 4.180 €) und regionale Förderungen. Wir beraten Sie gerne über die für Sie passenden Fördermöglichkeiten."
         }
       },
       {
