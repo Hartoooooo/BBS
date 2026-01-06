@@ -9,6 +9,7 @@ const Projects = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [activeIndex, setActiveIndex] = useState(0);
   const [fullscreenImage, setFullscreenImage] = useState<number | null>(null);
+  const [imageOrientations, setImageOrientations] = useState<{ [key: number]: 'portrait' | 'landscape' }>({});
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const fullscreenScrollRef = useRef<HTMLDivElement>(null);
   const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation<HTMLDivElement>();
@@ -110,6 +111,33 @@ const Projects = () => {
     };
     window.addEventListener('keydown', handleEsc);
     return () => window.removeEventListener('keydown', handleEsc);
+  }, [fullscreenImage]);
+
+  // Vollbildmodus bei Gerätedrehung erhalten
+  useEffect(() => {
+    if (fullscreenImage !== null) {
+      const handleOrientationChange = () => {
+        // Der Vollbildmodus bleibt durch fixed positioning erhalten
+        // Optional: Scroll zum aktuellen Bild nach Orientierungsänderung
+        setTimeout(() => {
+          if (fullscreenScrollRef.current && fullscreenImage !== null) {
+            const container = fullscreenScrollRef.current;
+            const imageContainer = container.querySelector(`[data-image-index="${fullscreenImage}"]`) as HTMLElement;
+            if (imageContainer) {
+              imageContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+            }
+          }
+        }, 300);
+      };
+
+      window.addEventListener('orientationchange', handleOrientationChange);
+      window.addEventListener('resize', handleOrientationChange);
+      
+      return () => {
+        window.removeEventListener('orientationchange', handleOrientationChange);
+        window.removeEventListener('resize', handleOrientationChange);
+      };
+    }
   }, [fullscreenImage]);
 
   return (
@@ -241,10 +269,10 @@ const Projects = () => {
           </div>
         </div>
 
-        {/* Mobile: Vollbild-Modal */}
+        {/* Vollbild-Modal (Mobile & Tablet) */}
         {fullscreenImage !== null && (
           <div 
-            className="md:hidden fixed inset-0 z-50 bg-black"
+            className="lg:hidden fixed inset-0 z-50 bg-black"
             onClick={closeFullscreen}
           >
             {/* Schließen-Button */}
@@ -280,9 +308,20 @@ const Projects = () => {
                         alt={image.alt}
                         width={0}
                         height={0}
-                        className="w-auto h-auto max-w-full max-h-[100vh] object-contain"
+                        className={imageOrientations[index] === 'portrait' 
+                          ? 'w-auto h-auto max-w-full max-h-[100vh] object-contain' 
+                          : 'w-full h-auto max-h-[100vh] object-contain'
+                        }
                         sizes="100vw"
                         unoptimized={false}
+                        onLoad={(e) => {
+                          const img = e.currentTarget;
+                          const isPortrait = img.naturalHeight > img.naturalWidth;
+                          setImageOrientations(prev => ({
+                            ...prev,
+                            [index]: isPortrait ? 'portrait' : 'landscape'
+                          }));
+                        }}
                       />
                     </div>
                   </div>
