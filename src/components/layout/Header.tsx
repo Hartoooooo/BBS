@@ -120,14 +120,14 @@ const Header = () => {
       <div className="md:hidden">
         {/* Slide-in Menu Panel */}
         <div
-          className={`fixed top-0 left-0 bottom-0 w-[85%] max-w-sm bg-gray-900/95 backdrop-blur-sm shadow-2xl rounded-br-3xl transform transition-transform duration-500 ease-out z-[46] ${
+          className={`fixed top-0 left-0 bottom-0 w-[85%] max-w-sm bg-gray-900 shadow-2xl rounded-br-3xl transform transition-transform duration-500 ease-out z-[46] ${
             isMenuOpen ? 'translate-x-0' : '-translate-x-full'
           }`}
         >
           {/* Menu Content */}
-          <div className="flex flex-col h-full bg-gray-900/95 rounded-br-3xl">
+          <div className="flex flex-col h-full bg-gray-900 rounded-br-3xl">
             {/* Logo Section - matches header height */}
-            <div className="py-4 flex items-center px-6 border-b border-gray-700/50 bg-gray-900/95">
+            <div className="py-4 flex items-center px-6 border-b border-gray-700/50 bg-gray-900">
               <Link 
                 href="/" 
                 className="flex items-center gap-2"
@@ -150,7 +150,7 @@ const Header = () => {
             </div>
 
             {/* Navigation Links */}
-            <nav className="flex-1 px-4 py-8 bg-gray-900/95 rounded-br-3xl">
+            <nav className="flex-1 px-4 py-8 bg-gray-900 rounded-br-3xl">
               <div className="space-y-2">
                 {navigation.map((item, index) => {
                   const Icon = item.icon;

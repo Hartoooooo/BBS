@@ -2,13 +2,15 @@
 
 import Image from 'next/image';
 import { useState, useRef, useEffect } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { useScrollAnimation } from '@/lib/useScrollAnimation';
 
 const Projects = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [fullscreenImage, setFullscreenImage] = useState<number | null>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const fullscreenScrollRef = useRef<HTMLDivElement>(null);
   const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation<HTMLDivElement>();
   const { ref: slideshowRef, isVisible: slideshowVisible } = useScrollAnimation<HTMLDivElement>();
 
@@ -71,6 +73,45 @@ const Projects = () => {
     });
   };
 
+  // Vollbild-Funktionen
+  const openFullscreen = (index: number) => {
+    setFullscreenImage(index);
+    // Verhindere Body-Scroll wenn Vollbild offen ist
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeFullscreen = () => {
+    setFullscreenImage(null);
+    document.body.style.overflow = '';
+  };
+
+  // Scroll zum geöffneten Bild beim Öffnen der Vollbildansicht
+  useEffect(() => {
+    if (fullscreenImage !== null && fullscreenScrollRef.current) {
+      // Kurze Verzögerung, damit das DOM vollständig gerendert ist
+      setTimeout(() => {
+        const container = fullscreenScrollRef.current;
+        if (container) {
+          const imageContainer = container.querySelector(`[data-image-index="${fullscreenImage}"]`) as HTMLElement;
+          if (imageContainer) {
+            imageContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+          }
+        }
+      }, 100);
+    }
+  }, [fullscreenImage]);
+
+  // ESC-Taste zum Schließen
+  useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && fullscreenImage !== null) {
+        closeFullscreen();
+      }
+    };
+    window.addEventListener('keydown', handleEsc);
+    return () => window.removeEventListener('keydown', handleEsc);
+  }, [fullscreenImage]);
+
   return (
     <section className="py-16 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -103,12 +144,13 @@ const Projects = () => {
               {images.map((image, index) => (
                 <div 
                   key={index} 
-                  className="relative flex-shrink-0 snap-center rounded-lg overflow-hidden bg-transparent"
+                  className="relative flex-shrink-0 snap-center rounded-lg overflow-hidden bg-transparent cursor-pointer"
                   style={{ 
                     width: 'calc(100vw - 2rem)',
                     height: '100%',
                     minHeight: '400px'
                   }}
+                  onClick={() => openFullscreen(index)}
                 >
                   <div className="relative w-full h-full rounded-lg overflow-hidden">
                     <Image
@@ -198,6 +240,57 @@ const Projects = () => {
             {currentSlide + 1} / {images.length}
           </div>
         </div>
+
+        {/* Mobile: Vollbild-Modal */}
+        {fullscreenImage !== null && (
+          <div 
+            className="md:hidden fixed inset-0 z-50 bg-black"
+            onClick={closeFullscreen}
+          >
+            {/* Schließen-Button */}
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                closeFullscreen();
+              }}
+              className="absolute top-4 right-4 z-10 bg-black/70 hover:bg-black/90 text-white p-3 rounded-full transition-colors"
+              aria-label="Vollbild schließen"
+            >
+              <X className="w-6 h-6" />
+            </button>
+
+            {/* Scrollbar-Container mit allen Bildern */}
+            <div 
+              ref={fullscreenScrollRef}
+              className="w-full h-full overflow-x-auto scrollbar-thin"
+              style={{ WebkitOverflowScrolling: 'touch' }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex flex-row items-center h-full">
+                {images.map((image, index) => (
+                  <div 
+                    key={index}
+                    data-image-index={index}
+                    className="flex items-center justify-center h-full px-4 flex-shrink-0"
+                    style={{ width: '100vw' }}
+                  >
+                    <div className="relative w-full h-full flex items-center justify-center" style={{ maxHeight: '100vh' }}>
+                      <Image
+                        src={image.src}
+                        alt={image.alt}
+                        width={0}
+                        height={0}
+                        className="w-auto h-auto max-w-full max-h-[100vh] object-contain"
+                        sizes="100vw"
+                        unoptimized={false}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );
