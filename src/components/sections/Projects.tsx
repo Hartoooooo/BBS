@@ -180,16 +180,16 @@ const Projects = () => {
                   onClick={() => openFullscreen(index)}
                 >
                   <div className="relative w-full h-full rounded-lg overflow-hidden">
-                    <Image
-                      src={image.src}
-                      alt={image.alt}
-                      fill
+                  <Image
+                    src={image.src}
+                    alt={image.alt}
+                    fill
                       className="object-contain"
-                      sizes="(max-width: 768px) 100vw, 0px"
-                      priority={index === 0}
-                      unoptimized={false}
+                    sizes="(max-width: 768px) 100vw, 0px"
+                    priority={index === 0}
+                    unoptimized={false}
                       style={{ borderRadius: '0.5rem' }}
-                    />
+                  />
                   </div>
                 </div>
               ))}

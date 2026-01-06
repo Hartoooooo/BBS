@@ -199,44 +199,44 @@ const Testimonials = () => {
           <div className="hidden md:block max-w-4xl mx-auto">
             <div className="bg-white rounded-lg shadow-lg p-8 relative h-[420px] flex flex-col">
               <Quote className="w-12 h-12 text-red-500 mb-4 flex-shrink-0" />
-              
+            
               <blockquote className="text-lg md:text-xl text-gray-700 mb-6 italic flex-grow overflow-y-auto">
-                {testimonials[currentTestimonial].text}
-              </blockquote>
-              
+              {testimonials[currentTestimonial].text}
+            </blockquote>
+            
               <div className="flex items-center flex-shrink-0 mt-auto">
-                <div>
-                  <div className="font-semibold text-gray-900">
-                    {testimonials[currentTestimonial].author}
-                  </div>
-                  <div className="text-gray-600">
-                    Ort: {testimonials[currentTestimonial].location}
-                  </div>
-                  <a
-                    href={testimonials[currentTestimonial].sourceUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm text-blue-600 hover:text-blue-700 underline mt-1 inline-block"
-                  >
-                    {testimonials[currentTestimonial].sourceUrl.includes('fliesenleger.net') 
-                      ? 'von Fliesenleger.net' 
-                      : 'von Google'}
-                  </a>
+              <div>
+                <div className="font-semibold text-gray-900">
+                  {testimonials[currentTestimonial].author}
                 </div>
+                <div className="text-gray-600">
+                  Ort: {testimonials[currentTestimonial].location}
+                </div>
+                <a
+                  href={testimonials[currentTestimonial].sourceUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-blue-600 hover:text-blue-700 underline mt-1 inline-block"
+                >
+                  {testimonials[currentTestimonial].sourceUrl.includes('fliesenleger.net') 
+                    ? 'von Fliesenleger.net' 
+                    : 'von Google'}
+                </a>
               </div>
             </div>
+          </div>
 
-            {/* Dots indicator */}
-            <div className="flex justify-center mt-6 space-x-2">
-              {testimonials.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentTestimonial(index)}
-                  className={`w-3 h-3 rounded-full transition-colors duration-200 ${
-                    index === currentTestimonial ? 'bg-red-500' : 'bg-gray-300'
-                  }`}
-                />
-              ))}
+          {/* Dots indicator */}
+          <div className="flex justify-center mt-6 space-x-2">
+            {testimonials.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentTestimonial(index)}
+                className={`w-3 h-3 rounded-full transition-colors duration-200 ${
+                  index === currentTestimonial ? 'bg-red-500' : 'bg-gray-300'
+                }`}
+              />
+            ))}
             </div>
           </div>
         </div>

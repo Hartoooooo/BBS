@@ -94,9 +94,9 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <FullscreenProvider>
-          {children}
-          <CookieBanner />
-          <Analytics />
+        {children}
+        <CookieBanner />
+        <Analytics />
         </FullscreenProvider>
       </body>
     </html>
