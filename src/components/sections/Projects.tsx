@@ -103,22 +103,25 @@ const Projects = () => {
               {images.map((image, index) => (
                 <div 
                   key={index} 
-                  className="relative flex-shrink-0 snap-center rounded-lg overflow-hidden shadow-lg bg-gray-200"
+                  className="relative flex-shrink-0 snap-center rounded-lg overflow-hidden bg-transparent"
                   style={{ 
                     width: 'calc(100vw - 2rem)',
                     height: '100%',
                     minHeight: '400px'
                   }}
                 >
-                  <Image
-                    src={image.src}
-                    alt={image.alt}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 0px"
-                    priority={index === 0}
-                    unoptimized={false}
-                  />
+                  <div className="relative w-full h-full rounded-lg overflow-hidden">
+                    <Image
+                      src={image.src}
+                      alt={image.alt}
+                      fill
+                      className="object-contain"
+                      sizes="(max-width: 768px) 100vw, 0px"
+                      priority={index === 0}
+                      unoptimized={false}
+                      style={{ borderRadius: '0.5rem' }}
+                    />
+                  </div>
                 </div>
               ))}
             </div>

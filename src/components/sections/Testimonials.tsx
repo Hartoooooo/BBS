@@ -1,8 +1,8 @@
 
 'use client';
 
-import { useState, useEffect } from 'react';
-import { Quote } from 'lucide-react';
+import { useState } from 'react';
+import { Quote, ChevronDown, ChevronUp } from 'lucide-react';
 import { useScrollAnimation } from '@/lib/useScrollAnimation';
 
 const GoogleIcon = () => (
@@ -16,9 +16,22 @@ const GoogleIcon = () => (
 
 const Testimonials = () => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const [expandedMobile, setExpandedMobile] = useState<{ [key: number]: boolean }>({});
   const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation<HTMLDivElement>();
   const { ref: carouselRef, isVisible: carouselVisible } = useScrollAnimation<HTMLDivElement>();
   const { ref: statsRef, isVisible: statsVisible } = useScrollAnimation<HTMLDivElement>();
+
+  const toggleMobileExpanded = (index: number) => {
+    setExpandedMobile(prev => ({
+      ...prev,
+      [index]: !prev[index]
+    }));
+  };
+
+  const getTruncatedText = (text: string, maxLength: number) => {
+    if (text.length <= maxLength) return text;
+    return text.substring(0, maxLength) + '...';
+  };
 
   type Testimonial = {
     text: string;
@@ -28,6 +41,12 @@ const Testimonials = () => {
   };
 
   const testimonials: Testimonial[] = [
+    {
+      text: "Wir haben schon mehrere Sachen machen lassen, ist jedes Mal super geworden. Tolle Arbeit! Jederzeit wieder!",
+      author: "D. S.",
+      location: "N.A.",
+      sourceUrl: "https://maps.app.goo.gl/H5Vvn7cMA8UXGQAF9"
+    },
     {
       text: "Ich habe mein Bad von BBS – Barrierefreies Bauen und Sanieren umbauen lassen, weil mir die Sicherheit im Alltag wichtig ist. Die Firma hat eine ebenerdige Dusche, rutschfeste Fliesen und schwellenlose Übergänge eingebaut. Alles wurde sauber, zuverlässig und termingerecht erledigt. Jetzt fühle ich mich wieder sicher in meinem eigenen Zuhause und freue mich über ein schönes, modernes Bad. Vielen Dank an das Team BBS.",
       author: "Herr E. V.",
@@ -59,16 +78,6 @@ const Testimonials = () => {
       sourceUrl: "https://maps.app.goo.gl/H5Vvn7cMA8UXGQAF9"
     }
   ];
-
-  // Auto-rotate testimonials
-  useEffect(() => {
-    const nextTestimonial = () => {
-      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
-    };
-
-    const interval = setInterval(nextTestimonial, 5000);
-    return () => clearInterval(interval);
-  }, [testimonials.length]);
 
   return (
     <section className="py-20 bg-gray-50">
@@ -107,56 +116,128 @@ const Testimonials = () => {
           </div>
         </div>
 
-        {/* Testimonial Carousel */}
+        {/* Testimonials - Horizontal Scroll auf Mobile, Carousel auf Desktop */}
         <div 
           ref={carouselRef}
-          className={`relative max-w-4xl mx-auto transition-all duration-1200 ease-out delay-200 ${
+          className={`relative transition-all duration-1200 ease-out delay-200 ${
             carouselVisible 
               ? 'opacity-100 translate-y-0' 
               : 'opacity-0 translate-y-8'
           }`}
         >
-          <div className="bg-white rounded-lg shadow-lg p-8 relative">
-            <Quote className="w-12 h-12 text-red-500 mb-4" />
-            
-            <blockquote className="text-lg md:text-xl text-gray-700 mb-6 italic">
-              {testimonials[currentTestimonial].text}
-            </blockquote>
-            
-            <div className="flex items-center">
-              <div>
-                <div className="font-semibold text-gray-900">
-                  {testimonials[currentTestimonial].author}
+          {/* Mobile: Horizontal Scroll */}
+          <div className="md:hidden overflow-x-auto pb-4 scrollbar-thin -mx-4 px-4">
+            <div className="flex gap-4" style={{ width: 'max-content' }}>
+              {testimonials.map((testimonial, index) => {
+                const isExpanded = expandedMobile[index] || false;
+                // Schätzung: ca. 150 Zeichen passen in die Container-Höhe von 300px
+                const maxVisibleChars = 150;
+                const needsExpansion = testimonial.text.length > maxVisibleChars;
+                const textLength = Math.floor(testimonial.text.length / 3);
+                const displayText = isExpanded || !needsExpansion 
+                  ? testimonial.text 
+                  : getTruncatedText(testimonial.text, textLength);
+
+                return (
+                  <div 
+                    key={index}
+                    className="bg-white rounded-lg shadow-lg p-6 min-w-[85vw] max-w-[85vw] flex flex-col"
+                    style={{ minHeight: needsExpansion && !isExpanded ? '300px' : 'auto' }}
+                  >
+                    <Quote className="w-10 h-10 text-red-500 mb-4 flex-shrink-0" />
+                    
+                    <blockquote className="text-base text-gray-700 mb-4 italic flex-grow">
+                      {displayText}
+                    </blockquote>
+                    
+                    {needsExpansion && (
+                      <button
+                        onClick={() => toggleMobileExpanded(index)}
+                        className="flex items-center gap-1 text-red-500 hover:text-red-600 font-semibold mb-4 text-sm self-start"
+                      >
+                        {isExpanded ? (
+                          <>
+                            <ChevronUp className="w-4 h-4" />
+                            Weniger anzeigen
+                          </>
+                        ) : (
+                          <>
+                            <ChevronDown className="w-4 h-4" />
+                            Mehr anzeigen
+                          </>
+                        )}
+                      </button>
+                    )}
+                    
+                    <div className="flex items-center flex-shrink-0 mt-auto">
+                      <div>
+                        <div className="font-semibold text-gray-900 text-sm">
+                          {testimonial.author}
+                        </div>
+                        <div className="text-gray-600 text-sm">
+                          Ort: {testimonial.location}
+                        </div>
+                        <a
+                          href={testimonial.sourceUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-xs text-blue-600 hover:text-blue-700 underline mt-1 inline-block"
+                        >
+                          {testimonial.sourceUrl.includes('fliesenleger.net') 
+                            ? 'von Fliesenleger.net' 
+                            : 'von Google'}
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Desktop: Carousel mit Dots */}
+          <div className="hidden md:block max-w-4xl mx-auto">
+            <div className="bg-white rounded-lg shadow-lg p-8 relative h-[420px] flex flex-col">
+              <Quote className="w-12 h-12 text-red-500 mb-4 flex-shrink-0" />
+              
+              <blockquote className="text-lg md:text-xl text-gray-700 mb-6 italic flex-grow overflow-y-auto">
+                {testimonials[currentTestimonial].text}
+              </blockquote>
+              
+              <div className="flex items-center flex-shrink-0 mt-auto">
+                <div>
+                  <div className="font-semibold text-gray-900">
+                    {testimonials[currentTestimonial].author}
+                  </div>
+                  <div className="text-gray-600">
+                    Ort: {testimonials[currentTestimonial].location}
+                  </div>
+                  <a
+                    href={testimonials[currentTestimonial].sourceUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-blue-600 hover:text-blue-700 underline mt-1 inline-block"
+                  >
+                    {testimonials[currentTestimonial].sourceUrl.includes('fliesenleger.net') 
+                      ? 'von Fliesenleger.net' 
+                      : 'von Google'}
+                  </a>
                 </div>
-                <div className="text-gray-600">
-                  Ort: {testimonials[currentTestimonial].location}
-                </div>
-                <a
-                  href={testimonials[currentTestimonial].sourceUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-blue-600 hover:text-blue-700 underline mt-1 inline-block"
-                >
-                  {testimonials[currentTestimonial].sourceUrl.includes('fliesenleger.net') 
-                    ? 'von Fliesenleger.net' 
-                    : 'von Google'}
-                </a>
               </div>
             </div>
 
-          </div>
-
-          {/* Dots indicator */}
-          <div className="flex justify-center mt-6 space-x-2">
-            {testimonials.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentTestimonial(index)}
-                className={`w-3 h-3 rounded-full transition-colors duration-200 ${
-                  index === currentTestimonial ? 'bg-red-500' : 'bg-gray-300'
-                }`}
-              />
-            ))}
+            {/* Dots indicator */}
+            <div className="flex justify-center mt-6 space-x-2">
+              {testimonials.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentTestimonial(index)}
+                  className={`w-3 h-3 rounded-full transition-colors duration-200 ${
+                    index === currentTestimonial ? 'bg-red-500' : 'bg-gray-300'
+                  }`}
+                />
+              ))}
+            </div>
           </div>
         </div>
 
