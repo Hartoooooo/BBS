@@ -153,7 +153,6 @@ const Header = () => {
             <nav className="flex-1 px-4 py-8 bg-gray-900 rounded-br-3xl">
               <div className="space-y-2">
                 {navigation.map((item, index) => {
-                  const Icon = item.icon;
                   return (
                     <Link
                       key={item.name}
@@ -166,9 +165,6 @@ const Header = () => {
                         transform: isMenuOpen ? 'translateX(0)' : 'translateX(-20px)',
                       }}
                     >
-                      <div className="p-2 rounded-lg bg-red-500/20 group-hover:bg-red-500/30 transition-colors duration-300">
-                        <Icon className="w-5 h-5 text-red-400 group-hover:text-red-300" />
-                      </div>
                       <span className="text-lg font-medium flex-1">{item.name}</span>
                       <ArrowRight className="w-5 h-5 text-gray-400 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 group-hover:text-red-400 transition-all duration-300" />
                     </Link>

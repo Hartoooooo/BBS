@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useState, useRef, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { useScrollAnimation } from '@/lib/useScrollAnimation';
+import { useFullscreen } from '@/contexts/FullscreenContext';
 
 const Projects = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -12,6 +13,7 @@ const Projects = () => {
   const [imageOrientations, setImageOrientations] = useState<{ [key: number]: 'portrait' | 'landscape' }>({});
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const fullscreenScrollRef = useRef<HTMLDivElement>(null);
+  const { setIsFullscreen } = useFullscreen();
   const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation<HTMLDivElement>();
   const { ref: slideshowRef, isVisible: slideshowVisible } = useScrollAnimation<HTMLDivElement>();
 
@@ -77,40 +79,47 @@ const Projects = () => {
   // Vollbild-Funktionen
   const openFullscreen = (index: number) => {
     setFullscreenImage(index);
+    setIsFullscreen(true);
     // Verhindere Body-Scroll wenn Vollbild offen ist
     document.body.style.overflow = 'hidden';
   };
 
   const closeFullscreen = () => {
     setFullscreenImage(null);
+    setIsFullscreen(false);
     document.body.style.overflow = '';
   };
 
-  // Scroll zum geöffneten Bild beim Öffnen der Vollbildansicht
-  useEffect(() => {
-    if (fullscreenImage !== null && fullscreenScrollRef.current) {
-      // Kurze Verzögerung, damit das DOM vollständig gerendert ist
-      setTimeout(() => {
-        const container = fullscreenScrollRef.current;
-        if (container) {
-          const imageContainer = container.querySelector(`[data-image-index="${fullscreenImage}"]`) as HTMLElement;
-          if (imageContainer) {
-            imageContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
-          }
-        }
-      }, 100);
+  // Navigation-Funktionen für Vollbildmodus
+  const nextFullscreenImage = () => {
+    if (fullscreenImage !== null) {
+      setFullscreenImage((prev) => ((prev || 0) + 1) % images.length);
     }
-  }, [fullscreenImage]);
+  };
 
-  // ESC-Taste zum Schließen
+  const prevFullscreenImage = () => {
+    if (fullscreenImage !== null) {
+      setFullscreenImage((prev) => ((prev || 0) - 1 + images.length) % images.length);
+    }
+  };
+
+
+  // Keyboard-Navigation für Vollbildmodus
   useEffect(() => {
-    const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && fullscreenImage !== null) {
+    if (fullscreenImage === null) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
         closeFullscreen();
+      } else if (e.key === 'ArrowLeft') {
+        prevFullscreenImage();
+      } else if (e.key === 'ArrowRight') {
+        nextFullscreenImage();
       }
     };
-    window.addEventListener('keydown', handleEsc);
-    return () => window.removeEventListener('keydown', handleEsc);
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
   }, [fullscreenImage]);
 
   // Vollbildmodus bei Gerätedrehung erhalten
@@ -118,16 +127,6 @@ const Projects = () => {
     if (fullscreenImage !== null) {
       const handleOrientationChange = () => {
         // Der Vollbildmodus bleibt durch fixed positioning erhalten
-        // Optional: Scroll zum aktuellen Bild nach Orientierungsänderung
-        setTimeout(() => {
-          if (fullscreenScrollRef.current && fullscreenImage !== null) {
-            const container = fullscreenScrollRef.current;
-            const imageContainer = container.querySelector(`[data-image-index="${fullscreenImage}"]`) as HTMLElement;
-            if (imageContainer) {
-              imageContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
-            }
-          }
-        }, 300);
       };
 
       window.addEventListener('orientationchange', handleOrientationChange);
@@ -287,46 +286,68 @@ const Projects = () => {
               <X className="w-6 h-6" />
             </button>
 
-            {/* Scrollbar-Container mit allen Bildern */}
+            {/* Bild-Container ohne Scroll */}
             <div 
-              ref={fullscreenScrollRef}
-              className="w-full h-full overflow-x-auto scrollbar-thin"
-              style={{ WebkitOverflowScrolling: 'touch' }}
+              className="w-full h-full overflow-hidden relative"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="flex flex-row items-center h-full">
-                {images.map((image, index) => (
-                  <div 
-                    key={index}
-                    data-image-index={index}
-                    className="flex items-center justify-center h-full px-4 flex-shrink-0"
-                    style={{ width: '100vw' }}
-                  >
-                    <div className="relative w-full h-full flex items-center justify-center" style={{ maxHeight: '100vh' }}>
-                      <Image
-                        src={image.src}
-                        alt={image.alt}
-                        width={0}
-                        height={0}
-                        className={imageOrientations[index] === 'portrait' 
-                          ? 'w-auto h-auto max-w-full max-h-[100vh] object-contain' 
-                          : 'w-full h-auto max-h-[100vh] object-contain'
-                        }
-                        sizes="100vw"
-                        unoptimized={false}
-                        onLoad={(e) => {
-                          const img = e.currentTarget;
-                          const isPortrait = img.naturalHeight > img.naturalWidth;
-                          setImageOrientations(prev => ({
-                            ...prev,
-                            [index]: isPortrait ? 'portrait' : 'landscape'
-                          }));
-                        }}
-                      />
-                    </div>
-                  </div>
-                ))}
+              {/* Aktuelles Bild */}
+              <div className="flex items-center justify-center h-full px-4">
+                <div className="relative w-full h-full flex items-center justify-center" style={{ maxHeight: '100vh' }}>
+                  <Image
+                    src={images[fullscreenImage].src}
+                    alt={images[fullscreenImage].alt}
+                    width={0}
+                    height={0}
+                    className={imageOrientations[fullscreenImage] === 'portrait' 
+                      ? 'w-auto h-auto max-w-full max-h-[100vh] object-contain' 
+                      : 'w-full h-auto max-h-[100vh] object-contain'
+                    }
+                    sizes="100vw"
+                    unoptimized={false}
+                    onLoad={(e) => {
+                      const img = e.currentTarget;
+                      const isPortrait = img.naturalHeight > img.naturalWidth;
+                      setImageOrientations(prev => ({
+                        ...prev,
+                        [fullscreenImage]: isPortrait ? 'portrait' : 'landscape'
+                      }));
+                    }}
+                  />
+                </div>
               </div>
+
+              {/* Navigation Buttons */}
+              {images.length > 1 && (
+                <>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      prevFullscreenImage();
+                    }}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black/90 text-white p-3 rounded-full transition-colors z-10"
+                    aria-label="Vorheriges Bild"
+                  >
+                    <ChevronLeft className="w-6 h-6" />
+                  </button>
+                  
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      nextFullscreenImage();
+                    }}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black/90 text-white p-3 rounded-full transition-colors z-10"
+                    aria-label="Nächstes Bild"
+                  >
+                    <ChevronRight className="w-6 h-6" />
+                  </button>
+
+                  {/* Bild-Zähler */}
+                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/70 text-white px-4 py-2 rounded-full text-sm font-medium pointer-events-none">
+                    {fullscreenImage + 1} / {images.length}
+                  </div>
+                </>
+              )}
             </div>
           </div>
         )}

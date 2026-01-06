@@ -4,6 +4,7 @@ import "./globals.css";
 import StructuredData from "@/components/seo/StructuredData";
 import CookieBanner from "@/components/ui/CookieBanner";
 import Analytics from "@/components/analytics/Analytics";
+import { FullscreenProvider } from "@/contexts/FullscreenContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -92,9 +93,11 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
-        <CookieBanner />
-        <Analytics />
+        <FullscreenProvider>
+          {children}
+          <CookieBanner />
+          <Analytics />
+        </FullscreenProvider>
       </body>
     </html>
   );
