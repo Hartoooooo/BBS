@@ -42,7 +42,7 @@ const Hero = () => {
               
               {/* Untertitel */}
               <p className="text-lg md:text-xl text-gray-700 mb-6">
-                <span className="block">Seit über 22 Jahren Ihr Experte für Fliesenarbeiten in Berlin & Brandenburg.</span>
+                <span className="block">Seit über 22 Jahren Ihr Meisterbetrieb für Fliesenarbeiten in Berlin & Brandenburg.</span>
                 <span className="hidden md:inline"> Wir sind spezialisiert auf barrierefreies Bauen, professionelle Badsanierung und komplette Badumbauten.</span>
               </p>
 

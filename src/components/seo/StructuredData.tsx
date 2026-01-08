@@ -8,7 +8,7 @@ export default function StructuredData() {
     "url": "https://www.artdesignbau.de",
     "logo": "https://www.artdesignbau.de/LOGO.webp",
     "image": "https://www.artdesignbau.de/LOGO.webp",
-    "description": "Ihr vertrauensvoller Partner für barrierefreies Bauen und Sanieren in Berlin und Brandenburg. Mit über 20 Jahren Erfahrung realisieren wir Ihre Badumbauten, Fliesenarbeiten und barrierefreien Lösungen mit Herz und Handwerk.",
+    "description": "Ihr vertrauensvoller Meisterbetrieb für barrierefreies Bauen und Sanieren in Berlin und Brandenburg. Mit über 22 Jahren Erfahrung realisieren wir Ihre Badumbauten, Fliesenarbeiten und barrierefreien Lösungen mit Herz und Handwerk.",
     "foundingDate": "2003",
     "telephone": "+49-30-92371277",
     "email": "service@b-b-s.berlin",
