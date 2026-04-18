@@ -24,36 +24,42 @@ const Services = () => {
       title: 'Barrierefreies Bad',
       description: 'Komplette Badumbauten für mehr Sicherheit und Komfort – bodengleiche Duschen, Haltegriffe und barrierefreie Lösungen.',
       image: '/20250929_1107_Barrierefreies Badezimmerdesign_remix_01k6abgsq0ezv930dvr6gdh36k.webp',
+      imageAlt: 'Barrierefreies Bad Berlin – Bodengleiche Dusche mit Haltegriffen, Meisterbetrieb BBS',
     },
     {
       icon: <Building className="w-12 h-12 text-red-500" />,
       title: 'Trockenbau',
       description: 'Professionelle Trockenbauarbeiten für Wände, Decken und Raumteilungen – schnell und sauber umgesetzt.',
       image: '/Trockenbau.png',
+      imageAlt: 'Trockenbau Berlin Brandenburg – Professionelle Trockenbauarbeiten BBS Meisterbetrieb',
     },
     {
       icon: <TreePine className="w-12 h-12 text-red-500" />,
       title: 'Holz & Bautenschutz',
       description: 'Schutz und Pflege von Holzkonstruktionen sowie umfassende Bautenschutzmaßnahmen für langlebige Bausubstanz.',
       image: '/Holzschutz.webp',
+      imageAlt: 'Holz- und Bautenschutz Berlin Brandenburg – Langlebige Bausubstanz BBS',
     },
     {
       icon: <Shield className="w-12 h-12 text-red-500" />,
       title: 'Bauwerksabdichtung',
       description: 'Fachgerechte Abdichtung von Gebäuden gegen Feuchtigkeit und Wasser für dauerhaften Schutz.',
       image: '/Bauwerksabdichtung.webp',
+      imageAlt: 'Bauwerksabdichtung Berlin – Kellerabdichtung und Feuchtigkeitsschutz BBS Meisterbetrieb',
     },
     {
       icon: <Layers className="w-12 h-12 text-red-500" />,
       title: 'Bodenbelagsarbeiten',
       description: 'Verlegung von Fliesen, Parkett, Laminat und anderen Bodenbelägen mit höchster Präzision.',
       image: '/bodenbelagsarbeiten.webp',
+      imageAlt: 'Bodenbelagsarbeiten Berlin – Fliesen, Parkett und Laminat verlegen, Fliesenleger BBS',
     },
     {
       icon: <Droplet className="w-12 h-12 text-red-500" />,
       title: 'Wasserschadensanierung',
       description: 'Schnelle und professionelle Sanierung von Wasserschäden – Trocknung, Reparatur und Wiederherstellung.',
       image: '/wasserschaden.webp',
+      imageAlt: 'Wasserschadensanierung Berlin Brandenburg – Professionelle Trocknung und Reparatur BBS',
     },
   ];
 
@@ -136,7 +142,7 @@ const Services = () => {
                       <div className="relative h-64 w-full">
                         <Image
                           src={service.image}
-                          alt={service.title}
+                          alt={service.imageAlt || service.title}
                           fill
                           className="object-cover"
                         />

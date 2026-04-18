@@ -18,9 +18,9 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.artdesignbau.de'),
-  title: "BBS - Barrierefreies Bauen und Sanieren",
-  description: "Ihr vertrauensvoller Meisterbetrieb für barrierefreies Bauen und Sanieren in Berlin und Brandenburg. Mit über 22 Jahren Erfahrung realisieren wir Ihre Badumbauten, Fliesenarbeiten und barrierefreien Lösungen mit Herz und Handwerk.",
-  keywords: "fliesenleger schöneiche, bad umbau, bad sanierung berlin, bad umbau brandenburg, barrierefreies bauen west-berlin, barrierefreies bauen charlottenburg, barrierefreies bauen und sanieren, fliesenleger brandenburg, fliesenleger strausberg, badumbau berlin, badsanierung brandenburg, altersgerechter badumbau, barrierefreie badsanierung",
+  title: "Barrierefreies Bauen Berlin | Meisterbetrieb BBS – Badumbau & Fliesenarbeiten",
+  description: "Meisterbetrieb für barrierefreies Bauen & Badsanierung in Berlin und Brandenburg. Bodengleiche Duschen, Fliesenarbeiten, KfW-förderfähig. Über 22 Jahre Erfahrung – jetzt kostenlose Beratung anfragen!",
+  keywords: "barrierefreies bad berlin, barrierefreier badumbau berlin, bodengleiche dusche berlin, fliesenleger berlin, badsanierung berlin, badumbau berlin, barrierefreie badsanierung berlin, behindertengerechtes bad berlin, fliesenleger meisterbetrieb berlin, badumbau kfw förderung berlin, rutschfeste fliesen berlin, altersgerechter badumbau berlin, barrierefreie dusche berlin, seniorenbad umbau berlin, fliesenleger schöneiche, badsanierung schöneiche, bad umbau brandenburg, barrierefreies bad brandenburg, fliesenleger brandenburg, fliesenleger strausberg, barrierefreies bauen west-berlin, barrierefreies bauen charlottenburg, barrierefreies bauen und sanieren, wasserschadensanierung berlin, trockenbau berlin, bauwerksabdichtung berlin, nasszellenabdichtung berlin",
   authors: [{ name: "BBS Björn Hartmann" }],
   creator: "BBS Barrierefreies Bauen und Sanieren",
   publisher: "BBS Björn Hartmann",
@@ -52,8 +52,8 @@ export const metadata: Metadata = {
     locale: 'de_DE',
     url: 'https://www.artdesignbau.de',
     siteName: 'BBS - Barrierefreies Bauen und Sanieren',
-    title: 'BBS - Barrierefreies Bauen und Sanieren',
-    description: 'Ihr Meisterbetrieb für barrierefreies Bauen und Sanieren in Berlin und Brandenburg. Mit über 22 Jahren Erfahrung realisieren wir Ihre Badumbauten und Fliesenarbeiten.',
+    title: 'Barrierefreies Bauen Berlin | Meisterbetrieb BBS – Badumbau & Fliesenarbeiten',
+    description: 'Meisterbetrieb für barrierefreies Bauen & Badsanierung in Berlin und Brandenburg. Bodengleiche Duschen, Fliesenarbeiten, KfW-förderfähig. Über 22 Jahre Erfahrung.',
     images: [
       {
         url: '/hero-bathroom.webp',
@@ -71,8 +71,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'BBS - Barrierefreies Bauen und Sanieren',
-    description: 'Ihr Meisterbetrieb für barrierefreies Bauen und Sanieren in Berlin und Brandenburg. Mit über 22 Jahren Erfahrung realisieren wir Ihre Badumbauten.',
+    title: 'Barrierefreies Bauen Berlin | Meisterbetrieb BBS – Badumbau & Fliesenarbeiten',
+    description: 'Meisterbetrieb für barrierefreies Bauen & Badsanierung in Berlin und Brandenburg. Bodengleiche Duschen, KfW-förderfähig. Über 22 Jahre Erfahrung.',
     images: ['/hero-bathroom.webp'],
   },
   alternates: {

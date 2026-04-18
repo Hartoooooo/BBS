@@ -9,7 +9,7 @@ const Hero = () => {
         <div className="absolute inset-0">
           <Image
             src="/hero-bathroom.webp"
-            alt="Luxuriöses Badezimmerdesign – Hero"
+            alt="Barrierefreies Badezimmer Berlin – Bodengleiche Dusche mit Haltegriffen, Meisterbetrieb BBS"
             fill
             className="object-cover"
             priority

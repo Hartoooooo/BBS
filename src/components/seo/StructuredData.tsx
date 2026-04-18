@@ -7,8 +7,11 @@ export default function StructuredData() {
     "legalName": "BBS Björn Hartmann",
     "url": "https://www.artdesignbau.de",
     "logo": "https://www.artdesignbau.de/LOGO.webp",
-    "image": "https://www.artdesignbau.de/LOGO.webp",
-    "description": "Ihr vertrauensvoller Meisterbetrieb für barrierefreies Bauen und Sanieren in Berlin und Brandenburg. Mit über 22 Jahren Erfahrung realisieren wir Ihre Badumbauten, Fliesenarbeiten und barrierefreien Lösungen mit Herz und Handwerk.",
+    "image": [
+      "https://www.artdesignbau.de/LOGO.webp",
+      "https://www.artdesignbau.de/hero-bathroom.webp"
+    ],
+    "description": "Meisterbetrieb für barrierefreies Bauen und Sanieren in Berlin und Brandenburg. Über 22 Jahre Erfahrung in Badumbauten, Fliesenarbeiten, bodengleichen Duschen und barrierefreien Lösungen. KfW-förderfähig.",
     "foundingDate": "2003",
     "telephone": "+49-30-92371277",
     "email": "service@b-b-s.berlin",
@@ -25,31 +28,47 @@ export default function StructuredData() {
       "latitude": "52.4633",
       "longitude": "13.6625"
     },
-    "areaServed": [
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5.0",
+      "reviewCount": "5",
+      "bestRating": "5",
+      "worstRating": "1"
+    },
+    "review": [
       {
-        "@type": "City",
-        "name": "Berlin"
+        "@type": "Review",
+        "author": { "@type": "Person", "name": "D. S." },
+        "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+        "reviewBody": "Wir haben schon mehrere Sachen machen lassen, ist jedes Mal super geworden. Tolle Arbeit! Jederzeit wieder!"
       },
       {
-        "@type": "City",
-        "name": "Berlin-Charlottenburg"
+        "@type": "Review",
+        "author": { "@type": "Person", "name": "Herr E. V." },
+        "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+        "reviewBody": "Ich habe mein Bad von BBS umbauen lassen. Die Firma hat eine ebenerdige Dusche, rutschfeste Fliesen und schwellenlose Übergänge eingebaut. Alles wurde sauber, zuverlässig und termingerecht erledigt."
       },
       {
-        "@type": "City",
-        "name": "Berlin West"
-      },
-      {
-        "@type": "State",
-        "name": "Brandenburg"
-      },
-      {
-        "@type": "City",
-        "name": "Schöneiche bei Berlin"
-      },
-      {
-        "@type": "City",
-        "name": "Strausberg"
+        "@type": "Review",
+        "author": { "@type": "Person", "name": "Frau W. E." },
+        "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+        "reviewBody": "Unser Badezimmer wurde komplett barrierefrei umgebaut. Die Fliesenarbeiten sehr sauber ausgeführt und alle Übergänge ohne Kanten gestaltet. Alles lief zuverlässig und termingerecht."
       }
+    ],
+    "areaServed": [
+      { "@type": "City", "name": "Berlin" },
+      { "@type": "City", "name": "Berlin-Charlottenburg" },
+      { "@type": "City", "name": "Berlin-Spandau" },
+      { "@type": "City", "name": "Berlin-Pankow" },
+      { "@type": "City", "name": "Berlin-Mitte" },
+      { "@type": "City", "name": "Berlin-Lichtenberg" },
+      { "@type": "City", "name": "Berlin-Treptow" },
+      { "@type": "City", "name": "Berlin West" },
+      { "@type": "State", "name": "Brandenburg" },
+      { "@type": "City", "name": "Schöneiche bei Berlin" },
+      { "@type": "City", "name": "Strausberg" },
+      { "@type": "City", "name": "Neuenhagen" },
+      { "@type": "City", "name": "Erkner" }
     ],
     "priceRange": "€€-€€€",
     "openingHoursSpecification": [
@@ -72,62 +91,62 @@ export default function StructuredData() {
     "hasMap": "https://www.google.com/maps/search/?api=1&query=BBS+Barrierefreies+Bauen+und+Sanieren+Petershagener+Straße+27+15566+Schöneiche+bei+Berlin",
     "hasOfferCatalog": {
       "@type": "OfferCatalog",
-      "name": "Barrierefreie Bauleistungen",
+      "name": "Barrierefreie Bauleistungen Berlin & Brandenburg",
       "itemListElement": [
         {
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
-            "name": "Barrierefreie Badumbauten",
-            "description": "Komplette Badumbauten für mehr Sicherheit und Komfort – bodengleiche Duschen, Haltegriffe und mehr"
+            "name": "Barrierefreies Bad Berlin – Badumbau & bodengleiche Dusche",
+            "description": "Komplette barrierefreie Badumbauten in Berlin und Brandenburg: bodengleiche Duschen, rutschfeste Fliesen, Haltegriffe, schwellenlose Übergänge. KfW-förderfähig."
           }
         },
         {
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
-            "name": "Treppenlifte & Rampen",
-            "description": "Installation von Treppenliften und Rampen für barrierefreien Zugang"
+            "name": "Fliesenarbeiten Berlin & Brandenburg",
+            "description": "Professionelle Fliesen- und Natursteinarbeiten für Bad, Küche und Wohnraum in Berlin, Schöneiche, Brandenburg und Strausberg."
           }
         },
         {
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
-            "name": "Türverbreiterungen",
-            "description": "Verbreiterung von Türöffnungen für Rollstuhlfahrer"
+            "name": "Badsanierung Berlin",
+            "description": "Komplette Badsanierung und Badumbau in Berlin, Brandenburg und Umgebung – alles aus einer Hand."
           }
         },
         {
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
-            "name": "Altersgerechte Wohnungsanpassung",
-            "description": "Ganzheitliche Anpassung Ihrer Wohnung an individuelle Bedürfnisse"
+            "name": "Barrierefreies Bauen West-Berlin & Charlottenburg",
+            "description": "Spezialist für barrierefreies Bauen und Sanieren in West-Berlin, Charlottenburg und ganz Berlin."
           }
         },
         {
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
-            "name": "Fliesenarbeiten Schöneiche, Brandenburg, Berlin",
-            "description": "Professionelle Fliesen- und Natursteinarbeiten für Bad, Küche und Wohnraum in Schöneiche, Brandenburg, Berlin und Strausberg"
+            "name": "Wasserschadensanierung Berlin",
+            "description": "Schnelle und professionelle Sanierung von Wasserschäden in Berlin und Brandenburg – Leckortung, Trocknung, Wiederherstellung."
           }
         },
         {
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
-            "name": "Bad Sanierung Berlin",
-            "description": "Komplette Badsanierung und Badumbau in Berlin, Brandenburg und Umgebung"
+            "name": "Bauwerksabdichtung & Kellerabdichtung Berlin",
+            "description": "Fachgerechte Abdichtung gegen Feuchtigkeit: Kellerabdichtung, Horizontalsperren, Balkonabdichtung in Berlin und Brandenburg."
           }
         },
         {
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
-            "name": "Barrierefreies Bauen West-Berlin Charlottenburg",
-            "description": "Spezialist für barrierefreies Bauen und Sanieren in West-Berlin und Charlottenburg"
+            "name": "Trockenbau Berlin",
+            "description": "Professionelle Trockenbauarbeiten für Wände, Decken und Raumteilungen in Berlin und Brandenburg."
           }
         }
       ]
@@ -140,26 +159,50 @@ export default function StructuredData() {
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "Kann ich bei Ihnen einen Beratungstermin für barrierefreies Bauen buchen?",
+        "name": "Welche Fliesenarbeiten bieten Sie an?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Selbstverständlich. Wir bieten Ihnen eine kostenlose und unverbindliche Beratung für Ihr Haus oder Ihre Wohnung. Vereinbaren Sie einfach einen Termin und lassen Sie sich individuell beraten, welche barrierefreien Lösungen für Sie in Frage kommen."
+          "text": "Wir bieten professionelle Fliesenarbeiten für Bad, Küche und Wohnräume an. Dazu gehören Wand- und Bodenfliesen, Natursteinverlegung sowie moderne großformatige Fliesen. Unsere erfahrenen Fliesenleger arbeiten präzise und sauber."
         }
       },
       {
         "@type": "Question",
-        "name": "Übernehmen Sie auch komplette Badumbauten?",
+        "name": "Führen Sie komplette barrierefreie Badumbauten durch?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Ja, wir führen komplette barrierefreie Badumbauten durch. Von der Planung bis zur Fertigstellung erhalten Sie alles aus einer Hand - bodengleiche Duschen, rutschfeste Böden, Haltegriffe und alle weiteren Anpassungen für mehr Sicherheit und Komfort."
+          "text": "Ja, wir führen komplette barrierefreie Badumbauten durch. Von der Planung bis zur Fertigstellung erhalten Sie alles aus einer Hand - bodengleiche Duschen, rutschfeste Fliesen, Haltegriffe und alle weiteren Anpassungen für mehr Sicherheit und Komfort."
         }
       },
       {
         "@type": "Question",
-        "name": "Installieren Sie auch Treppenlifte?",
+        "name": "Was umfasst Ihre Wasserschadensanierung?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Ja, wir verkaufen, montieren und warten Treppenlifte verschiedener Hersteller. Unsere Installationen erfolgen fachgerecht mit entsprechender Zertifizierung und regelmäßigen Wartungsprotokollen für maximale Sicherheit."
+          "text": "Bei Wasserschäden bieten wir schnelle professionelle Hilfe: Leckortung, Trocknung der betroffenen Bereiche, Schimmelprävention sowie fachgerechte Sanierung und Wiederherstellung. Wir arbeiten mit modernen Trocknungsgeräten und dokumentieren den gesamten Prozess."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Welche Bodenbeläge verlegen Sie?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Wir verlegen alle gängigen Bodenbeläge: Fliesen, Naturstein, Parkett, Laminat, Vinyl und PVC. Dabei beraten wir Sie zur Auswahl des passenden Materials für Ihre Räumlichkeiten und sorgen für eine fachgerechte, präzise Verlegung."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Was beinhaltet Ihr Trockenbau-Service?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Unser Trockenbau-Service umfasst den Bau von Trennwänden, abgehängten Decken, Dachausbauten und Raumteilungen. Wir arbeiten schnell, sauber und bieten auch Schall- und Wärmedämmung sowie die komplette Verspachtelung und Oberflächenbearbeitung."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Wie schützen Sie Gebäude vor Feuchtigkeit?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Wir bieten professionelle Bauwerksabdichtung gegen Feuchtigkeit: Kellerabdichtung, Horizontalsperren, Vertikalabdichtungen und Balkonabdichtungen. Zusätzlich führen wir Holzschutzmaßnahmen durch, um Ihre Bausubstanz langfristig zu schützen."
         }
       },
       {
@@ -168,14 +211,6 @@ export default function StructuredData() {
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "Es gibt verschiedene Fördermöglichkeiten wie zinsgünstige KfW Kredite, Pflegekassenzuschüsse (bis zu 4.180 €) und regionale Förderungen. Wir beraten Sie gerne über die für Sie passenden Fördermöglichkeiten."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Wie lange dauert ein typischer Badumbau?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Die Dauer hängt vom Umfang der Arbeiten ab. Ein einfacher Umbau dauert meist 3-5 Tage, ein kompletter Badumbau kann 1-2 Wochen in Anspruch nehmen. Wir informieren Sie vorab über den genauen Zeitplan."
         }
       }
     ]
