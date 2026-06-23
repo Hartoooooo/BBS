@@ -53,9 +53,9 @@ const Hero = () => {
               ['150+', 'Projekte realisiert'],
               ['Regional', 'Berlin & Brandenburg'],
             ].map(([value, label]) => (
-              <div key={label} className="rounded-2xl border border-[#172024]/12 bg-white/78 p-4 shadow-[0_24px_80px_rgba(23,32,36,0.08)]">
-                <div className="text-2xl font-black text-[#172024] sm:text-3xl">{value}</div>
-                <div className="mt-1 whitespace-nowrap text-[0.68rem] font-bold uppercase tracking-[0.08em] text-[#6f8f9a]">{label}</div>
+              <div key={label} className="rounded-2xl border border-[#172024]/12 bg-white/78 p-3 shadow-[0_24px_80px_rgba(23,32,36,0.08)] sm:p-4">
+                <div className="text-base font-black text-[#172024] sm:text-3xl">{value}</div>
+                <div className="mt-1 whitespace-nowrap text-[0.48rem] font-bold uppercase tracking-[0.01em] text-[#6f8f9a] sm:text-[0.68rem] sm:tracking-[0.08em]">{label}</div>
               </div>
             ))}
           </div>

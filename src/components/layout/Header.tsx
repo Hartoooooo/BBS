@@ -56,7 +56,7 @@ const Header = () => {
           />
           <span className="min-w-0">
             <span className="block text-xl font-black leading-none tracking-tight text-[#172024]">BBS</span>
-            <span className="block max-w-[150px] truncate text-[11px] font-bold uppercase tracking-[0.12em] text-[#6f8f9a] sm:max-w-none">
+            <span className="block whitespace-nowrap text-[9px] font-bold uppercase tracking-[0.06em] text-[#6f8f9a] sm:text-[11px] sm:tracking-[0.12em]">
               Barrierefreies Bauen
             </span>
           </span>

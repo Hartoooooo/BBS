@@ -185,7 +185,7 @@ const AnfragePage = () => {
   };
 
   const optionClass = (active: boolean) =>
-    `group relative flex min-h-24 cursor-pointer items-center gap-4 rounded-3xl border p-5 text-left transition lg:min-h-16 lg:gap-3 lg:rounded-2xl lg:p-4 ${
+    `group relative flex min-h-20 cursor-pointer items-center gap-3 rounded-2xl border p-3 text-left transition sm:min-h-24 sm:gap-4 sm:rounded-3xl sm:p-5 lg:min-h-16 lg:gap-3 lg:rounded-2xl lg:p-4 ${
       active
         ? 'border-[#d63d32] bg-[#d63d32] text-white shadow-[0_18px_44px_rgba(214,61,50,0.22)]'
         : 'border-[#172024]/10 bg-white/76 text-[#172024] hover:-translate-y-1 hover:border-[#d63d32]/45 hover:bg-white'
@@ -211,10 +211,10 @@ const AnfragePage = () => {
                       onChange={(event) => handleInputChange('projectType', event.target.value)}
                       className="sr-only"
                     />
-                    <span className={`rounded-2xl p-3 lg:p-2.5 ${active ? 'bg-white/16' : 'bg-[#d8ebe6]'}`}>
-                      <Icon className="h-6 w-6 lg:h-5 lg:w-5" />
+                    <span className={`rounded-2xl p-2.5 sm:p-3 lg:p-2.5 ${active ? 'bg-white/16' : 'bg-[#d8ebe6]'}`}>
+                      <Icon className="h-5 w-5 sm:h-6 sm:w-6 lg:h-5 lg:w-5" />
                     </span>
-                    <span className="min-w-0 flex-1 break-words text-lg font-black leading-tight hyphens-auto pr-5 lg:text-[15px]">{type.label}</span>
+                    <span className="min-w-0 flex-1 break-words pr-5 text-sm font-black leading-tight hyphens-auto sm:text-lg lg:text-[15px]">{type.label}</span>
                     {active && <CheckCircle2 className="absolute right-4 top-4 h-5 w-5 lg:h-4 lg:w-4" />}
                   </label>
                 );
@@ -233,7 +233,7 @@ const AnfragePage = () => {
                   key={type}
                   type="button"
                   onClick={() => handleInputChange('buildingType', type)}
-                  className={`min-h-14 rounded-2xl px-4 font-black transition ${
+                  className={`min-h-12 rounded-2xl px-3 text-sm font-black transition sm:min-h-14 sm:px-4 sm:text-base ${
                     formData.buildingType === type ? 'bg-white text-[#172024]' : 'text-white/62 hover:text-white'
                   }`}
                 >
@@ -254,10 +254,10 @@ const AnfragePage = () => {
                       onChange={(event) => handlePropertyTypeChange(property.id, event.target.checked)}
                       className="sr-only"
                     />
-                    <span className={`flex h-11 w-11 items-center justify-center rounded-2xl border lg:h-9 lg:w-9 ${active ? 'border-white/35' : 'border-[#172024]/14'}`}>
-                      {active && <Check className="h-5 w-5 lg:h-4 lg:w-4" />}
+                    <span className={`flex h-9 w-9 items-center justify-center rounded-2xl border sm:h-11 sm:w-11 lg:h-9 lg:w-9 ${active ? 'border-white/35' : 'border-[#172024]/14'}`}>
+                      {active && <Check className="h-4 w-4 sm:h-5 sm:w-5 lg:h-4 lg:w-4" />}
                     </span>
-                    <span className="min-w-0 flex-1 break-words text-lg font-black leading-tight hyphens-auto lg:text-[15px]">{property.label}</span>
+                    <span className="min-w-0 flex-1 break-words text-sm font-black leading-tight hyphens-auto sm:text-lg lg:text-[15px]">{property.label}</span>
                   </label>
                 );
               })}
@@ -282,8 +282,8 @@ const AnfragePage = () => {
                       onChange={(event) => handleInputChange('timeframe', event.target.value)}
                       className="sr-only"
                     />
-                    <Clock className="h-6 w-6 lg:h-5 lg:w-5" />
-                    <span className="min-w-0 flex-1 break-words text-xl font-black leading-tight hyphens-auto pr-5 lg:text-[15px]">{timeframe.label}</span>
+                    <Clock className="h-5 w-5 sm:h-6 sm:w-6 lg:h-5 lg:w-5" />
+                    <span className="min-w-0 flex-1 break-words pr-5 text-base font-black leading-tight hyphens-auto sm:text-xl lg:text-[15px]">{timeframe.label}</span>
                     {active && <CheckCircle2 className="absolute right-4 top-4 h-5 w-5 lg:h-4 lg:w-4" />}
                   </label>
                 );
@@ -309,7 +309,7 @@ const AnfragePage = () => {
                       onChange={(event) => handleInputChange('budget', event.target.value)}
                       className="sr-only"
                     />
-                    <span className="min-w-0 flex-1 break-words text-xl font-black leading-tight hyphens-auto pr-5 lg:text-[15px]">{budget.label}</span>
+                    <span className="min-w-0 flex-1 break-words pr-5 text-base font-black leading-tight hyphens-auto sm:text-xl lg:text-[15px]">{budget.label}</span>
                     {active && <CheckCircle2 className="absolute right-4 top-4 h-5 w-5 lg:h-4 lg:w-4" />}
                   </label>
                 );
@@ -428,7 +428,7 @@ const AnfragePage = () => {
               <ArrowLeft className="h-4 w-4" />
               Startseite
             </Link>
-            <h1 className="absolute left-1/2 top-1/2 w-[min(58vw,720px)] -translate-x-1/2 -translate-y-1/2 text-center text-[clamp(1.35rem,4.2vw,3.3rem)] font-black leading-[0.95] tracking-normal text-[#172024]">
+            <h1 className="relative z-10 ml-auto inline-flex items-center rounded-full bg-white/78 px-4 py-3 text-right text-sm font-black leading-none text-[#172024] backdrop-blur sm:absolute sm:left-1/2 sm:top-1/2 sm:ml-0 sm:w-[min(58vw,720px)] sm:-translate-x-1/2 sm:-translate-y-1/2 sm:justify-center sm:bg-transparent sm:px-0 sm:py-0 sm:text-center sm:text-[clamp(1.35rem,4.2vw,3.3rem)] sm:leading-[0.95] sm:backdrop-blur-none">
               Projektanfrage
             </h1>
             <div className="relative z-10 hidden gap-4 text-sm font-black text-[#172024] sm:flex">
@@ -520,18 +520,18 @@ const AnfragePage = () => {
                 {currentStep === 1 ? (
                   <Link
                     href="/"
-                    className="inline-flex min-h-14 items-center justify-center gap-2 rounded-full border border-[#172024]/12 bg-white px-5 font-black text-[#172024] transition hover:bg-[#d8ebe6]"
+                    className="inline-flex min-h-12 items-center justify-center gap-1.5 rounded-full border border-[#172024]/12 bg-white px-4 text-sm font-black text-[#172024] transition hover:bg-[#d8ebe6] sm:min-h-14 sm:gap-2 sm:px-5 sm:text-base"
                   >
-                    <ArrowLeft className="h-5 w-5" />
+                    <ArrowLeft className="h-4 w-4 sm:h-5 sm:w-5" />
                     Zurück
                   </Link>
                 ) : (
                   <button
                     type="button"
                     onClick={prevStep}
-                    className="inline-flex min-h-14 items-center justify-center gap-2 rounded-full border border-[#172024]/12 bg-white px-5 font-black text-[#172024] transition hover:bg-[#d8ebe6]"
+                    className="inline-flex min-h-12 items-center justify-center gap-1.5 rounded-full border border-[#172024]/12 bg-white px-4 text-sm font-black text-[#172024] transition hover:bg-[#d8ebe6] sm:min-h-14 sm:gap-2 sm:px-5 sm:text-base"
                   >
-                    <ArrowLeft className="h-5 w-5" />
+                    <ArrowLeft className="h-4 w-4 sm:h-5 sm:w-5" />
                     Zurück
                   </button>
                 )}
@@ -541,18 +541,18 @@ const AnfragePage = () => {
                     type="button"
                     onClick={nextStep}
                     disabled={!canProceed()}
-                    className="inline-flex min-h-14 items-center justify-center gap-2 rounded-full bg-[#d63d32] px-7 font-black text-white shadow-[0_18px_44px_rgba(214,61,50,0.25)] transition hover:-translate-y-1 hover:bg-[#b93028] disabled:cursor-not-allowed disabled:bg-[#6f8f9a] disabled:shadow-none disabled:hover:translate-y-0"
+                    className="inline-flex min-h-12 items-center justify-center gap-1.5 rounded-full bg-[#d63d32] px-5 text-sm font-black text-white shadow-[0_18px_44px_rgba(214,61,50,0.25)] transition hover:-translate-y-1 hover:bg-[#b93028] disabled:cursor-not-allowed disabled:bg-[#6f8f9a] disabled:shadow-none disabled:hover:translate-y-0 sm:min-h-14 sm:gap-2 sm:px-7 sm:text-base"
                   >
                     Weiter
-                    <ArrowRight className="h-5 w-5" />
+                    <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5" />
                   </button>
                 ) : (
                   <button
                     type="submit"
-                    className="inline-flex min-h-14 items-center justify-center gap-2 rounded-full bg-[#172024] px-7 font-black text-white transition hover:-translate-y-1"
+                    className="inline-flex min-h-12 items-center justify-center gap-1.5 rounded-full bg-[#172024] px-5 text-sm font-black text-white transition hover:-translate-y-1 sm:min-h-14 sm:gap-2 sm:px-7 sm:text-base"
                   >
                     Anfrage absenden
-                    <Check className="h-5 w-5" />
+                    <Check className="h-4 w-4 sm:h-5 sm:w-5" />
                   </button>
                 )}
               </div>
