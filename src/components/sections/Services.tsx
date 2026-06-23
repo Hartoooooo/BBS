@@ -31,16 +31,16 @@ const services = [
     image: '/wasserschadensanierung-trocknung.png',
   },
   {
-    icon: TreePine,
-    title: 'Holz & Bautenschutz',
-    description: 'Schutz für Holzkonstruktionen und Bausubstanz mit dauerhafter Wirkung.',
-    image: '/Holzschutz.webp',
-  },
-  {
     icon: Shield,
     title: 'Bauwerksabdichtung',
     description: 'Fachgerechte Abdichtung gegen Feuchtigkeit, Wasser und Folgeschäden.',
     image: '/bauwerksabdichtung-abdichtung.png',
+  },
+  {
+    icon: TreePine,
+    title: 'Holz & Bautenschutz',
+    description: 'Schutz für Holzkonstruktionen und Bausubstanz mit dauerhafter Wirkung.',
+    image: '/Holzschutz.webp',
   },
 ];
 
