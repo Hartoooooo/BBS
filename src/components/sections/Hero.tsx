@@ -47,14 +47,14 @@ const Hero = () => {
             </Link>
           </div>
 
-          <div className="mt-8 grid max-w-xl grid-cols-3 gap-2 reveal-up delay-3">
+          <div className="mx-auto mt-8 grid w-full max-w-xl grid-cols-3 gap-1.5 reveal-up delay-3 sm:mx-0 sm:gap-2">
             {[
               ['22+', 'Jahre Erfahrung'],
               ['150+', 'Projekte realisiert'],
               ['Regional', 'Berlin & Brandenburg'],
             ].map(([value, label]) => (
-              <div key={label} className="rounded-2xl border border-[#172024]/12 bg-white/78 p-3 shadow-[0_24px_80px_rgba(23,32,36,0.08)] sm:p-4">
-                <div className="text-base font-black text-[#172024] sm:text-3xl">{value}</div>
+              <div key={label} className="rounded-2xl border border-[#172024]/12 bg-white/78 p-2.5 text-center shadow-[0_24px_80px_rgba(23,32,36,0.08)] sm:p-4 sm:text-left">
+                <div className="text-lg font-black text-[#172024] sm:text-3xl">{value}</div>
                 <div className="mt-1 whitespace-nowrap text-[0.48rem] font-bold uppercase tracking-[0.01em] text-[#6f8f9a] sm:text-[0.68rem] sm:tracking-[0.08em]">{label}</div>
               </div>
             ))}

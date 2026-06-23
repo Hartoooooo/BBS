@@ -2,9 +2,8 @@
 
 import Image from 'next/image';
 import { useEffect, useRef, useState, type CSSProperties } from 'react';
-import { ChevronLeft, ChevronRight, Maximize2, X } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useScrollAnimation } from '@/lib/useScrollAnimation';
-import { useFullscreen } from '@/contexts/FullscreenContext';
 
 const images = [
   {
@@ -28,11 +27,9 @@ const images = [
 const Projects = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [fullscreenImage, setFullscreenImage] = useState<number | null>(null);
   const [edgeProgress, setEdgeProgress] = useState({ top: 0, bottom: 0 });
   const sectionRef = useRef<HTMLElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const { setIsFullscreen } = useFullscreen();
   const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation<HTMLDivElement>();
   const { ref: galleryRef, isVisible: galleryVisible } = useScrollAnimation<HTMLDivElement>();
 
@@ -58,23 +55,6 @@ const Projects = () => {
     container.addEventListener('scroll', handleScroll, { passive: true });
     return () => container.removeEventListener('scroll', handleScroll);
   }, []);
-
-  useEffect(() => {
-    if (fullscreenImage === null) return;
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        setFullscreenImage(null);
-        setIsFullscreen(false);
-        document.body.style.overflow = '';
-      }
-      if (event.key === 'ArrowLeft') setFullscreenImage((prev) => ((prev ?? 0) - 1 + images.length) % images.length);
-      if (event.key === 'ArrowRight') setFullscreenImage((prev) => ((prev ?? 0) + 1) % images.length);
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [fullscreenImage, setIsFullscreen]);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -121,18 +101,6 @@ const Projects = () => {
     container.scrollTo({ left, behavior: 'smooth' });
   };
 
-  const openFullscreen = (index: number) => {
-    setFullscreenImage(index);
-    setIsFullscreen(true);
-    document.body.style.overflow = 'hidden';
-  };
-
-  const closeFullscreen = () => {
-    setFullscreenImage(null);
-    setIsFullscreen(false);
-    document.body.style.overflow = '';
-  };
-
   return (
     <section
       id="projects"
@@ -172,14 +140,11 @@ const Projects = () => {
               {images.map((image, index) => (
                 <button
                   key={image.src}
-                  onClick={() => openFullscreen(index)}
+                  type="button"
                   className="relative h-[70svh] w-[86vw] flex-none snap-center snap-always overflow-hidden rounded-3xl bg-black text-left"
-                  aria-label={`${image.alt} öffnen`}
+                  aria-label={image.alt}
                 >
                   <Image src={image.src} alt={image.alt} fill className="object-cover" sizes="86vw" priority={index === 0} />
-                  <span className="absolute right-4 top-4 rounded-full bg-white/90 p-3 text-[#172024]">
-                    <Maximize2 className="h-5 w-5" />
-                  </span>
                 </button>
               ))}
             </div>
@@ -238,50 +203,6 @@ const Projects = () => {
         </div>
       </div>
 
-      {fullscreenImage !== null && (
-        <div className="fixed inset-0 z-[70] bg-black" onClick={closeFullscreen}>
-          <button
-            onClick={(event) => {
-              event.stopPropagation();
-              closeFullscreen();
-            }}
-            className="absolute right-4 top-4 z-10 rounded-full bg-white/12 p-4 text-white backdrop-blur transition hover:bg-white/22"
-            aria-label="Vollbild schließen"
-          >
-            <X className="h-6 w-6" />
-          </button>
-          <button
-            onClick={(event) => {
-              event.stopPropagation();
-              setFullscreenImage((prev) => ((prev ?? 0) - 1 + images.length) % images.length);
-            }}
-            className="absolute left-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/12 p-4 text-white backdrop-blur transition hover:bg-white/22"
-            aria-label="Vorheriges Bild"
-          >
-            <ChevronLeft className="h-6 w-6" />
-          </button>
-          <button
-            onClick={(event) => {
-              event.stopPropagation();
-              setFullscreenImage((prev) => ((prev ?? 0) + 1) % images.length);
-            }}
-            className="absolute right-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/12 p-4 text-white backdrop-blur transition hover:bg-white/22"
-            aria-label="Nächstes Bild"
-          >
-            <ChevronRight className="h-6 w-6" />
-          </button>
-          <div className="flex h-full items-center justify-center p-4" onClick={(event) => event.stopPropagation()}>
-            <Image
-              src={images[fullscreenImage].src}
-              alt={images[fullscreenImage].alt}
-              width={1600}
-              height={1200}
-              className="max-h-full w-auto max-w-full object-contain"
-              sizes="100vw"
-            />
-          </div>
-        </div>
-      )}
     </section>
   );
 };
