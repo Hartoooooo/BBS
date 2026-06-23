@@ -15,12 +15,13 @@ const Hero = () => {
           sizes="100vw"
         />
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(23,32,36,0.20)_0%,rgba(23,32,36,0.10)_38%,rgba(23,32,36,0.00)_58%)] lg:hidden" />
+        <div className="absolute inset-x-0 top-0 h-[54svh] bg-[linear-gradient(180deg,rgba(247,248,246,0.92)_0%,rgba(247,248,246,0.74)_22%,rgba(247,248,246,0.48)_45%,rgba(247,248,246,0.24)_68%,rgba(247,248,246,0.08)_88%,rgba(247,248,246,0)_100%)] lg:hidden" />
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(247,248,246,0.00)_0%,rgba(247,248,246,0.10)_50%,rgba(247,248,246,0.96)_100%)] lg:bg-[linear-gradient(90deg,rgba(247,248,246,0.90)_0%,rgba(247,248,246,0.58)_42%,rgba(247,248,246,0.08)_100%)]" />
-        <div className="absolute inset-x-0 bottom-[-1px] h-36 bg-gradient-to-t from-[#f7f8f6] via-[#f7f8f6]/76 to-transparent lg:h-48" />
+        <div className="absolute inset-x-0 bottom-[-1px] h-24 bg-gradient-to-t from-[#f7f8f6] via-[#f7f8f6]/62 to-transparent lg:h-48" />
       </div>
 
-      <div className="section-shell relative z-10 grid flex-1 items-end gap-10 pb-14 pt-10 sm:pb-8 lg:items-center lg:pb-6 lg:pt-0">
-        <div className="max-w-6xl">
+      <div className="section-shell relative z-10 flex flex-1 pb-14 pt-[3svh] sm:grid sm:items-end sm:gap-10 sm:pb-8 sm:pt-10 lg:items-center lg:pb-6 lg:pt-0">
+        <div className="flex w-full max-w-6xl flex-1 flex-col sm:block">
           <h1 className="display-title text-[clamp(2.45rem,10.5vw,3.6rem)] font-black text-white drop-shadow-[0_8px_28px_rgba(0,0,0,0.45)] reveal-up delay-1 lg:text-[clamp(2.2rem,5.2vw,5.2rem)] lg:text-[#172024] lg:drop-shadow-none">
             <span className="block whitespace-nowrap lg:inline">Barrierefrei umbauen.</span>
             <span className="block lg:inline"> Ohne Kompromiss.</span>
@@ -30,24 +31,24 @@ const Hero = () => {
             bauen sauber und machen Ihr Zuhause sicherer.
           </p>
 
-          <div className="mt-12 flex flex-col items-center gap-3 sm:mt-8 sm:flex-row sm:items-stretch reveal-up delay-3">
+          <div className="mt-auto flex flex-col items-center gap-3 sm:mt-8 sm:flex-row sm:items-stretch reveal-up delay-3">
             <Link
               href="/anfrage"
-              className="inline-flex min-h-14 w-full max-w-[20rem] items-center justify-center gap-2 rounded-full bg-[#d63d32] px-7 py-4 text-base font-black text-white shadow-[0_18px_44px_rgba(214,61,50,0.28)] transition hover:-translate-y-1 hover:bg-[#b93028] sm:w-auto sm:max-w-none"
+              className="inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-full bg-[#d63d32] px-7 py-4 text-base font-black text-white shadow-[0_18px_44px_rgba(214,61,50,0.28)] transition hover:-translate-y-1 hover:bg-[#b93028] sm:w-auto"
             >
               <Hammer className="h-5 w-5" />
               Kostenfreie Anfrage
             </Link>
             <Link
               href="tel:+493092371277"
-              className="inline-flex min-h-14 w-full max-w-[20rem] items-center justify-center gap-2 rounded-full border border-[#172024]/15 bg-white/70 px-7 py-4 text-base font-black text-[#172024] transition hover:-translate-y-1 hover:bg-white sm:w-auto sm:max-w-none"
+              className="inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-full border border-[#172024]/15 bg-white/70 px-7 py-4 text-base font-black text-[#172024] transition hover:-translate-y-1 hover:bg-white sm:w-auto"
             >
               <Phone className="h-5 w-5" />
               Direkt anrufen
             </Link>
           </div>
 
-          <div className="mx-auto mt-8 grid w-full max-w-[21.5rem] grid-cols-3 gap-1.5 reveal-up delay-3 sm:mx-0 sm:max-w-xl sm:gap-2">
+          <div className="mx-auto mt-8 grid w-full grid-cols-3 gap-1.5 reveal-up delay-3 sm:mx-0 sm:max-w-xl sm:gap-2">
             {[
               ['22+', 'Jahre Erfahrung'],
               ['150+', 'Projekte realisiert'],

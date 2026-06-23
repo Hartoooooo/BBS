@@ -7,6 +7,12 @@ import { useScrollAnimation } from '@/lib/useScrollAnimation';
 
 const services = [
   {
+    icon: Layers,
+    title: 'Bodenbelagsarbeiten',
+    description: 'Fliesen, Parkett, Laminat und weitere Beläge mit sauberem Anschlussbild.',
+    image: '/bodenbelagsarbeiten-fliesen.png',
+  },
+  {
     icon: Bath,
     title: 'Barrierefreies Bad',
     description: 'Bodengleiche Duschen, rutschfeste Fliesen, Haltegriffe und schwellenlose Übergänge.',
@@ -29,12 +35,6 @@ const services = [
     title: 'Bauwerksabdichtung',
     description: 'Fachgerechte Abdichtung gegen Feuchtigkeit, Wasser und Folgeschäden.',
     image: '/bauwerksabdichtung-abdichtung.png',
-  },
-  {
-    icon: Layers,
-    title: 'Bodenbelagsarbeiten',
-    description: 'Fliesen, Parkett, Laminat und weitere Beläge mit sauberem Anschlussbild.',
-    image: '/bodenbelagsarbeiten-fliesen.png',
   },
   {
     icon: Droplet,
@@ -82,7 +82,7 @@ const Services = () => {
   };
 
   return (
-    <section id="services" className="page-pattern py-20 sm:py-28">
+    <section id="services" className="bg-transparent py-20 sm:py-28">
       <div className="section-shell">
         <div
           ref={headerRef}
@@ -107,7 +107,7 @@ const Services = () => {
           <div ref={scrollContainerRef} className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth px-4 pb-5 scrollbar-hide md:hidden">
             {services.map((service) => {
               return (
-                <article key={service.title} className="surface threshold-line w-[84vw] flex-none snap-center snap-always overflow-hidden rounded-3xl">
+                <article key={service.title} className="w-[84vw] flex-none snap-center snap-always overflow-hidden rounded-3xl border border-[#172024]/12 bg-white">
                   <div className="relative h-44">
                     <Image src={service.image} alt={service.title} fill className="object-cover" sizes="84vw" />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#172024]/70 to-transparent" />
