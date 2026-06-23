@@ -1,12 +1,14 @@
 'use client';
 
 import { useState } from 'react';
-import { Phone, Mail, MapPin, Clock, Send, CheckCircle, AlertCircle } from 'lucide-react';
+import { AlertCircle, CheckCircle, Clock, Mail, MapPin, Phone, Send } from 'lucide-react';
 import { useScrollAnimation } from '@/lib/useScrollAnimation';
 
+const inputClass =
+  'w-full rounded-2xl border border-[#172024]/12 bg-white px-4 py-4 text-[#172024] placeholder:text-[#172024]/36 transition focus:border-[#d63d32] focus:ring-4 focus:ring-[#d63d32]/12';
+
 const Contact = () => {
-  const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation<HTMLDivElement>();
-  const { ref: contentRef, isVisible: contentVisible } = useScrollAnimation<HTMLDivElement>();
+  const { ref, isVisible } = useScrollAnimation<HTMLDivElement>();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [formData, setFormData] = useState({
@@ -16,11 +18,11 @@ const Contact = () => {
     phone: '',
     subject: '',
     budget: '',
-    message: ''
+    message: '',
   });
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus('idle');
 
@@ -29,40 +31,19 @@ const Contact = () => {
       formDataToSend.append('_captcha', 'false');
       formDataToSend.append('_next', window.location.origin + '/');
       formDataToSend.append('_subject', `Neue Kontaktanfrage von ${formData.firstName} ${formData.lastName}`);
-      formDataToSend.append('firstName', formData.firstName);
-      formDataToSend.append('lastName', formData.lastName);
-      formDataToSend.append('email', formData.email);
-      formDataToSend.append('phone', formData.phone || '');
-      formDataToSend.append('subject', formData.subject);
-      formDataToSend.append('budget', formData.budget || '');
-      formDataToSend.append('message', formData.message);
+      Object.entries(formData).forEach(([key, value]) => formDataToSend.append(key, value));
 
       const response = await fetch('https://formsubmit.co/hartmanntimon@gmail.com', {
         method: 'POST',
         body: formDataToSend,
-        headers: {
-          'Accept': 'application/json'
-        }
+        headers: { Accept: 'application/json' },
       });
 
-      if (response.ok) {
-        setSubmitStatus('success');
-        setFormData({
-          firstName: '',
-          lastName: '',
-          email: '',
-          phone: '',
-          subject: '',
-          budget: '',
-          message: ''
-        });
-        // Nach 5 Sekunden Status zurücksetzen
-        setTimeout(() => {
-          setSubmitStatus('idle');
-        }, 5000);
-      } else {
-        setSubmitStatus('error');
-      }
+      if (!response.ok) throw new Error('Form submit failed');
+
+      setSubmitStatus('success');
+      setFormData({ firstName: '', lastName: '', email: '', phone: '', subject: '', budget: '', message: '' });
+      setTimeout(() => setSubmitStatus('idle'), 5000);
     } catch (error) {
       console.error('Fehler beim Senden:', error);
       setSubmitStatus('error');
@@ -71,273 +52,132 @@ const Contact = () => {
     }
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = event.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   return (
-    <section id="contact" className="py-20 bg-blue-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div 
-          ref={headerRef}
-          className={`text-center mb-16 transition-all duration-1200 ease-out ${
-            headerVisible 
-              ? 'opacity-100 translate-y-0' 
-              : 'opacity-0 translate-y-8'
-          }`}
-        >
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Kontaktieren Sie uns
-          </h2>
-          <p className="text-lg text-gray-600">
-            Wir sind für Sie da – rufen Sie uns an oder schreiben Sie uns eine Nachricht
+    <section id="contact" className="bg-white py-20 sm:py-28">
+      <div
+        ref={ref}
+        className={`section-shell transition-all duration-700 ${
+          isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+        }`}
+      >
+        <div className="mb-10 max-w-3xl">
+          <p className="eyebrow">Kontakt</p>
+          <h2 className="section-title mt-4">Projekt kurz schildern. Rückruf bekommen.</h2>
+          <p className="body-copy mt-6">
+            Schreiben Sie uns Ihr Anliegen. Für dringende Fragen erreichen Sie BBS direkt telefonisch.
           </p>
         </div>
 
-        <div 
-          ref={contentRef}
-          className={`grid grid-cols-1 lg:grid-cols-2 gap-12 transition-all duration-1200 ease-out delay-200 ${
-            contentVisible 
-              ? 'opacity-100 translate-y-0' 
-              : 'opacity-0 translate-y-8'
-          }`}
-        >
-          {/* Kontakt-Formular */}
-          <div className="lg:order-2">
-            <div className="bg-white rounded-lg shadow-lg p-8">
-              <h3 className="text-2xl font-bold text-gray-900 mb-6">
-                Nachricht senden
-              </h3>
-              
-              <form 
-                onSubmit={handleSubmit}
-                className="space-y-6"
-              >
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-2">
-                      Vorname *
-                    </label>
-                    <input
-                      type="text"
-                      id="firstName"
-                      name="firstName"
-                      value={formData.firstName}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200 placeholder-gray-500 text-gray-900"
-                      placeholder="Ihr Vorname"
-                    />
-                  </div>
-                  
-                  <div>
-                    <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-2">
-                      Nachname *
-                    </label>
-                    <input
-                      type="text"
-                      id="lastName"
-                      name="lastName"
-                      value={formData.lastName}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200 placeholder-gray-500 text-gray-900"
-                      placeholder="Ihr Nachname"
-                    />
-                  </div>
+        <div className="grid gap-5 lg:grid-cols-[0.85fr_1.15fr]">
+          <aside className="grid gap-4 lg:self-start">
+            {[
+              { icon: Phone, label: 'Telefon', value: '+49 (0) 30 923 712 77', href: 'tel:+493092371277' },
+              { icon: Mail, label: 'E-Mail', value: 'service@b-b-s.berlin', href: 'mailto:service@b-b-s.berlin' },
+              { icon: MapPin, label: 'Standort', value: 'Schöneiche bei Berlin' },
+              { icon: Clock, label: 'Erreichbarkeit', value: 'Montag - Freitag, 7.00-16.00 Uhr' },
+            ].map((item) => {
+              const Icon = item.icon;
+              const content = (
+                <>
+                  <Icon className="h-6 w-6 text-[#d63d32]" />
+                  <span>
+                    <span className="block text-sm font-black uppercase tracking-[0.13em] text-[#6f8f9a]">{item.label}</span>
+                    <span className="mt-1 block text-lg font-black text-[#172024]">{item.value}</span>
+                  </span>
+                </>
+              );
+
+              return item.href ? (
+                <a key={item.label} href={item.href} className="surface flex min-h-24 items-center gap-4 rounded-3xl p-5 transition hover:-translate-y-1">
+                  {content}
+                </a>
+              ) : (
+                <div key={item.label} className="surface flex min-h-24 items-center gap-4 rounded-3xl p-5">
+                  {content}
                 </div>
+              );
+            })}
+          </aside>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                      E-Mail-Adresse *
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200 placeholder-gray-500 text-gray-900"
-                      placeholder="ihre.email@beispiel.de"
-                    />
-                  </div>
-                  
-                  <div>
-                    <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
-                      Telefonnummer
-                    </label>
-                    <input
-                      type="tel"
-                      id="phone"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200 placeholder-gray-500 text-gray-900"
-                      placeholder="Ihre Telefonnummer"
-                    />
-                  </div>
-                </div>
+          <form onSubmit={handleSubmit} className="surface threshold-line rounded-[2rem] p-5 sm:p-8">
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div>
+                <label htmlFor="firstName" className="mb-2 block text-sm font-black text-[#172024]">Vorname *</label>
+                <input id="firstName" name="firstName" value={formData.firstName} onChange={handleInputChange} required className={inputClass} placeholder="Ihr Vorname" />
+              </div>
+              <div>
+                <label htmlFor="lastName" className="mb-2 block text-sm font-black text-[#172024]">Nachname *</label>
+                <input id="lastName" name="lastName" value={formData.lastName} onChange={handleInputChange} required className={inputClass} placeholder="Ihr Nachname" />
+              </div>
+              <div>
+                <label htmlFor="email" className="mb-2 block text-sm font-black text-[#172024]">E-Mail *</label>
+                <input id="email" name="email" type="email" value={formData.email} onChange={handleInputChange} required className={inputClass} placeholder="name@beispiel.de" />
+              </div>
+              <div>
+                <label htmlFor="phone" className="mb-2 block text-sm font-black text-[#172024]">Telefon</label>
+                <input id="phone" name="phone" type="tel" value={formData.phone} onChange={handleInputChange} className={inputClass} placeholder="Ihre Telefonnummer" />
+              </div>
+              <div>
+                <label htmlFor="subject" className="mb-2 block text-sm font-black text-[#172024]">Betreff *</label>
+                <select id="subject" name="subject" value={formData.subject} onChange={handleInputChange} required className={inputClass}>
+                  <option value="" disabled>Bitte wählen</option>
+                  <option value="barrierefreies-bad">Barrierefreies Bad</option>
+                  <option value="trockenbau">Trockenbau</option>
+                  <option value="holz-bautenschutz">Holz & Bautenschutz</option>
+                  <option value="bauwerksabdichtung">Bauwerksabdichtung</option>
+                  <option value="bodenbelagsarbeiten">Bodenbelagsarbeiten</option>
+                  <option value="wasserschadensanierung">Wasserschadensanierung</option>
+                  <option value="beratung">Beratung</option>
+                  <option value="sonstiges">Sonstiges</option>
+                </select>
+              </div>
+              <div>
+                <label htmlFor="budget" className="mb-2 block text-sm font-black text-[#172024]">Budget</label>
+                <input id="budget" name="budget" value={formData.budget} onChange={handleInputChange} className={inputClass} placeholder="z.B. 3000 EUR" />
+              </div>
+              <div className="sm:col-span-2">
+                <label htmlFor="message" className="mb-2 block text-sm font-black text-[#172024]">Nachricht *</label>
+                <textarea id="message" name="message" rows={6} value={formData.message} onChange={handleInputChange} required className={`${inputClass} resize-y`} placeholder="Was soll umgebaut, saniert oder geprüft werden?" />
+              </div>
+            </div>
 
-                <div>
-                  <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">
-                    Betreff
-                  </label>
-                  <select
-                    id="subject"
-                    name="subject"
-                    value={formData.subject}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200 text-gray-900"
-                    required
-                  >
-                    <option value="" disabled>Bitte wählen...</option>
-                    <option value="barrierefreies-bad">Barrierefreies Bad</option>
-                    <option value="trockenbau">Trockenbau</option>
-                    <option value="holz-bautenschutz">Holz & Bautenschutz</option>
-                    <option value="bauwerksabdichtung">Bauwerksabdichtung</option>
-                    <option value="bodenbelagsarbeiten">Bodenbelagsarbeiten</option>
-                    <option value="wasserschadensanierung">Wasserschadensanierung</option>
-                    <option value="beratung">Kostenlose Beratung</option>
-                    <option value="sonstiges">Sonstiges</option>
-                  </select>
-                </div>
+            {submitStatus === 'success' && (
+              <div className="mt-5 flex items-start gap-3 rounded-2xl border border-green-200 bg-green-50 p-4 text-green-900">
+                <CheckCircle className="mt-0.5 h-5 w-5 flex-none" />
+                <p><strong>Nachricht gesendet.</strong> Wir melden uns schnellstmöglich bei Ihnen.</p>
+              </div>
+            )}
 
-                <div>
-                  <label htmlFor="budget" className="block text-sm font-medium text-gray-700 mb-2">
-                    Budgetvorstellung
-                  </label>
-                  <input
-                    type="text"
-                    id="budget"
-                    name="budget"
-                      value={formData.budget}
-                      onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200 placeholder-gray-500 text-gray-900"
-                    placeholder="z.B. 3000€"
-                  />
-                </div>
+            {submitStatus === 'error' && (
+              <div className="mt-5 flex items-start gap-3 rounded-2xl border border-red-200 bg-red-50 p-4 text-red-900">
+                <AlertCircle className="mt-0.5 h-5 w-5 flex-none" />
+                <p><strong>Senden fehlgeschlagen.</strong> Bitte erneut versuchen oder direkt anrufen.</p>
+              </div>
+            )}
 
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
-                    Ihre Nachricht *
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    rows={5}
-                    value={formData.message}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200 resize-vertical placeholder-gray-500 text-gray-900"
-                    placeholder="Beschreiben Sie Ihr Anliegen..."
-                  ></textarea>
-                </div>
-
-                {/* Status-Meldungen */}
-                {submitStatus === 'success' && (
-                  <div className="bg-green-50 border border-green-200 rounded-lg p-4 flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
-                    <div>
-                      <p className="text-green-800 font-semibold">Nachricht erfolgreich gesendet!</p>
-                      <p className="text-green-700 text-sm mt-1">Wir melden uns schnellstmöglich bei Ihnen.</p>
-                    </div>
-                  </div>
-                )}
-
-                {submitStatus === 'error' && (
-                  <div className="bg-red-50 border border-red-200 rounded-lg p-4 flex items-start gap-3">
-                    <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
-                    <div>
-                      <p className="text-red-800 font-semibold">Fehler beim Senden</p>
-                      <p className="text-red-700 text-sm mt-1">Bitte versuchen Sie es erneut oder kontaktieren Sie uns direkt per Telefon.</p>
-                    </div>
-                  </div>
-                )}
-
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full bg-red-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-red-600 transition-colors duration-200 shadow-lg flex items-center justify-center disabled:bg-gray-400 disabled:cursor-not-allowed"
-                >
-                  {isSubmitting ? (
-                    <>
-                      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
-                      Wird gesendet...
-                    </>
-                  ) : (
-                    <>
-                  <Send className="w-5 h-5 mr-2" />
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="mt-6 flex min-h-14 w-full items-center justify-center gap-2 rounded-full bg-[#172024] px-7 py-4 font-black text-white transition hover:-translate-y-1 disabled:cursor-not-allowed disabled:bg-[#6f8f9a]"
+            >
+              {isSubmitting ? (
+                <>
+                  <span className="h-5 w-5 rounded-full border-2 border-white border-t-transparent animate-spin" />
+                  Wird gesendet
+                </>
+              ) : (
+                <>
+                  <Send className="h-5 w-5" />
                   Nachricht senden
-                    </>
-                  )}
-                </button>
-              </form>
-            </div>
-          </div>
-
-          {/* Kontakt-Informationen */}
-          <div className="lg:order-1">
-            <h3 className="text-2xl font-bold text-gray-900 mb-8">
-              Sprechen Sie uns an
-            </h3>
-            
-            <div className="space-y-6">
-              <div className="flex items-start">
-                <Phone className="w-6 h-6 text-red-500 mr-4 mt-1 flex-shrink-0" />
-                <div>
-                  <h4 className="font-semibold text-gray-900 mb-1">Telefon</h4>
-                  <p className="text-gray-600 mb-2">Rufen Sie uns direkt an:</p>
-                  <a 
-                    href="tel:+493092371277" 
-                    className="text-red-500 hover:text-red-600 font-semibold text-lg"
-                  >
-                    +49 (0) 30 923 712 77
-                  </a>
-                </div>
-              </div>
-
-              <div className="flex items-start">
-                <Mail className="w-6 h-6 text-red-500 mr-4 mt-1 flex-shrink-0" />
-                <div>
-                  <h4 className="font-semibold text-gray-900 mb-1">E-Mail</h4>
-                  <p className="text-gray-600 mb-2">Schreiben Sie uns eine Nachricht:</p>
-                  <a 
-                    href="mailto:service@b-b-s.berlin" 
-                    className="text-red-500 hover:text-red-600 font-semibold"
-                  >
-                    service@b-b-s.berlin
-                  </a>
-                </div>
-              </div>
-
-              <div className="flex items-start">
-                <MapPin className="w-6 h-6 text-red-500 mr-4 mt-1 flex-shrink-0" />
-                <div>
-                  <h4 className="font-semibold text-gray-900 mb-1">Standort</h4>
-                  <p className="text-gray-600">
-                    Schöneiche bei Berlin
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start">
-                <Clock className="w-6 h-6 text-red-500 mr-4 mt-1 flex-shrink-0" />
-                <div>
-                  <h4 className="font-semibold text-gray-900 mb-1">Erreichbarkeit</h4>
-                  <div className="text-gray-600 space-y-1">
-                    <div>Montag - Freitag: 7.00-16.00 Uhr</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
+                </>
+              )}
+            </button>
+          </form>
         </div>
       </div>
     </section>

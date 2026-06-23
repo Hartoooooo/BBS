@@ -1,156 +1,78 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { Phone, Mail, MapPin, Clock, Hammer } from 'lucide-react';
+import { Clock, Hammer, Mail, MapPin, Phone } from 'lucide-react';
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* Company Info */}
+    <footer className="bg-[#172024] py-12 text-white">
+      <div className="section-shell">
+        <div className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr_0.85fr_1fr]">
           <div>
-            <div className="flex items-center mb-4">
-              <Image 
-                src="/LOGO.webp" 
-                alt="BBS Logo" 
-                width={40}
-                height={40}
-                className="h-10 w-auto mr-3"
-              />
-              <div className="text-sm">
-                <div className="font-semibold text-white">Björn Hartmann</div>
-                <div className="text-gray-400 text-xs">BBS - Barrierefreies Bauen und Sanieren</div>
-              </div>
-            </div>
-            <p className="text-gray-400 mb-4">
-              Ihr kompetenter Partner für barrierefreies Bauen und Sanieren in Berlin & Brandenburg
+            <Link href="/" className="flex items-center gap-3">
+              <Image src="/bbs-logo-transparent.png" alt="BBS Logo" width={48} height={48} className="h-12 w-12 object-contain" />
+              <span>
+                <span className="block text-2xl font-black leading-none">BBS</span>
+                <span className="block text-xs font-bold uppercase tracking-[0.14em] text-[#d8ebe6]">Barrierefreies Bauen</span>
+              </span>
+            </Link>
+            <p className="mt-5 max-w-sm text-white/64">
+              Meisterbetrieb für barrierefreies Bauen, Sanieren, Fliesenarbeiten und Badumbau in Berlin & Brandenburg.
             </p>
-            <Link href="/anfrage" className="inline-flex items-center gap-2 bg-red-500 text-white px-6 py-2 rounded-lg hover:bg-red-600 transition-colors duration-200">
-              <Hammer className="w-4 h-4" />
+            <Link href="/anfrage" className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#d63d32] px-6 py-3 font-black text-white transition hover:bg-[#b93028]">
+              <Hammer className="h-5 w-5" />
               Kostenfreie Anfrage
             </Link>
           </div>
 
-          {/* Navigation */}
           <div>
-            <h3 className="font-semibold text-lg mb-4">Navigation</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link href="#home" className="text-gray-400 hover:text-white transition-colors duration-200">
-                  Startseite
-                </Link>
-              </li>
-              <li>
-                <Link href="#services" className="text-gray-400 hover:text-white transition-colors duration-200">
-                  Dienstleistungen
-                </Link>
-              </li>
-              <li>
-                <Link href="#about" className="text-gray-400 hover:text-white transition-colors duration-200">
-                  Über uns
-                </Link>
-              </li>
-              <li>
-                <Link href="#faq" className="text-gray-400 hover:text-white transition-colors duration-200">
-                  FAQ
-                </Link>
-              </li>
-              <li>
-                <Link href="#contact" className="text-gray-400 hover:text-white transition-colors duration-200">
-                  Kontakt
-                </Link>
-              </li>
-            </ul>
+            <h3 className="text-sm font-black uppercase tracking-[0.16em] text-[#d8ebe6]">Navigation</h3>
+            <nav className="mt-5 grid gap-3 text-white/70">
+              <Link href="#services" className="hover:text-white">Leistungen</Link>
+              <Link href="#projects" className="hover:text-white">Projekte</Link>
+              <Link href="#about" className="hover:text-white">Über uns</Link>
+              <Link href="#faq" className="hover:text-white">FAQ</Link>
+              <Link href="#contact" className="hover:text-white">Kontakt</Link>
+            </nav>
           </div>
 
-          {/* Erreichbarkeit */}
           <div>
-            <h3 className="font-semibold text-lg mb-4 flex items-center">
-              <Clock className="w-5 h-5 mr-2" />
-              Erreichbarkeit
-            </h3>
-            <div className="space-y-2 text-gray-400">
-              <div>
-                <div className="font-medium">Montag - Freitag</div>
-                <div>7.00-16.00 Uhr</div>
-              </div>
+            <h3 className="text-sm font-black uppercase tracking-[0.16em] text-[#d8ebe6]">Zeiten</h3>
+            <div className="mt-5 flex gap-3 text-white/70">
+              <Clock className="h-5 w-5 flex-none text-[#d63d32]" />
+              <span>Montag - Freitag<br />7.00-16.00 Uhr</span>
             </div>
           </div>
 
-          {/* Kontakt */}
           <div>
-            <h3 className="font-semibold text-lg mb-4">Kontakt</h3>
-            <div className="space-y-3">
-              <div className="flex items-center text-gray-400">
-                <Phone className="w-5 h-5 mr-3 flex-shrink-0" />
-                <div>
-                  <div>Erreichbar unter:</div>
-                  <a href="tel:+493092371277" className="text-white hover:text-blue-400 transition-colors duration-200">
-                    +49 (0) 30 923 712 77
-                  </a>
-                </div>
-              </div>
-              
-              <div className="flex items-center text-gray-400">
-                <Mail className="w-5 h-5 mr-3 flex-shrink-0" />
-                <div>
-                  <a href="mailto:service@b-b-s.berlin" className="text-white hover:text-blue-400 transition-colors duration-200">
-                    service@b-b-s.berlin
-                  </a>
-                </div>
-              </div>
-              
-              <div className="flex items-start text-gray-400">
-                <MapPin className="w-5 h-5 mr-3 flex-shrink-0 mt-0.5" />
-                <div>
-                  <div className="font-medium">Unser Standort</div>
-                  <div>Schöneiche bei Berlin</div>
-                  <a 
-                    href="https://www.google.com/maps/search/?api=1&query=BBS+Barrierefreies+Bauen+und+Sanieren+Schöneiche+bei+Berlin"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-400 hover:text-blue-300 text-sm mt-1 inline-block"
-                  >
-                    📍 Auf Google Maps
-                  </a>
-                </div>
-              </div>
+            <h3 className="text-sm font-black uppercase tracking-[0.16em] text-[#d8ebe6]">Kontakt</h3>
+            <div className="mt-5 grid gap-4 text-white/70">
+              <a href="tel:+493092371277" className="flex gap-3 hover:text-white">
+                <Phone className="h-5 w-5 flex-none text-[#d63d32]" />
+                +49 (0) 30 923 712 77
+              </a>
+              <a href="mailto:service@b-b-s.berlin" className="flex gap-3 hover:text-white">
+                <Mail className="h-5 w-5 flex-none text-[#d63d32]" />
+                service@b-b-s.berlin
+              </a>
+              <a
+                href="https://www.google.com/maps/search/?api=1&query=BBS+Barrierefreies+Bauen+und+Sanieren+Schöneiche+bei+Berlin"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex gap-3 hover:text-white"
+              >
+                <MapPin className="h-5 w-5 flex-none text-[#d63d32]" />
+                Schöneiche bei Berlin
+              </a>
             </div>
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="border-t border-gray-800 mt-12 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            {/* Rechtliche Links - auf Mobile oben, auf Desktop rechts */}
-            <div className="flex flex-wrap justify-center md:justify-end gap-4 text-xs md:text-sm order-1 md:order-2">
-              <Link href="/impressum" className="text-gray-400 hover:text-white transition-colors duration-200 cursor-pointer">
-                Impressum
-              </Link>
-              <span className="text-gray-600">|</span>
-              <Link href="/datenschutz" className="text-gray-400 hover:text-white transition-colors duration-200 cursor-pointer">
-                Datenschutz
-              </Link>
-              <span className="text-gray-600">|</span>
-              <Link href="/cookies" className="text-gray-400 hover:text-white transition-colors duration-200 cursor-pointer">
-                Cookies
-              </Link>
-            </div>
-            {/* Copyright - auf Mobile unten, auf Desktop links */}
-            <div className="text-gray-400 text-sm text-center md:text-left order-2 md:order-1">
-              <div>© 2025 BBS Björn Hartmann</div>
-              <div className="mt-1 text-xs md:text-sm">
-                Umsetzung von{' '}
-                <a 
-                  href="https://www.neoklar.de" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-gray-400 hover:text-white transition-colors duration-200 cursor-pointer"
-                >
-                  Neoklar<sup className="text-[10px]">TM</sup>
-                </a>
-              </div>
-            </div>
+        <div className="mt-10 flex flex-col gap-4 border-t border-white/10 pt-6 text-sm text-white/50 md:flex-row md:items-center md:justify-between">
+          <p>© 2026 BBS Björn Hartmann</p>
+          <div className="flex flex-wrap gap-4">
+            <Link href="/impressum" className="hover:text-white">Impressum</Link>
+            <Link href="/datenschutz" className="hover:text-white">Datenschutz</Link>
+            <Link href="/cookies" className="hover:text-white">Cookies</Link>
           </div>
         </div>
       </div>

@@ -1,83 +1,87 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { Hammer, Phone, Star } from 'lucide-react';
+import { ArrowDown, Hammer, Phone, Star } from 'lucide-react';
 
 const Hero = () => {
   return (
-    <section id="home" className="relative h-screen overflow-hidden flex items-center">
-        {/* Background Image */}
-        <div className="absolute inset-0">
-          <Image
-            src="/hero-bathroom.webp"
-            alt="Luxuriöses Badezimmerdesign – Hero"
-            fill
-            className="object-cover"
-            priority
-          />
-          {/* Overlay for better text readability */}
-          <div className="absolute inset-0 bg-black/15"></div>
-        </div>
-        
-        <div className="relative w-full z-10 py-8">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="bg-white/70 backdrop-blur-sm rounded-lg p-8 shadow-xl max-w-6xl animate-scale-in">
-            <div className="text-left">
-              {/* Haupttitel */}
-              <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4">
-                {/* Mobile Version - Optimiert mit lokalen Keywords */}
-                <span className="md:hidden">
-                  <span className="text-gray-900">Ihr Partner für </span>
-                  <span className="text-red-500">barrierefreies</span>
-                  <span className="text-gray-900"> Bauen in </span>
-                  <span className="text-gray-900">Berlin & Brandenburg</span>
-                </span>
-                {/* Desktop Version */}
-                <span className="hidden md:inline">
-                  <span className="text-gray-900">Ihr Partner für </span>
-                  <span className="text-red-500">barrierefreies</span>
-                  <span className="text-gray-900"> Bauen in </span>
-                  <span className="text-gray-900">Berlin & Brandenburg</span>
-                </span>
-              </h1>
-              
-              {/* Untertitel */}
-              <p className="text-lg md:text-xl text-gray-700 mb-6">
-                <span className="block">Seit über 22 Jahren Ihr Meisterbetrieb für Fliesenarbeiten in Berlin & Brandenburg.</span>
-                <span className="hidden md:inline"> Wir sind spezialisiert auf barrierefreies Bauen, professionelle Badsanierung und komplette Badumbauten.</span>
-              </p>
+    <section id="home" className="relative isolate flex min-h-[100svh] flex-col overflow-hidden pt-24 lg:pt-24">
+      <div className="absolute inset-x-0 top-0 z-0 h-[78svh] bg-[#f7f8f6] lg:inset-0 lg:h-auto">
+        <Image
+          src="/hero-bathroom.webp"
+          alt="Barrierefreies Badezimmer von BBS Berlin Brandenburg"
+          fill
+          className="object-cover object-[84%_top] lg:object-cover lg:object-center"
+          priority
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(23,32,36,0.20)_0%,rgba(23,32,36,0.10)_38%,rgba(23,32,36,0.00)_58%)] lg:hidden" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(247,248,246,0.00)_0%,rgba(247,248,246,0.10)_50%,rgba(247,248,246,0.96)_100%)] lg:bg-[linear-gradient(90deg,rgba(247,248,246,0.90)_0%,rgba(247,248,246,0.58)_42%,rgba(247,248,246,0.08)_100%)]" />
+        <div className="absolute inset-x-0 bottom-[-1px] h-36 bg-gradient-to-t from-[#f7f8f6] via-[#f7f8f6]/76 to-transparent lg:h-48" />
+      </div>
 
-              <p className="hidden md:block text-base md:text-lg text-gray-600 mb-8">
-                Ob präventive Sanierung oder kompletter Umbau – wir bieten maßgeschneiderte 
-                Lösungen für Privat- und Gewerbekunden.
-              </p>
+      <div className="section-shell relative z-10 grid flex-1 items-end gap-10 pb-8 pt-10 lg:items-center lg:pb-6 lg:pt-0">
+        <div className="max-w-6xl">
+          <h1 className="display-title text-[clamp(2.45rem,10.5vw,3.6rem)] font-black text-white drop-shadow-[0_8px_28px_rgba(0,0,0,0.45)] reveal-up delay-1 lg:text-[clamp(2.2rem,5.2vw,5.2rem)] lg:text-[#172024] lg:drop-shadow-none">
+            <span className="block whitespace-nowrap lg:inline">Barrierefrei umbauen.</span>
+            <span className="block lg:inline"> Ohne Kompromiss.</span>
+          </h1>
+          <p className="mt-6 hidden max-w-3xl text-base leading-7 text-[#172024]/72 reveal-up delay-2 sm:text-lg lg:block">
+            Meisterbetrieb für barrierefreie Bäder, Fliesenarbeiten und Sanierung. Wir planen präzise,
+            bauen sauber und machen Ihr Zuhause sicherer.
+          </p>
 
-              {/* Bewertung */}
-              <div className="flex items-center gap-2 mb-6">
-                <div className="flex gap-1">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
-                  ))}
-                </div>
-                <p className="text-sm text-gray-700 font-medium">
-                  5,0 (5)
-                </p>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row reveal-up delay-3">
+            <Link
+              href="/anfrage"
+              className="inline-flex min-h-14 items-center justify-center gap-2 rounded-full bg-[#d63d32] px-7 py-4 text-base font-black text-white shadow-[0_18px_44px_rgba(214,61,50,0.28)] transition hover:-translate-y-1 hover:bg-[#b93028]"
+            >
+              <Hammer className="h-5 w-5" />
+              Kostenfreie Anfrage
+            </Link>
+            <Link
+              href="tel:+493092371277"
+              className="inline-flex min-h-14 items-center justify-center gap-2 rounded-full border border-[#172024]/15 bg-white/70 px-7 py-4 text-base font-black text-[#172024] transition hover:-translate-y-1 hover:bg-white"
+            >
+              <Phone className="h-5 w-5" />
+              Direkt anrufen
+            </Link>
+          </div>
+
+          <div className="mt-8 grid max-w-xl grid-cols-3 gap-2 reveal-up delay-3">
+            {[
+              ['22+', 'Jahre Erfahrung'],
+              ['150+', 'Projekte realisiert'],
+              ['Regional', 'Berlin & Brandenburg'],
+            ].map(([value, label]) => (
+              <div key={label} className="rounded-2xl border border-[#172024]/12 bg-white/78 p-4 shadow-[0_24px_80px_rgba(23,32,36,0.08)]">
+                <div className="text-2xl font-black text-[#172024] sm:text-3xl">{value}</div>
+                <div className="mt-1 whitespace-nowrap text-[0.68rem] font-bold uppercase tracking-[0.08em] text-[#6f8f9a]">{label}</div>
               </div>
-
-              {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 justify-start">
-                <Link href="/anfrage" className="bg-red-500 text-white px-6 py-3 rounded-lg text-base font-semibold hover:bg-red-600 transition-all duration-200 shadow-lg hover:shadow-xl hover:-translate-y-1 text-center flex items-center justify-center gap-2">
-                  <Hammer className="w-6 h-6" />
-                  <span>Kostenfreie Anfrage</span>
-                </Link>
-                <Link href="#contact" className="border-2 border-red-500 text-red-500 px-6 py-3 rounded-lg text-base font-semibold bg-transparent hover:bg-red-500/10 transition-all duration-200 shadow-lg hover:shadow-xl hover:-translate-y-1 flex items-center justify-center gap-2">
-                  <Phone className="w-5 h-5" />
-                  <span>Kontakt aufnehmen</span>
-                </Link>
-              </div>
-            </div>
-            </div>
+            ))}
           </div>
         </div>
+
+      </div>
+
+      <div className="section-shell relative z-10 pb-5 lg:pb-6">
+        <div className="flex flex-col gap-4 border-t border-[#172024]/10 pt-5 sm:flex-row sm:items-center sm:justify-between">
+          <a
+            href="https://share.google/1o8Gsmu8uAAyrGKVm"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden items-center gap-2 text-[#172024] transition hover:text-[#d63d32] sm:flex"
+          >
+            {[...Array(5)].map((_, index) => (
+              <Star key={index} className="h-4 w-4 fill-[#d63d32] text-[#d63d32]" />
+            ))}
+            <span className="text-sm font-bold">Google 5,0</span>
+          </a>
+          <Link href="#services" className="inline-flex items-center justify-center gap-2 text-center text-sm font-black uppercase tracking-[0.14em] text-[#172024] sm:justify-start sm:text-left">
+            Leistungen ansehen
+            <ArrowDown className="h-4 w-4 animate-bounce" />
+          </Link>
+        </div>
+      </div>
     </section>
   );
 };

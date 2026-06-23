@@ -7,6 +7,11 @@ export const useScrollAnimation = <T extends HTMLElement = HTMLElement>(threshol
   const ref = useRef<T>(null);
 
   useEffect(() => {
+    if (window.matchMedia('(max-width: 767px)').matches) {
+      setIsVisible(true);
+      return;
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {

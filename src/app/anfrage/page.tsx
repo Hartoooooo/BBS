@@ -1,10 +1,70 @@
 'use client';
 
 import { useState } from 'react';
-import { ArrowLeft, ArrowRight, Check, Bath, Home, Building, Shield, Wrench, HelpCircle, Layers, CheckCircle2 } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import {
+  ArrowLeft,
+  ArrowRight,
+  Bath,
+  Building,
+  Check,
+  CheckCircle2,
+  Clock,
+  HelpCircle,
+  Home,
+  Layers,
+  Mail,
+  MapPin,
+  Phone,
+  Shield,
+} from 'lucide-react';
+
+const steps = [
+  { id: 1, title: 'Projekt', hint: 'Leistung wählen' },
+  { id: 2, title: 'Objekt', hint: 'Gebäude klären' },
+  { id: 3, title: 'Zeit', hint: 'Startfenster' },
+  { id: 4, title: 'Budget', hint: 'Rahmen' },
+  { id: 5, title: 'Kontakt', hint: 'Rückrufdaten' },
+  { id: 6, title: 'Übersicht', hint: 'Absenden' },
+];
+
+const projectTypes = [
+  { id: 'barrierefreies-bad', label: 'Barrierefreies Bad', icon: Bath },
+  { id: 'trockenbau', label: 'Trockenbau', icon: Building },
+  { id: 'holz-bautenschutz', label: 'Holz & Bautenschutz', icon: Home },
+  { id: 'bauwerksabdichtung', label: 'Bauwerksabdichtung', icon: Shield },
+  { id: 'bodenbelagsarbeiten', label: 'Bodenbelagsarbeiten', icon: Layers },
+  { id: 'andere', label: 'Andere Leistung', icon: HelpCircle },
+];
+
+const budgetRanges = [
+  { id: 'bis-5000', label: 'bis 5.000 €' },
+  { id: '5000-10000', label: '5.000 - 10.000 €' },
+  { id: '10000-20000', label: '10.000 - 20.000 €' },
+  { id: '20000-50000', label: '20.000 - 50.000 €' },
+  { id: 'ueber-50000', label: 'über 50.000 €' },
+  { id: 'noch-unsicher', label: 'Noch unsicher' },
+];
+
+const timeframes = [
+  { id: '1-3-monate', label: '1-3 Monate' },
+  { id: '3-6-monate', label: '3-6 Monate' },
+  { id: '6-12-monate', label: '6-12 Monate' },
+  { id: 'flexibel', label: 'Flexibel' },
+];
+
+const propertyTypes = [
+  { id: 'eigentumswohnung', label: 'Eigentumswohnung' },
+  { id: 'mietwohnung', label: 'Mietwohnung' },
+  { id: 'einfamilienhaus', label: 'Einfamilienhaus' },
+  { id: 'mehrfamilienhaus', label: 'Mehrfamilienhaus' },
+  { id: 'gewerbe', label: 'Gewerbeobjekt' },
+];
+
+const fieldClass =
+  'w-full rounded-2xl border border-[#172024]/12 bg-white px-4 py-4 text-[#172024] placeholder:text-[#172024]/36 transition focus:border-[#d63d32] focus:ring-4 focus:ring-[#d63d32]/12';
 
 const AnfragePage = () => {
   const router = useRouter();
@@ -12,427 +72,310 @@ const AnfragePage = () => {
   const [isStepVisible, setIsStepVisible] = useState(true);
   const [formData, setFormData] = useState({
     projectType: '',
-    specificService: '',
     budget: '',
     timeframe: '',
     propertyType: [] as string[],
     buildingType: 'neubau' as 'altbau' | 'neubau',
-    location: '',
     contactInfo: {
       name: '',
       email: '',
       phone: '',
       address: '',
-      message: ''
-    }
+      message: '',
+    },
   });
 
-  const steps = [
-    { id: 1, title: 'Projekttyp', shortTitle: 'Projekt' },
-    { id: 2, title: 'Objekttyp', shortTitle: 'Objekt' },
-    { id: 3, title: 'Zeitrahmen', shortTitle: 'Zeit' },
-    { id: 4, title: 'Budget', shortTitle: 'Budget' },
-    { id: 5, title: 'Kontakt', shortTitle: 'Kontakt' },
-    { id: 6, title: 'Übersicht', shortTitle: 'Fertig' }
-  ];
-
-  const projectTypes = [
-    { id: 'barrierefreies-bad', label: 'Barrierefreies Bad', icon: <Bath className="w-6 h-6" /> },
-    { id: 'trockenbau', label: 'Trockenbau', icon: <Building className="w-6 h-6" /> },
-    { id: 'holz-bautenschutz', label: 'Holz & Bautenschutz', icon: <Home className="w-6 h-6" /> },
-    { id: 'bauwerksabdichtung', label: 'Bauwerksabdichtung', icon: <Shield className="w-6 h-6" /> },
-    { id: 'bodenbelagsarbeiten', label: 'Bodenbelagsarbeiten', icon: <Layers className="w-6 h-6" /> },
-    { id: 'wasserschadensanierung', label: 'Wasserschadensanierung', icon: <Wrench className="w-6 h-6" /> },
-    { id: 'andere', label: 'Andere Leistung', icon: <HelpCircle className="w-6 h-6" /> }
-  ];
-
-  const budgetRanges = [
-    { id: 'bis-5000', label: 'bis 5.000 €' },
-    { id: '5000-10000', label: '5.000 - 10.000 €' },
-    { id: '10000-20000', label: '10.000 - 20.000 €' },
-    { id: '20000-50000', label: '20.000 - 50.000 €' },
-    { id: 'ueber-50000', label: 'über 50.000 €' },
-    { id: 'noch-unsicher', label: 'Noch unsicher' }
-  ];
-
-  const timeframes = [
-    { id: '1-3-monate', label: '1-3 Monate' },
-    { id: '3-6-monate', label: '3-6 Monate' },
-    { id: '6-12-monate', label: '6-12 Monate' },
-    { id: 'flexibel', label: 'Flexibel' }
-  ];
-
-  const propertyTypes = [
-    { id: 'eigentumswohnung', label: 'Eigentumswohnung' },
-    { id: 'mietwohnung', label: 'Mietwohnung' },
-    { id: 'einfamilienhaus', label: 'Einfamilienhaus' },
-    { id: 'mehrfamilienhaus', label: 'Mehrfamilienhaus' },
-    { id: 'gewerbe', label: 'Gewerbeobjekt' }
-  ];
+  const selectedProject = projectTypes.find((type) => type.id === formData.projectType);
+  const selectedTime = timeframes.find((timeframe) => timeframe.id === formData.timeframe);
+  const selectedBudget = budgetRanges.find((budget) => budget.id === formData.budget);
+  const progress = ((currentStep - 1) / (steps.length - 1)) * 100;
 
   const handleInputChange = (field: string, value: string) => {
     if (field.includes('.')) {
       const [parent, child] = field.split('.');
-      setFormData(prev => ({
+      setFormData((prev) => ({
         ...prev,
         [parent]: {
           ...(prev[parent as keyof typeof prev] as object),
-          [child]: value
-        }
+          [child]: value,
+        },
       }));
-    } else {
-      setFormData(prev => ({
-        ...prev,
-        [field]: value
-      }));
+      return;
     }
+
+    setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
   const handlePropertyTypeChange = (propertyId: string, isChecked: boolean) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      propertyType: isChecked 
+      propertyType: isChecked
         ? [...prev.propertyType, propertyId]
-        : prev.propertyType.filter(id => id !== propertyId)
+        : prev.propertyType.filter((id) => id !== propertyId),
     }));
   };
 
+  const moveToStep = (step: number) => {
+    setIsStepVisible(false);
+    setTimeout(() => {
+      setCurrentStep(step);
+      setIsStepVisible(true);
+    }, 220);
+  };
+
   const nextStep = () => {
-    if (currentStep < 6) {
-      setIsStepVisible(false);
-      setTimeout(() => {
-        setCurrentStep(currentStep + 1);
-        setIsStepVisible(true);
-      }, 300);
-    }
+    if (currentStep < steps.length) moveToStep(currentStep + 1);
   };
 
   const prevStep = () => {
-    if (currentStep > 1) {
-      setIsStepVisible(false);
-      setTimeout(() => {
-        setCurrentStep(currentStep - 1);
-        setIsStepVisible(true);
-      }, 300);
+    if (currentStep > 1) moveToStep(currentStep - 1);
+  };
+
+  const canProceed = () => {
+    switch (currentStep) {
+      case 1:
+        return !!formData.projectType;
+      case 2:
+        return formData.propertyType.length > 0;
+      case 3:
+        return !!formData.timeframe;
+      case 4:
+        return !!formData.budget;
+      case 5:
+        return !!(formData.contactInfo.name && formData.contactInfo.email && formData.contactInfo.address);
+      default:
+        return true;
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    // FormData für FormSubmit erstellen
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+
     const formDataToSend = new FormData();
     formDataToSend.append('_captcha', 'false');
     formDataToSend.append('_next', '/');
-    formDataToSend.append('_subject', 'Neue Projektanfrage von ' + formData.contactInfo.name);
-    
-    // Formulardaten hinzufügen
-    formDataToSend.append('Projekttyp', projectTypes.find(t => t.id === formData.projectType)?.label || '');
-    formDataToSend.append('Objekttyp', formData.propertyType.map(id => propertyTypes.find(p => p.id === id)?.label).join(', ') || '');
+    formDataToSend.append('_subject', `Neue Projektanfrage von ${formData.contactInfo.name}`);
+    formDataToSend.append('Projekttyp', selectedProject?.label || '');
+    formDataToSend.append(
+      'Objekttyp',
+      formData.propertyType.map((id) => propertyTypes.find((property) => property.id === id)?.label).join(', ') || '',
+    );
     formDataToSend.append('Gebäudeart', formData.buildingType === 'altbau' ? 'Altbau' : 'Neubau');
-    formDataToSend.append('Zeitrahmen', timeframes.find(t => t.id === formData.timeframe)?.label || '');
-    formDataToSend.append('Budget', budgetRanges.find(b => b.id === formData.budget)?.label || '');
+    formDataToSend.append('Zeitrahmen', selectedTime?.label || '');
+    formDataToSend.append('Budget', selectedBudget?.label || '');
     formDataToSend.append('Name', formData.contactInfo.name);
     formDataToSend.append('E-Mail', formData.contactInfo.email);
     formDataToSend.append('Telefon', formData.contactInfo.phone || '');
     formDataToSend.append('Adresse', formData.contactInfo.address);
     formDataToSend.append('Nachricht', formData.contactInfo.message || '');
-    
-    // An FormSubmit senden
+
     try {
       const response = await fetch('https://formsubmit.co/hartmanntimon@gmail.com', {
         method: 'POST',
-        body: formDataToSend
+        body: formDataToSend,
       });
-      
-      if (response.ok) {
-        // Erfolgsmeldung anzeigen und dann zur Startseite weiterleiten
-        alert('Vielen Dank für Ihre Anfrage! Wir melden uns schnellstmöglich bei Ihnen.');
-        // Kurze Verzögerung, damit der Benutzer die Meldung sieht
-        setTimeout(() => {
-          router.push('/');
-        }, 500);
-      } else {
-        alert('Es gab einen Fehler beim Senden Ihrer Anfrage. Bitte versuchen Sie es erneut.');
-      }
+
+      if (!response.ok) throw new Error('Form submit failed');
+      alert('Vielen Dank für Ihre Anfrage! Wir melden uns schnellstmöglich bei Ihnen.');
+      setTimeout(() => router.push('/'), 500);
     } catch (error) {
       console.error('Fehler beim Senden:', error);
       alert('Es gab einen Fehler beim Senden Ihrer Anfrage. Bitte versuchen Sie es erneut.');
     }
   };
 
-  const canProceed = () => {
-    switch (currentStep) {
-      case 1: return !!formData.projectType;
-      case 2: return formData.propertyType.length > 0;
-      case 3: return !!formData.timeframe;
-      case 4: return !!formData.budget;
-      case 5: return !!(formData.contactInfo.name && formData.contactInfo.email && formData.contactInfo.address);
-      default: return true;
-    }
-  };
+  const optionClass = (active: boolean) =>
+    `group relative flex min-h-24 cursor-pointer items-center gap-4 rounded-3xl border p-5 text-left transition lg:min-h-16 lg:gap-3 lg:rounded-2xl lg:p-4 ${
+      active
+        ? 'border-[#d63d32] bg-[#d63d32] text-white shadow-[0_18px_44px_rgba(214,61,50,0.22)]'
+        : 'border-[#172024]/10 bg-white/76 text-[#172024] hover:-translate-y-1 hover:border-[#d63d32]/45 hover:bg-white'
+    }`;
 
   const renderStep = () => {
     switch (currentStep) {
       case 1:
         return (
-          <div className="space-y-6">
-            <div className="text-center mb-8">
-              <h2 className="text-3xl font-bold text-gray-900 mb-2">Welche Art von Projekt planen Sie?</h2>
-              <p className="text-gray-600">Wählen Sie die passende Dienstleistung aus</p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {projectTypes.map((type) => (
-                <label 
-                  key={type.id} 
-                  className={`group relative flex flex-col items-center justify-center p-6 border-2 rounded-xl cursor-pointer transition-all duration-300 ${
-                    formData.projectType === type.id 
-                      ? 'bg-red-50 border-red-500 shadow-lg scale-105' 
-                      : 'bg-white border-gray-200 hover:border-red-300 hover:shadow-md'
-                  }`}
-                >
-                  <input
-                    type="radio"
-                    name="projectType"
-                    value={type.id}
-                    checked={formData.projectType === type.id}
-                    onChange={(e) => handleInputChange('projectType', e.target.value)}
-                    className="sr-only"
-                  />
-                  <div className={`mb-3 transition-colors duration-300 ${
-                    formData.projectType === type.id ? 'text-red-500' : 'text-gray-400 group-hover:text-red-400'
-                  }`}>
-                    {type.icon}
-                  </div>
-                  <div className={`font-semibold text-center transition-colors duration-300 ${
-                    formData.projectType === type.id ? 'text-gray-900' : 'text-gray-700'
-                  }`}>
-                    {type.label}
-                  </div>
-                  {formData.projectType === type.id && (
-                    <div className="absolute top-2 right-2">
-                      <CheckCircle2 className="w-5 h-5 text-red-500" />
-                    </div>
-                  )}
-                </label>
-              ))}
+          <div>
+            <StepHeader title="Was soll BBS für Sie bauen?" copy="Wählen Sie die Leistung. Eine grobe Auswahl reicht für den Start." />
+            <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+              {projectTypes.map((type) => {
+                const Icon = type.icon;
+                const active = formData.projectType === type.id;
+                return (
+                  <label key={type.id} className={optionClass(active)}>
+                    <input
+                      type="radio"
+                      name="projectType"
+                      value={type.id}
+                      checked={active}
+                      onChange={(event) => handleInputChange('projectType', event.target.value)}
+                      className="sr-only"
+                    />
+                    <span className={`rounded-2xl p-3 lg:p-2.5 ${active ? 'bg-white/16' : 'bg-[#d8ebe6]'}`}>
+                      <Icon className="h-6 w-6 lg:h-5 lg:w-5" />
+                    </span>
+                    <span className="min-w-0 flex-1 break-words text-lg font-black leading-tight hyphens-auto pr-5 lg:text-[15px]">{type.label}</span>
+                    {active && <CheckCircle2 className="absolute right-4 top-4 h-5 w-5 lg:h-4 lg:w-4" />}
+                  </label>
+                );
+              })}
             </div>
           </div>
         );
 
       case 2:
         return (
-          <div className="space-y-6">
-            <div className="text-center mb-8">
-              <h2 className="text-3xl font-bold text-gray-900 mb-2">Um welche Art von Objekt handelt es sich?</h2>
-              <p className="text-gray-600">Geben Sie Details zu Ihrem Objekt an</p>
+          <div>
+            <StepHeader title="Wo findet der Umbau statt?" copy="Objektart und Gebäudezustand helfen bei Beratung und Materialplanung." />
+            <div className="mb-6 grid grid-cols-2 gap-2 rounded-3xl bg-[#172024] p-2">
+              {(['altbau', 'neubau'] as const).map((type) => (
+                <button
+                  key={type}
+                  type="button"
+                  onClick={() => handleInputChange('buildingType', type)}
+                  className={`min-h-14 rounded-2xl px-4 font-black transition ${
+                    formData.buildingType === type ? 'bg-white text-[#172024]' : 'text-white/62 hover:text-white'
+                  }`}
+                >
+                  {type === 'altbau' ? 'Altbau' : 'Neubau'}
+                </button>
+              ))}
             </div>
-            
-            <div className="space-y-6">
-              <div className="flex justify-center">
-                <div className="relative inline-flex border-2 border-gray-200 rounded-xl p-1 bg-gray-50 w-full max-w-md">
-                  <div
-                    className={`absolute top-1 bottom-1 bg-red-500 rounded-lg transition-all duration-300 ease-in-out ${
-                      formData.buildingType === 'neubau' ? 'left-1/2 right-1' : 'left-1 right-1/2'
-                    }`}
-                  />
-                  <button
-                    type="button"
-                    onClick={() => handleInputChange('buildingType', 'altbau')}
-                    className={`relative z-10 flex-1 py-3 px-4 text-base font-semibold rounded-lg transition-colors duration-300 ${
-                      formData.buildingType === 'altbau' ? 'text-white' : 'text-gray-700'
-                    }`}
-                  >
-                    Altbau
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => handleInputChange('buildingType', 'neubau')}
-                    className={`relative z-10 flex-1 py-3 px-4 text-base font-semibold rounded-lg transition-colors duration-300 ${
-                      formData.buildingType === 'neubau' ? 'text-white' : 'text-gray-700'
-                    }`}
-                  >
-                    Neubau
-                  </button>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {propertyTypes.map((property) => (
-                  <label 
-                    key={property.id} 
-                    className={`group relative flex items-center justify-between p-4 border-2 rounded-xl cursor-pointer transition-all duration-300 ${
-                      formData.propertyType.includes(property.id) 
-                        ? 'bg-red-50 border-red-500 shadow-md' 
-                        : 'bg-white border-gray-200 hover:border-red-300'
-                    }`}
-                  >
+            <div className="grid gap-3 sm:grid-cols-2">
+              {propertyTypes.map((property) => {
+                const active = formData.propertyType.includes(property.id);
+                return (
+                  <label key={property.id} className={optionClass(active)}>
                     <input
                       type="checkbox"
                       name="propertyType"
                       value={property.id}
-                      checked={formData.propertyType.includes(property.id)}
-                      onChange={(e) => handlePropertyTypeChange(property.id, e.target.checked)}
+                      checked={active}
+                      onChange={(event) => handlePropertyTypeChange(property.id, event.target.checked)}
                       className="sr-only"
                     />
-                    <span className={`font-medium transition-colors duration-300 ${
-                      formData.propertyType.includes(property.id) ? 'text-gray-900' : 'text-gray-700'
-                    }`}>
-                      {property.label}
+                    <span className={`flex h-11 w-11 items-center justify-center rounded-2xl border lg:h-9 lg:w-9 ${active ? 'border-white/35' : 'border-[#172024]/14'}`}>
+                      {active && <Check className="h-5 w-5 lg:h-4 lg:w-4" />}
                     </span>
-                    {formData.propertyType.includes(property.id) && (
-                      <CheckCircle2 className="w-5 h-5 text-red-500" />
-                    )}
+                    <span className="min-w-0 flex-1 break-words text-lg font-black leading-tight hyphens-auto lg:text-[15px]">{property.label}</span>
                   </label>
-                ))}
-              </div>
+                );
+              })}
             </div>
           </div>
         );
 
       case 3:
         return (
-          <div className="space-y-6">
-            <div className="text-center mb-8">
-              <h2 className="text-3xl font-bold text-gray-900 mb-2">Wann soll das Projekt starten?</h2>
-              <p className="text-gray-600">Wählen Sie Ihren bevorzugten Zeitrahmen</p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl mx-auto">
-              {timeframes.map((timeframe) => (
-                <label 
-                  key={timeframe.id} 
-                  className={`group relative flex items-center justify-center p-6 border-2 rounded-xl cursor-pointer transition-all duration-300 ${
-                    formData.timeframe === timeframe.id 
-                      ? 'bg-red-50 border-red-500 shadow-lg scale-105' 
-                      : 'bg-white border-gray-200 hover:border-red-300 hover:shadow-md'
-                  }`}
-                >
-                  <input
-                    type="radio"
-                    name="timeframe"
-                    value={timeframe.id}
-                    checked={formData.timeframe === timeframe.id}
-                    onChange={(e) => handleInputChange('timeframe', e.target.value)}
-                    className="sr-only"
-                  />
-                  <span className={`font-semibold transition-colors duration-300 ${
-                    formData.timeframe === timeframe.id ? 'text-gray-900' : 'text-gray-700'
-                  }`}>
-                    {timeframe.label}
-                  </span>
-                  {formData.timeframe === timeframe.id && (
-                    <div className="absolute top-2 right-2">
-                      <CheckCircle2 className="w-5 h-5 text-red-500" />
-                    </div>
-                  )}
-                </label>
-              ))}
+          <div>
+            <StepHeader title="Wann soll es losgehen?" copy="Ungefähres Startfenster genügt. Flexible Projekte sind willkommen." />
+            <div className="grid gap-3 sm:grid-cols-2">
+              {timeframes.map((timeframe) => {
+                const active = formData.timeframe === timeframe.id;
+                return (
+                  <label key={timeframe.id} className={optionClass(active)}>
+                    <input
+                      type="radio"
+                      name="timeframe"
+                      value={timeframe.id}
+                      checked={active}
+                      onChange={(event) => handleInputChange('timeframe', event.target.value)}
+                      className="sr-only"
+                    />
+                    <Clock className="h-6 w-6 lg:h-5 lg:w-5" />
+                    <span className="min-w-0 flex-1 break-words text-xl font-black leading-tight hyphens-auto pr-5 lg:text-[15px]">{timeframe.label}</span>
+                    {active && <CheckCircle2 className="absolute right-4 top-4 h-5 w-5 lg:h-4 lg:w-4" />}
+                  </label>
+                );
+              })}
             </div>
           </div>
         );
 
       case 4:
         return (
-          <div className="space-y-6">
-            <div className="text-center mb-8">
-              <h2 className="text-3xl font-bold text-gray-900 mb-2">Welches Budget haben Sie eingeplant?</h2>
-              <p className="text-gray-600">Helfen Sie uns, das passende Angebot zu erstellen</p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl mx-auto">
-              {budgetRanges.map((budget) => (
-                <label 
-                  key={budget.id} 
-                  className={`group relative flex items-center justify-center p-6 border-2 rounded-xl cursor-pointer transition-all duration-300 ${
-                    formData.budget === budget.id 
-                      ? 'bg-red-50 border-red-500 shadow-lg scale-105' 
-                      : 'bg-white border-gray-200 hover:border-red-300 hover:shadow-md'
-                  }`}
-                >
-                  <input
-                    type="radio"
-                    name="budget"
-                    value={budget.id}
-                    checked={formData.budget === budget.id}
-                    onChange={(e) => handleInputChange('budget', e.target.value)}
-                    className="sr-only"
-                  />
-                  <span className={`font-semibold transition-colors duration-300 ${
-                    formData.budget === budget.id ? 'text-gray-900' : 'text-gray-700'
-                  }`}>
-                    {budget.label}
-                  </span>
-                  {formData.budget === budget.id && (
-                    <div className="absolute top-2 right-2">
-                      <CheckCircle2 className="w-5 h-5 text-red-500" />
-                    </div>
-                  )}
-                </label>
-              ))}
+          <div>
+            <StepHeader title="Welcher Budgetrahmen passt?" copy="Der Rahmen hilft, realistische Varianten vorzuschlagen." />
+            <div className="grid gap-3 sm:grid-cols-2">
+              {budgetRanges.map((budget) => {
+                const active = formData.budget === budget.id;
+                return (
+                  <label key={budget.id} className={optionClass(active)}>
+                    <input
+                      type="radio"
+                      name="budget"
+                      value={budget.id}
+                      checked={active}
+                      onChange={(event) => handleInputChange('budget', event.target.value)}
+                      className="sr-only"
+                    />
+                    <span className="min-w-0 flex-1 break-words text-xl font-black leading-tight hyphens-auto pr-5 lg:text-[15px]">{budget.label}</span>
+                    {active && <CheckCircle2 className="absolute right-4 top-4 h-5 w-5 lg:h-4 lg:w-4" />}
+                  </label>
+                );
+              })}
             </div>
           </div>
         );
 
       case 5:
         return (
-          <div className="space-y-6">
-            <div className="text-center mb-8">
-              <h2 className="text-3xl font-bold text-gray-900 mb-2">Ihre Kontaktdaten</h2>
-              <p className="text-gray-600">Wie können wir Sie erreichen?</p>
-            </div>
-            <div className="max-w-2xl mx-auto space-y-5">
+          <div>
+            <StepHeader title="Wie erreichen wir Sie?" copy="Name, E-Mail und Objektadresse reichen für Rückmeldung und erste Einschätzung." />
+            <div className="grid gap-4">
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">Name *</label>
+                <label className="mb-2 block text-sm font-black text-[#172024]">Name *</label>
                 <input
                   type="text"
                   value={formData.contactInfo.name}
-                  onChange={(e) => handleInputChange('contactInfo.name', e.target.value)}
-                  placeholder="z.B. Max Mustermann"
-                  className="w-full px-5 py-4 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-gray-900 transition-all duration-300 placeholder-gray-400"
+                  onChange={(event) => handleInputChange('contactInfo.name', event.target.value)}
+                  placeholder="Max Mustermann"
+                  className={fieldClass}
                   required
                 />
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div className="grid gap-4 sm:grid-cols-2">
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">E-Mail *</label>
+                  <label className="mb-2 block text-sm font-black text-[#172024]">E-Mail *</label>
                   <input
                     type="email"
                     value={formData.contactInfo.email}
-                    onChange={(e) => handleInputChange('contactInfo.email', e.target.value)}
-                    placeholder="z.B. max.mustermann@beispiel.de"
-                    className="w-full px-5 py-4 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-gray-900 transition-all duration-300 placeholder-gray-400"
+                    onChange={(event) => handleInputChange('contactInfo.email', event.target.value)}
+                    placeholder="name@beispiel.de"
+                    className={fieldClass}
                     required
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">Telefon</label>
+                  <label className="mb-2 block text-sm font-black text-[#172024]">Telefon</label>
                   <input
                     type="tel"
                     value={formData.contactInfo.phone}
-                    onChange={(e) => handleInputChange('contactInfo.phone', e.target.value)}
-                    placeholder="z.B. +49 30 12345678"
-                    className="w-full px-5 py-4 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-gray-900 transition-all duration-300 placeholder-gray-400"
+                    onChange={(event) => handleInputChange('contactInfo.phone', event.target.value)}
+                    placeholder="+49 30 12345678"
+                    className={fieldClass}
                   />
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">Adresse des Objekts *</label>
+                <label className="mb-2 block text-sm font-black text-[#172024]">Adresse des Objekts *</label>
                 <input
                   type="text"
                   value={formData.contactInfo.address}
-                  onChange={(e) => handleInputChange('contactInfo.address', e.target.value)}
-                  placeholder="z.B. Musterstraße 123, 12345 Berlin"
-                  className="w-full px-5 py-4 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-gray-900 transition-all duration-300 placeholder-gray-400"
+                  onChange={(event) => handleInputChange('contactInfo.address', event.target.value)}
+                  placeholder="Straße, PLZ, Ort"
+                  className={fieldClass}
                   required
                 />
               </div>
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">Zusätzliche Informationen</label>
+                <label className="mb-2 block text-sm font-black text-[#172024]">Zusatzinfos</label>
                 <textarea
                   value={formData.contactInfo.message}
-                  onChange={(e) => handleInputChange('contactInfo.message', e.target.value)}
+                  onChange={(event) => handleInputChange('contactInfo.message', event.target.value)}
                   rows={5}
-                  className="w-full px-5 py-4 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-gray-900 transition-all duration-300 resize-none placeholder-gray-400"
-                  placeholder="Beschreiben Sie Ihr Projekt genauer..."
+                  className={`${fieldClass} resize-y`}
+                  placeholder="Was soll verändert, saniert oder geprüft werden?"
                 />
               </div>
             </div>
@@ -441,64 +384,25 @@ const AnfragePage = () => {
 
       case 6:
         return (
-          <div className="space-y-6">
-            <div className="text-center mb-8">
-              <h2 className="text-3xl font-bold text-gray-900 mb-2">Zusammenfassung Ihrer Anfrage</h2>
-              <p className="text-gray-600">Bitte überprüfen Sie Ihre Angaben</p>
-            </div>
-            <div className="max-w-2xl mx-auto bg-gradient-to-br from-gray-50 to-white p-8 rounded-2xl border-2 border-gray-200 shadow-lg space-y-4">
-              <div className="flex justify-between items-start py-3 border-b border-gray-200">
-                <span className="font-semibold text-gray-700">Projekttyp:</span>
-                <span className="text-gray-900 text-right font-medium">
-                  {projectTypes.find(t => t.id === formData.projectType)?.label || '-'}
-                </span>
-              </div>
-              <div className="flex justify-between items-start py-3 border-b border-gray-200">
-                <span className="font-semibold text-gray-700">Objekttyp:</span>
-                <span className="text-gray-900 text-right font-medium">
-                  {formData.propertyType.map(id => propertyTypes.find(p => p.id === id)?.label).join(', ') || '-'}
-                </span>
-              </div>
-              <div className="flex justify-between items-start py-3 border-b border-gray-200">
-                <span className="font-semibold text-gray-700">Gebäudeart:</span>
-                <span className="text-gray-900 text-right font-medium">
-                  {formData.buildingType === 'altbau' ? 'Altbau' : 'Neubau'}
-                </span>
-              </div>
-              <div className="flex justify-between items-start py-3 border-b border-gray-200">
-                <span className="font-semibold text-gray-700">Zeitrahmen:</span>
-                <span className="text-gray-900 text-right font-medium">
-                  {timeframes.find(t => t.id === formData.timeframe)?.label || '-'}
-                </span>
-              </div>
-              <div className="flex justify-between items-start py-3 border-b border-gray-200">
-                <span className="font-semibold text-gray-700">Budget:</span>
-                <span className="text-gray-900 text-right font-medium">
-                  {budgetRanges.find(b => b.id === formData.budget)?.label || '-'}
-                </span>
-              </div>
-              <div className="flex justify-between items-start py-3 border-b border-gray-200">
-                <span className="font-semibold text-gray-700">Name:</span>
-                <span className="text-gray-900 text-right font-medium">{formData.contactInfo.name}</span>
-              </div>
-              <div className="flex justify-between items-start py-3 border-b border-gray-200">
-                <span className="font-semibold text-gray-700">E-Mail:</span>
-                <span className="text-gray-900 text-right font-medium">{formData.contactInfo.email}</span>
-              </div>
-              {formData.contactInfo.phone && (
-                <div className="flex justify-between items-start py-3 border-b border-gray-200">
-                  <span className="font-semibold text-gray-700">Telefon:</span>
-                  <span className="text-gray-900 text-right font-medium">{formData.contactInfo.phone}</span>
-                </div>
-              )}
-              <div className="flex justify-between items-start py-3 border-b border-gray-200">
-                <span className="font-semibold text-gray-700">Adresse:</span>
-                <span className="text-gray-900 text-right font-medium">{formData.contactInfo.address}</span>
-              </div>
+          <div>
+            <StepHeader title="Passt alles?" copy="Prüfen Sie Ihre Angaben. Danach geht die Anfrage direkt an BBS." />
+            <div className="grid gap-3">
+              <SummaryRow label="Projekt" value={selectedProject?.label || '-'} />
+              <SummaryRow
+                label="Objekt"
+                value={formData.propertyType.map((id) => propertyTypes.find((property) => property.id === id)?.label).join(', ') || '-'}
+              />
+              <SummaryRow label="Gebäudeart" value={formData.buildingType === 'altbau' ? 'Altbau' : 'Neubau'} />
+              <SummaryRow label="Zeitrahmen" value={selectedTime?.label || '-'} />
+              <SummaryRow label="Budget" value={selectedBudget?.label || '-'} />
+              <SummaryRow label="Name" value={formData.contactInfo.name || '-'} />
+              <SummaryRow label="E-Mail" value={formData.contactInfo.email || '-'} />
+              {formData.contactInfo.phone && <SummaryRow label="Telefon" value={formData.contactInfo.phone} />}
+              <SummaryRow label="Adresse" value={formData.contactInfo.address || '-'} />
               {formData.contactInfo.message && (
-                <div className="pt-3">
-                  <span className="font-semibold text-gray-700 block mb-2">Nachricht:</span>
-                  <p className="text-gray-900 bg-white p-4 rounded-lg border border-gray-200">{formData.contactInfo.message}</p>
+                <div className="rounded-3xl border border-[#172024]/10 bg-white/76 p-5">
+                  <p className="text-sm font-black uppercase tracking-[0.13em] text-[#6f8f9a]">Nachricht</p>
+                  <p className="mt-2 leading-7 text-[#172024]">{formData.contactInfo.message}</p>
                 </div>
               )}
             </div>
@@ -511,151 +415,168 @@ const AnfragePage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50 relative">
-      {/* Background Image */}
-      <div className="absolute inset-0">
-        <Image
-          src="/Anfragebild.webp"
-          alt="Barrierefreies Bauen Hintergrund"
-          fill
-          className="object-cover"
-          priority
-        />
-        <div className="absolute inset-0 bg-white/60"></div>
-      </div>
+    <main className="min-h-screen">
+      <section className="relative overflow-hidden pb-10 pt-5 lg:pb-16">
+        <div className="absolute inset-0 z-0">
+          <Image src="/Anfragebild.webp" alt="Barrierefreier Umbau Anfrage" fill className="object-cover" priority sizes="100vw" />
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(247,248,246,0.88),rgba(247,248,246,0.58),rgba(247,248,246,0.18))]" />
+        </div>
 
-      {/* Main Content */}
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10">
-        <form onSubmit={handleSubmit}>
-          <div className="bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden">
-            {/* Modern Stepper Header */}
-            <div className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 px-6 py-8">
-              <div className="flex items-center justify-between mb-6">
-                <h1 className="text-2xl md:text-3xl font-bold text-white">Projektanfrage</h1>
-                <div className="text-white/80 text-sm font-medium">
-                  Schritt {currentStep} von {steps.length}
+        <div className="section-shell relative z-10">
+          <div className="relative flex items-center justify-between py-4">
+            <Link href="/" className="relative z-10 inline-flex items-center gap-2 rounded-full bg-white/78 px-4 py-3 text-sm font-black text-[#172024] backdrop-blur transition hover:bg-white">
+              <ArrowLeft className="h-4 w-4" />
+              Startseite
+            </Link>
+            <h1 className="absolute left-1/2 top-1/2 w-[min(58vw,720px)] -translate-x-1/2 -translate-y-1/2 text-center text-[clamp(1.35rem,4.2vw,3.3rem)] font-black leading-[0.95] tracking-normal text-[#172024]">
+              Projektanfrage
+            </h1>
+            <div className="relative z-10 hidden gap-4 text-sm font-black text-[#172024] sm:flex">
+              <a href="tel:+493092371277" className="inline-flex items-center gap-2 rounded-full bg-white/78 px-4 py-3 backdrop-blur">
+                <Phone className="h-4 w-4 text-[#d63d32]" />
+                Anrufen
+              </a>
+              <a href="mailto:service@b-b-s.berlin" className="inline-flex items-center gap-2 rounded-full bg-white/78 px-4 py-3 backdrop-blur">
+                <Mail className="h-4 w-4 text-[#d63d32]" />
+                E-Mail
+              </a>
+            </div>
+          </div>
+
+          <div className="py-6 lg:py-10" />
+
+          <div className="grid gap-8 pb-8 lg:grid-cols-[0.78fr_1.22fr] lg:items-start lg:pb-16">
+            <aside className="order-2 lg:sticky lg:top-8 lg:order-1">
+              <div className="surface threshold-line rounded-[2rem] p-5">
+                <div className="hidden lg:block">
+                  <div className="mb-4 flex items-center justify-between">
+                    <span className="text-sm font-black uppercase tracking-[0.14em] text-[#6f8f9a]">Fortschritt</span>
+                    <span className="text-sm font-black text-[#172024]">Schritt {currentStep}/{steps.length}</span>
+                  </div>
+                  <div className="h-2 overflow-hidden rounded-full bg-[#172024]/10">
+                    <div className="h-full rounded-full bg-[#d63d32] transition-all duration-500" style={{ width: `${progress}%` }} />
+                  </div>
+                </div>
+                <div className="grid gap-2 lg:mt-5 lg:gap-1.5">
+                  {steps.map((step) => (
+                    <button
+                      key={step.id}
+                      type="button"
+                      onClick={() => step.id < currentStep && moveToStep(step.id)}
+                      className={`flex items-center justify-between rounded-2xl px-4 py-3 text-left transition lg:rounded-xl lg:px-3 lg:py-2.5 ${
+                        currentStep === step.id
+                          ? 'bg-[#172024] text-white'
+                          : step.id < currentStep
+                            ? 'bg-white text-[#172024] hover:bg-[#d8ebe6]'
+                            : 'text-[#172024]/45'
+                      }`}
+                    >
+                      <span>
+                        <span className="block font-black lg:text-sm">{step.title}</span>
+                        <span className="block text-xs font-bold opacity-70 lg:text-[11px]">{step.hint}</span>
+                      </span>
+                      {step.id < currentStep && <Check className="h-4 w-4" />}
+                    </button>
+                  ))}
                 </div>
               </div>
-              
-              {/* Step Indicators */}
-              <div className="flex items-center justify-between">
-                {steps.map((step, index) => {
-                  const isCompleted = currentStep > step.id;
-                  const isActive = currentStep === step.id;
-                  
-                  return (
-                    <div key={step.id} className="flex items-center flex-1">
-                      <div className="flex flex-col items-center flex-1 relative">
-                        <div className="flex items-center w-full relative">
-                          {/* Step Circle */}
-                          <div className={`relative flex items-center justify-center w-6 h-6 md:w-10 md:h-10 rounded-full border-2 transition-all duration-300 z-10 ${
-                            isCompleted 
-                              ? 'bg-red-500 border-red-500' 
-                              : isActive 
-                                ? 'bg-red-500 border-red-500 ring-2 md:ring-4 ring-red-500/20' 
-                                : 'bg-gray-700 border-gray-600'
-                          }`}>
-                            {isCompleted ? (
-                              <Check className="w-3 h-3 md:w-5 md:h-5 text-white" />
-                            ) : (
-                              <span className={`text-xs md:text-sm font-bold ${
-                                isActive ? 'text-white' : 'text-gray-400'
-                              }`}>
-                                {step.id}
-                              </span>
-                            )}
-                          </div>
-                          
-                          {/* Connector Line with Title */}
-                          {index < steps.length - 1 && (
-                            <div className="flex-1 relative mx-1 md:mx-2">
-                              <div className={`h-0.5 transition-all duration-300 ${
-                                isCompleted ? 'bg-red-500' : 'bg-gray-600'
-                              }`} />
-                              {/* Title on Line - shows current step's title (only on desktop) */}
-                              <div className="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-gray-900 px-2">
-                                <div className={`text-xs font-medium transition-colors duration-300 whitespace-nowrap ${
-                                  isCompleted ? 'text-red-400' : isActive ? 'text-white' : 'text-gray-500'
-                                }`}>
-                                  {step.title}
-                                </div>
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
 
-            {/* Step Content */}
-            <div className="p-8 md:p-12">
-              <div 
-                className={`transition-all duration-300 ease-out ${
-                  isStepVisible 
-                    ? 'opacity-100 translate-y-0' 
-                    : 'opacity-0 translate-y-4'
+              <div className="mt-4 grid gap-3 rounded-[2rem] bg-[#172024] p-5 text-white">
+                <div className="flex gap-3">
+                  <MapPin className="h-5 w-5 flex-none text-[#d8ebe6]" />
+                  <span className="font-bold">Berlin & Brandenburg</span>
+                </div>
+                <div className="flex gap-3">
+                  <Phone className="h-5 w-5 flex-none text-[#d8ebe6]" />
+                  <span className="font-bold">Direkter Rückruf möglich</span>
+                </div>
+              </div>
+            </aside>
+
+            <form onSubmit={handleSubmit} className="surface threshold-line order-1 rounded-[2rem] p-4 sm:p-7 lg:order-2 lg:p-9">
+              <div className="mb-6 lg:hidden">
+                <div className="mb-3 flex items-center justify-between">
+                  <span className="text-xs font-black uppercase tracking-[0.14em] text-[#6f8f9a]">Fortschritt</span>
+                  <span className="text-sm font-black text-[#172024]">Schritt {currentStep}/{steps.length}</span>
+                </div>
+                <div className="h-2 overflow-hidden rounded-full bg-[#172024]/10">
+                  <div className="h-full rounded-full bg-[#d63d32] transition-all duration-500" style={{ width: `${progress}%` }} />
+                </div>
+              </div>
+
+              <div
+                className={`min-h-[470px] transition-all duration-300 ${
+                  isStepVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
                 }`}
               >
                 {renderStep()}
               </div>
-              
-              {/* Navigation Buttons */}
-              <div 
-                className={`flex justify-between items-center gap-4 mt-10 pt-8 border-t border-gray-200 transition-all duration-300 delay-100 ${
-                  isStepVisible 
-                    ? 'opacity-100 translate-y-0' 
-                    : 'opacity-0 translate-y-4'
+
+              <div
+                className={`mt-8 flex items-center justify-between gap-3 border-t border-[#172024]/10 pt-6 transition-all duration-300 ${
+                  isStepVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
                 }`}
               >
                 {currentStep === 1 ? (
-                  <Link 
+                  <Link
                     href="/"
-                    className="flex items-center px-6 py-3 rounded-xl font-semibold bg-gray-200 text-gray-700 hover:bg-gray-300 transition-all duration-300 cursor-pointer"
+                    className="inline-flex min-h-14 items-center justify-center gap-2 rounded-full border border-[#172024]/12 bg-white px-5 font-black text-[#172024] transition hover:bg-[#d8ebe6]"
                   >
-                    <ArrowLeft className="w-4 h-4 mr-2" />
-                    <span className="md:hidden">Startseite</span>
-                    <span className="hidden md:inline">Zur Startseite</span>
+                    <ArrowLeft className="h-5 w-5" />
+                    Zurück
                   </Link>
                 ) : (
                   <button
                     type="button"
                     onClick={prevStep}
-                    className="flex items-center px-6 py-3 rounded-xl font-semibold bg-gray-200 text-gray-700 hover:bg-gray-300 transition-all duration-300 cursor-pointer"
+                    className="inline-flex min-h-14 items-center justify-center gap-2 rounded-full border border-[#172024]/12 bg-white px-5 font-black text-[#172024] transition hover:bg-[#d8ebe6]"
                   >
-                    <ArrowLeft className="w-4 h-4 mr-2" />
+                    <ArrowLeft className="h-5 w-5" />
                     Zurück
                   </button>
                 )}
 
-                {currentStep < 6 ? (
+                {currentStep < steps.length ? (
                   <button
                     type="button"
                     onClick={nextStep}
                     disabled={!canProceed()}
-                    className="flex items-center px-8 py-3 rounded-xl font-semibold bg-red-500 text-white hover:bg-red-600 disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 disabled:hover:scale-100 cursor-pointer"
+                    className="inline-flex min-h-14 items-center justify-center gap-2 rounded-full bg-[#d63d32] px-7 font-black text-white shadow-[0_18px_44px_rgba(214,61,50,0.25)] transition hover:-translate-y-1 hover:bg-[#b93028] disabled:cursor-not-allowed disabled:bg-[#6f8f9a] disabled:shadow-none disabled:hover:translate-y-0"
                   >
                     Weiter
-                    <ArrowRight className="w-4 h-4 ml-2" />
+                    <ArrowRight className="h-5 w-5" />
                   </button>
                 ) : (
                   <button
                     type="submit"
-                    className="flex items-center px-8 py-3 rounded-xl font-semibold bg-green-600 text-white hover:bg-green-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 cursor-pointer"
+                    className="inline-flex min-h-14 items-center justify-center gap-2 rounded-full bg-[#172024] px-7 font-black text-white transition hover:-translate-y-1"
                   >
                     Anfrage absenden
-                    <Check className="w-4 h-4 ml-2" />
+                    <Check className="h-5 w-5" />
                   </button>
                 )}
               </div>
-            </div>
+            </form>
           </div>
-        </form>
-      </div>
-    </div>
+        </div>
+      </section>
+    </main>
   );
 };
+
+const StepHeader = ({ title, copy }: { title: string; copy: string }) => (
+  <div className="mb-7">
+    <p className="text-sm font-black uppercase tracking-[0.14em] text-[#d63d32]">Anfrage</p>
+    <h2 className="mt-2 text-3xl font-black leading-tight text-[#172024] sm:text-5xl">{title}</h2>
+    <p className="mt-3 max-w-2xl text-base leading-7 text-[#172024]/68">{copy}</p>
+  </div>
+);
+
+const SummaryRow = ({ label, value }: { label: string; value: string }) => (
+  <div className="flex flex-col gap-2 rounded-3xl border border-[#172024]/10 bg-white/76 p-5 sm:flex-row sm:items-start sm:justify-between">
+    <span className="text-sm font-black uppercase tracking-[0.13em] text-[#6f8f9a]">{label}</span>
+    <span className="max-w-lg text-left font-black text-[#172024] sm:text-right">{value}</span>
+  </div>
+);
 
 export default AnfragePage;

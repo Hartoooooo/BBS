@@ -1,86 +1,119 @@
 'use client';
 
 import Image from 'next/image';
-import { useState, useRef, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, X } from 'lucide-react';
+import { useEffect, useRef, useState, type CSSProperties } from 'react';
+import { ChevronLeft, ChevronRight, Maximize2, X } from 'lucide-react';
 import { useScrollAnimation } from '@/lib/useScrollAnimation';
 import { useFullscreen } from '@/contexts/FullscreenContext';
+
+const images = [
+  {
+    src: '/Beispielbild-Bad.webp',
+    alt: 'Barrierefreies Bad mit bodengleicher Dusche - Beispielprojekt Berlin Brandenburg',
+  },
+  {
+    src: '/Bad-neu-3.webp',
+    alt: 'Moderner Badumbau mit Fliesenarbeiten - BBS Projekt Schöneiche',
+  },
+  {
+    src: '/Bad-neu.webp',
+    alt: 'Barrierefreie Badsanierung mit Haltegriffen - Beispielprojekt Brandenburg',
+  },
+  {
+    src: '/Beispielbild-Bad-2.webp',
+    alt: 'Luxuriöses barrierefreies Badezimmerdesign - BBS Badumbau Berlin',
+  },
+];
 
 const Projects = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [activeIndex, setActiveIndex] = useState(0);
   const [fullscreenImage, setFullscreenImage] = useState<number | null>(null);
-  const [imageOrientations, setImageOrientations] = useState<{ [key: number]: 'portrait' | 'landscape' }>({});
+  const [edgeProgress, setEdgeProgress] = useState({ top: 0, bottom: 0 });
+  const sectionRef = useRef<HTMLElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const fullscreenScrollRef = useRef<HTMLDivElement>(null);
   const { setIsFullscreen } = useFullscreen();
   const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation<HTMLDivElement>();
-  const { ref: slideshowRef, isVisible: slideshowVisible } = useScrollAnimation<HTMLDivElement>();
+  const { ref: galleryRef, isVisible: galleryVisible } = useScrollAnimation<HTMLDivElement>();
 
-  const images = [
-    { 
-      src: '/Beispielbild-Bad.webp', 
-      alt: 'Barrierefreies Bad mit bodengleicher Dusche - Beispielprojekt Berlin Brandenburg' 
-    },
-    { 
-      src: '/Bad-neu-3.webp', 
-      alt: 'Moderner Badumbau mit Fliesenarbeiten - BBS Projekt Schöneiche' 
-    },
-    { 
-      src: '/Bad-neu.webp', 
-      alt: 'Barrierefreie Badsanierung mit Haltegriffen - Beispielprojekt Brandenburg' 
-    },
-    { 
-      src: '/Beispielbild-Bad-2.webp', 
-      alt: 'Luxuriöses barrierefreies Badezimmerdesign - BBS Badumbau Berlin' 
-    }
-  ];
+  const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % images.length);
+  const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + images.length) % images.length);
 
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % images.length);
-  };
-
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + images.length) % images.length);
-  };
-
-  // Scroll-Handler für aktive Karte (Mobile)
   useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
     const handleScroll = () => {
-      if (!scrollContainerRef.current) return;
-      
-      const container = scrollContainerRef.current;
-      const scrollLeft = container.scrollLeft;
-      const cardWidth = container.offsetWidth;
-      const index = Math.round(scrollLeft / cardWidth);
-      
+      const index = Math.round(container.scrollLeft / container.offsetWidth);
       setActiveIndex(index);
     };
 
-    const container = scrollContainerRef.current;
-    if (container) {
-      container.addEventListener('scroll', handleScroll);
-      return () => container.removeEventListener('scroll', handleScroll);
-    }
+    container.addEventListener('scroll', handleScroll, { passive: true });
+    return () => container.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Funktion zum Scrollen zu einem bestimmten Index (Mobile)
+  useEffect(() => {
+    if (fullscreenImage === null) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setFullscreenImage(null);
+        setIsFullscreen(false);
+        document.body.style.overflow = '';
+      }
+      if (event.key === 'ArrowLeft') setFullscreenImage((prev) => ((prev ?? 0) - 1 + images.length) % images.length);
+      if (event.key === 'ArrowRight') setFullscreenImage((prev) => ((prev ?? 0) + 1) % images.length);
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [fullscreenImage, setIsFullscreen]);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reducedMotion) {
+      setEdgeProgress({ top: 1, bottom: 1 });
+      return;
+    }
+
+    let frame = 0;
+    const clamp = (value: number) => Math.max(0, Math.min(1, value));
+    const updateEdges = () => {
+      frame = 0;
+      const rect = section.getBoundingClientRect();
+      const viewport = window.innerHeight;
+      const top = clamp((viewport - rect.top) / (viewport * 0.36));
+      const bottom = clamp((viewport - rect.bottom + viewport * 0.3) / (viewport * 0.28));
+      setEdgeProgress({ top, bottom });
+    };
+
+    const onScroll = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(updateEdges);
+    };
+
+    updateEdges();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    return () => {
+      if (frame) window.cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
+  }, []);
+
   const scrollToIndex = (index: number) => {
-    if (!scrollContainerRef.current) return;
-    
     const container = scrollContainerRef.current;
-    const cardWidth = container.offsetWidth;
-    container.scrollTo({
-      left: cardWidth * index,
-      behavior: 'smooth'
-    });
+    if (!container) return;
+    container.scrollTo({ left: container.offsetWidth * index, behavior: 'smooth' });
   };
 
-  // Vollbild-Funktionen
   const openFullscreen = (index: number) => {
     setFullscreenImage(index);
     setIsFullscreen(true);
-    // Verhindere Body-Scroll wenn Vollbild offen ist
     document.body.style.overflow = 'hidden';
   };
 
@@ -90,271 +123,157 @@ const Projects = () => {
     document.body.style.overflow = '';
   };
 
-  // Navigation-Funktionen für Vollbildmodus
-  const nextFullscreenImage = () => {
-    if (fullscreenImage !== null) {
-      setFullscreenImage((prev) => ((prev || 0) + 1) % images.length);
-    }
-  };
-
-  const prevFullscreenImage = () => {
-    if (fullscreenImage !== null) {
-      setFullscreenImage((prev) => ((prev || 0) - 1 + images.length) % images.length);
-    }
-  };
-
-
-  // Keyboard-Navigation für Vollbildmodus
-  useEffect(() => {
-    if (fullscreenImage === null) return;
-
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        closeFullscreen();
-      } else if (e.key === 'ArrowLeft') {
-        prevFullscreenImage();
-      } else if (e.key === 'ArrowRight') {
-        nextFullscreenImage();
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [fullscreenImage]);
-
-  // Vollbildmodus bei Gerätedrehung erhalten
-  useEffect(() => {
-    if (fullscreenImage !== null) {
-      const handleOrientationChange = () => {
-        // Der Vollbildmodus bleibt durch fixed positioning erhalten
-      };
-
-      window.addEventListener('orientationchange', handleOrientationChange);
-      window.addEventListener('resize', handleOrientationChange);
-      
-      return () => {
-        window.removeEventListener('orientationchange', handleOrientationChange);
-        window.removeEventListener('resize', handleOrientationChange);
-      };
-    }
-  }, [fullscreenImage]);
-
   return (
-    <section className="py-16 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div 
+    <section
+      id="projects"
+      ref={sectionRef}
+      style={
+        {
+          '--project-top': edgeProgress.top,
+          '--project-bottom': edgeProgress.bottom,
+        } as CSSProperties
+      }
+      className="relative mt-[-3rem] translate-y-[calc(72px*(1-var(--project-top)))] transform-gpu overflow-hidden rounded-t-[3rem] bg-[#172024] pb-28 pt-28 text-white shadow-[0_calc(-34px*var(--project-top))_80px_rgba(23,32,36,calc(0.24*var(--project-top)))] will-change-transform sm:mt-[-4rem] sm:translate-y-[calc(96px*(1-var(--project-top)))] sm:rounded-t-[4rem] sm:pb-36 sm:pt-36"
+    >
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-10 rounded-t-[3rem] bg-[linear-gradient(180deg,rgba(255,255,255,calc(0.08*var(--project-top))),rgba(255,255,255,0))] sm:h-14 sm:rounded-t-[4rem]" />
+      <div className="section-shell relative z-10">
+        <div
           ref={headerRef}
-          className={`text-center mb-12 transition-all duration-1200 ease-out ${
-            headerVisible 
-              ? 'opacity-100 translate-y-0' 
-              : 'opacity-0 translate-y-8'
+          className={`mb-10 transition-all duration-700 ${
+            headerVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
           }`}
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Unsere Beispielprojekte
-          </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Werfen Sie einen Blick auf einige unserer erfolgreich abgeschlossenen Projekte 
-            und lassen Sie sich von unserer Arbeit inspirieren.
-          </p>
+          <div className="max-w-6xl">
+            <p className="eyebrow text-[#d8ebe6]">Projekte</p>
+            <h2 className="section-title mt-4 !text-white">
+              Vorher gedacht. Nachher leicht nutzbar.
+            </h2>
+          </div>
         </div>
 
-        {/* Mobile: Horizontal Scroll */}
-        <div className="md:hidden">
-          <div 
-            ref={scrollContainerRef}
-            className="overflow-x-auto scrollbar-hide -mx-4 px-4 snap-x snap-mandatory"
-            style={{ height: '400px' }}
-          >
-            <div className="flex gap-4 pb-4" style={{ height: '100%' }}>
+        <div
+          ref={galleryRef}
+          className={`transition-all duration-700 ${
+            galleryVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+          }`}
+        >
+          <div className="md:hidden">
+            <div ref={scrollContainerRef} className="-mx-4 flex snap-x gap-4 overflow-x-auto px-4 pb-5 scrollbar-hide">
               {images.map((image, index) => (
-                <div 
-                  key={index} 
-                  className="relative flex-shrink-0 snap-center rounded-lg overflow-hidden bg-transparent cursor-pointer"
-                  style={{ 
-                    width: 'calc(100vw - 2rem)',
-                    height: '100%',
-                    minHeight: '400px'
-                  }}
+                <button
+                  key={image.src}
                   onClick={() => openFullscreen(index)}
+                  className="relative h-[70svh] w-[86vw] flex-none snap-center overflow-hidden rounded-3xl bg-black text-left"
+                  aria-label={`${image.alt} öffnen`}
                 >
-                  <div className="relative w-full h-full rounded-lg overflow-hidden">
-                  <Image
-                    src={image.src}
-                    alt={image.alt}
-                    fill
-                      className="object-contain"
-                    sizes="(max-width: 768px) 100vw, 0px"
-                    priority={index === 0}
-                    unoptimized={false}
-                      style={{ borderRadius: '0.5rem' }}
-                  />
-                  </div>
-                </div>
+                  <Image src={image.src} alt={image.alt} fill className="object-cover" sizes="86vw" priority={index === 0} />
+                  <span className="absolute right-4 top-4 rounded-full bg-white/90 p-3 text-[#172024]">
+                    <Maximize2 className="h-5 w-5" />
+                  </span>
+                </button>
+              ))}
+            </div>
+            <div className="flex justify-center gap-2">
+              {images.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => scrollToIndex(index)}
+                  className={`h-2 rounded-full transition-all ${activeIndex === index ? 'w-10 bg-[#d63d32]' : 'w-2 bg-white/35'}`}
+                  aria-label={`Zu Bild ${index + 1}`}
+                />
               ))}
             </div>
           </div>
-          
-          {/* Navigation Dots */}
-          <div className="flex justify-center gap-2 mt-4">
-            {images.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => scrollToIndex(index)}
-                className={`h-1.5 rounded-full transition-all duration-300 ${
-                  index === activeIndex 
-                    ? 'w-8 bg-red-500' 
-                    : 'w-1.5 bg-gray-300 hover:bg-gray-400'
-                }`}
-                aria-label={`Gehe zu Bild ${index + 1}`}
+
+          <div className="hidden md:grid md:grid-cols-[1fr_280px] md:gap-5">
+            <div className="threshold-line relative min-h-[620px] overflow-hidden rounded-[2rem] bg-black shadow-[0_24px_80px_rgba(0,0,0,0.28)]">
+              <Image
+                src={images[currentSlide].src}
+                alt={images[currentSlide].alt}
+                fill
+                className="object-cover transition duration-500"
+                sizes="900px"
+                priority
               />
-            ))}
-          </div>
-        </div>
-
-        {/* Desktop: Slideshow */}
-        <div 
-          ref={slideshowRef}
-          className={`hidden md:block relative w-full h-[500px] lg:h-[600px] group bg-white rounded-lg overflow-hidden shadow-lg transition-all duration-1200 ease-out delay-200 ${
-            slideshowVisible 
-              ? 'opacity-100 translate-y-0' 
-              : 'opacity-0 translate-y-8'
-          }`}
-        >
-          <Image
-            src={images[currentSlide].src}
-            alt={images[currentSlide].alt}
-            fill
-            className="object-cover transition-opacity duration-500"
-          />
-          
-          {/* Navigation Buttons */}
-          <button
-            onClick={prevSlide}
-            className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-            aria-label="Vorheriges Bild"
-          >
-            <ChevronLeft className="w-6 h-6" />
-          </button>
-          
-          <button
-            onClick={nextSlide}
-            className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-            aria-label="Nächstes Bild"
-          >
-            <ChevronRight className="w-6 h-6" />
-          </button>
-          
-          {/* Slide Indicators */}
-          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2">
-            {images.map((_, imgIndex) => (
-              <button
-                key={imgIndex}
-                onClick={() => setCurrentSlide(imgIndex)}
-                className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
-                  currentSlide === imgIndex 
-                    ? 'bg-white w-8' 
-                    : 'bg-white/50 hover:bg-white/75'
-                }`}
-                aria-label={`Zu Bild ${imgIndex + 1} wechseln`}
-              />
-            ))}
-          </div>
-          
-          {/* Image Counter */}
-          <div className="absolute top-4 right-4 bg-black/50 text-white px-4 py-2 rounded-full text-sm font-medium">
-            {currentSlide + 1} / {images.length}
-          </div>
-        </div>
-
-        {/* Vollbild-Modal (Mobile & Tablet) */}
-        {fullscreenImage !== null && (
-          <div 
-            className="lg:hidden fixed inset-0 z-50 bg-black"
-            onClick={closeFullscreen}
-          >
-            {/* Schließen-Button */}
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                closeFullscreen();
-              }}
-              className="absolute top-4 right-4 z-10 bg-black/70 hover:bg-black/90 text-white p-3 rounded-full transition-colors"
-              aria-label="Vollbild schließen"
-            >
-              <X className="w-6 h-6" />
-            </button>
-
-            {/* Bild-Container ohne Scroll */}
-            <div 
-              className="w-full h-full overflow-hidden relative"
-              onClick={(e) => e.stopPropagation()}
-            >
-              {/* Aktuelles Bild */}
-              <div className="flex items-center justify-center h-full px-4">
-                <div className="relative w-full h-full flex items-center justify-center" style={{ maxHeight: '100vh' }}>
-                  <Image
-                    src={images[fullscreenImage].src}
-                    alt={images[fullscreenImage].alt}
-                    width={0}
-                    height={0}
-                    className={imageOrientations[fullscreenImage] === 'portrait' 
-                      ? 'w-auto h-auto max-w-full max-h-[100vh] object-contain' 
-                      : 'w-full h-auto max-h-[100vh] object-contain'
-                    }
-                    sizes="100vw"
-                    unoptimized={false}
-                    onLoad={(e) => {
-                      const img = e.currentTarget;
-                      const isPortrait = img.naturalHeight > img.naturalWidth;
-                      setImageOrientations(prev => ({
-                        ...prev,
-                        [fullscreenImage]: isPortrait ? 'portrait' : 'landscape'
-                      }));
-                    }}
-                  />
+              <div className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-4 bg-gradient-to-t from-black/80 to-transparent p-6">
+                <div>
+                  <p className="text-sm font-black uppercase tracking-[0.16em] text-[#d8ebe6]">Projektbild</p>
+                </div>
+                <div className="flex gap-2">
+                  <button onClick={prevSlide} className="rounded-full bg-white/90 p-4 text-[#172024] transition hover:bg-white" aria-label="Vorheriges Bild">
+                    <ChevronLeft className="h-5 w-5" />
+                  </button>
+                  <button onClick={nextSlide} className="rounded-full bg-white/90 p-4 text-[#172024] transition hover:bg-white" aria-label="Nächstes Bild">
+                    <ChevronRight className="h-5 w-5" />
+                  </button>
                 </div>
               </div>
+            </div>
 
-              {/* Navigation Buttons */}
-              {images.length > 1 && (
-                <>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      prevFullscreenImage();
-                    }}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black/90 text-white p-3 rounded-full transition-colors z-10"
-                    aria-label="Vorheriges Bild"
-                  >
-                    <ChevronLeft className="w-6 h-6" />
-                  </button>
-                  
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      nextFullscreenImage();
-                    }}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black/90 text-white p-3 rounded-full transition-colors z-10"
-                    aria-label="Nächstes Bild"
-                  >
-                    <ChevronRight className="w-6 h-6" />
-                  </button>
-
-                  {/* Bild-Zähler */}
-                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/70 text-white px-4 py-2 rounded-full text-sm font-medium pointer-events-none">
-                    {fullscreenImage + 1} / {images.length}
-                  </div>
-                </>
-              )}
+            <div className="grid gap-4">
+              {images.map((image, index) => (
+                <button
+                  key={image.src}
+                  onClick={() => setCurrentSlide(index)}
+                  className={`relative overflow-hidden rounded-3xl border text-left transition ${
+                    currentSlide === index ? 'border-[#d63d32]' : 'border-white/12 opacity-72 hover:opacity-100'
+                  }`}
+                  aria-label={`Bild ${index + 1} anzeigen`}
+                >
+                  <Image src={image.src} alt={image.alt} width={320} height={180} className="h-32 w-full object-cover" />
+                </button>
+              ))}
             </div>
           </div>
-        )}
+        </div>
       </div>
+
+      {fullscreenImage !== null && (
+        <div className="fixed inset-0 z-[70] bg-black" onClick={closeFullscreen}>
+          <button
+            onClick={(event) => {
+              event.stopPropagation();
+              closeFullscreen();
+            }}
+            className="absolute right-4 top-4 z-10 rounded-full bg-white/12 p-4 text-white backdrop-blur transition hover:bg-white/22"
+            aria-label="Vollbild schließen"
+          >
+            <X className="h-6 w-6" />
+          </button>
+          <button
+            onClick={(event) => {
+              event.stopPropagation();
+              setFullscreenImage((prev) => ((prev ?? 0) - 1 + images.length) % images.length);
+            }}
+            className="absolute left-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/12 p-4 text-white backdrop-blur transition hover:bg-white/22"
+            aria-label="Vorheriges Bild"
+          >
+            <ChevronLeft className="h-6 w-6" />
+          </button>
+          <button
+            onClick={(event) => {
+              event.stopPropagation();
+              setFullscreenImage((prev) => ((prev ?? 0) + 1) % images.length);
+            }}
+            className="absolute right-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/12 p-4 text-white backdrop-blur transition hover:bg-white/22"
+            aria-label="Nächstes Bild"
+          >
+            <ChevronRight className="h-6 w-6" />
+          </button>
+          <div className="flex h-full items-center justify-center p-4" onClick={(event) => event.stopPropagation()}>
+            <Image
+              src={images[fullscreenImage].src}
+              alt={images[fullscreenImage].alt}
+              width={1600}
+              height={1200}
+              className="max-h-full w-auto max-w-full object-contain"
+              sizes="100vw"
+            />
+          </div>
+        </div>
+      )}
     </section>
   );
 };
 
 export default Projects;
-

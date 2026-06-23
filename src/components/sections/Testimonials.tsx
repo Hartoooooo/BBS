@@ -1,269 +1,147 @@
-
 'use client';
 
-import { useState } from 'react';
-import { Quote, ChevronDown, ChevronUp } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { ChevronLeft, ChevronRight, Quote, Star } from 'lucide-react';
 import { useScrollAnimation } from '@/lib/useScrollAnimation';
 
-const GoogleIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-    <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-    <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-    <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
-  </svg>
-);
+const testimonials = [
+  {
+    text: 'Wir haben schon mehrere Sachen machen lassen, ist jedes Mal super geworden. Tolle Arbeit! Jederzeit wieder!',
+    author: 'D. S.',
+    location: 'N.A.',
+    sourceUrl: 'https://maps.app.goo.gl/H5Vvn7cMA8UXGQAF9',
+  },
+  {
+    text: 'Ich habe mein Bad von BBS umbauen lassen, weil mir die Sicherheit im Alltag wichtig ist. Ebenerdige Dusche, rutschfeste Fliesen und schwellenlose Übergänge wurden sauber, zuverlässig und termingerecht eingebaut.',
+    author: 'Herr E. V.',
+    location: 'Berlin Spandau',
+    sourceUrl: 'https://www.fliesenleger.net/berlin/bjoern-hartmann---bbs-barrierefreies-bauen-und-sanieren-aULrY0#bewertungen',
+  },
+  {
+    text: 'Unser Badezimmer wurde komplett barrierefrei umgebaut. Dusche abgesenkt, Fliesenarbeiten sehr sauber ausgeführt und alle Übergänge ohne Kanten gestaltet.',
+    author: 'Frau W. E.',
+    location: 'Berlin Charlottenburg',
+    sourceUrl: 'https://www.fliesenleger.net/berlin/bjoern-hartmann---bbs-barrierefreies-bauen-und-sanieren-aULrY0#bewertungen',
+  },
+  {
+    text: 'Richtig gute Arbeit! Die Jungs waren pünktlich, haben ordentlich gearbeitet und das Ergebnis kann sich echt sehen lassen.',
+    author: 'Luc S.',
+    location: 'Neuenhagen',
+    sourceUrl: 'https://maps.app.goo.gl/H5Vvn7cMA8UXGQAF9',
+  },
+  {
+    text: 'Vom ersten Kontakt bis zur Fertigstellung einfach super! Saubere Arbeit, ein sehr kompetentes und sympathisches Team.',
+    author: 'Louis H.',
+    location: 'Schöneiche',
+    sourceUrl: 'https://maps.app.goo.gl/H5Vvn7cMA8UXGQAF9',
+  },
+];
 
 const Testimonials = () => {
-  const [currentTestimonial, setCurrentTestimonial] = useState(0);
-  const [expandedMobile, setExpandedMobile] = useState<{ [key: number]: boolean }>({});
-  const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation<HTMLDivElement>();
-  const { ref: carouselRef, isVisible: carouselVisible } = useScrollAnimation<HTMLDivElement>();
-  const { ref: statsRef, isVisible: statsVisible } = useScrollAnimation<HTMLDivElement>();
+  const [current, setCurrent] = useState(0);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [canToggle, setCanToggle] = useState(false);
+  const quoteRef = useRef<HTMLQuoteElement>(null);
+  const { ref, isVisible } = useScrollAnimation<HTMLDivElement>();
 
-  const toggleMobileExpanded = (index: number) => {
-    setExpandedMobile(prev => ({
-      ...prev,
-      [index]: !prev[index]
-    }));
+  const next = () => {
+    setIsExpanded(false);
+    setCurrent((value) => (value + 1) % testimonials.length);
   };
-
-  const getTruncatedText = (text: string, maxLength: number) => {
-    if (text.length <= maxLength) return text;
-    return text.substring(0, maxLength) + '...';
+  const prev = () => {
+    setIsExpanded(false);
+    setCurrent((value) => (value - 1 + testimonials.length) % testimonials.length);
   };
+  const active = testimonials[current];
 
-  type Testimonial = {
-    text: string;
-    author: string;
-    location: string;
-    sourceUrl: string;
-  };
+  useEffect(() => {
+    const measureQuote = () => {
+      const quote = quoteRef.current;
+      if (!quote) return;
+      setCanToggle(quote.scrollHeight > quote.clientHeight + 1);
+    };
 
-  const testimonials: Testimonial[] = [
-    {
-      text: "Wir haben schon mehrere Sachen machen lassen, ist jedes Mal super geworden. Tolle Arbeit! Jederzeit wieder!",
-      author: "D. S.",
-      location: "N.A.",
-      sourceUrl: "https://maps.app.goo.gl/H5Vvn7cMA8UXGQAF9"
-    },
-    {
-      text: "Ich habe mein Bad von BBS – Barrierefreies Bauen und Sanieren umbauen lassen, weil mir die Sicherheit im Alltag wichtig ist. Die Firma hat eine ebenerdige Dusche, rutschfeste Fliesen und schwellenlose Übergänge eingebaut. Alles wurde sauber, zuverlässig und termingerecht erledigt. Jetzt fühle ich mich wieder sicher in meinem eigenen Zuhause und freue mich über ein schönes, modernes Bad. Vielen Dank an das Team BBS.",
-      author: "Herr E. V.",
-      location: "Berlin Spandau",
-      sourceUrl: "https://www.fliesenleger.net/berlin/bjoern-hartmann---bbs-barrierefreies-bauen-und-sanieren-aULrY0#bewertungen"
-    },
-    {
-      text: "Unser Badezimmer wurde komplett barrierefrei umgebaut. Die Dusche wurde abgesenkt, die Fliesenarbeiten sehr sauber ausgeführt und alle Übergänge ohne Kanten gestaltet. Auch Waschbecken und Toilette wurden angepasst. Alles lief zuverlässig und termingerecht – wir sind mit dem Ergebnis sehr zufrieden.",
-      author: "Frau W. E.",
-      location: "Berlin Charlottenburg",
-      sourceUrl: "https://www.fliesenleger.net/berlin/bjoern-hartmann---bbs-barrierefreies-bauen-und-sanieren-aULrY0#bewertungen"
-    },
-    {
-      text: "Richtig gute Arbeit! Die Jungs waren pünktlich, haben ordentlich gearbeitet und das Ergebnis kann sich echt sehen lassen. So wünscht man sich das!",
-      author: "Luc S.",
-      location: "Neuenhagen",
-      sourceUrl: "https://maps.app.goo.gl/H5Vvn7cMA8UXGQAF9"
-    },
-    {
-      text: "Vom ersten Kontakt bis zur Fertigstellung einfach super! Saubere Arbeit, ein sehr kompetentes und sympathisches Team. Jederzeit wieder!",
-      author: "Louis H.",
-      location: "Schöneiche",
-      sourceUrl: "https://maps.app.goo.gl/H5Vvn7cMA8UXGQAF9"
-    },
-    {
-      text: "Unser Bad ist wunderschön geworden – genau so, wie wir es uns vorgestellt haben. Danke für eure Geduld und den tollen Einsatz.",
-      author: "Luca F.",
-      location: "Berlin",
-      sourceUrl: "https://maps.app.goo.gl/H5Vvn7cMA8UXGQAF9"
-    }
-  ];
+    measureQuote();
+    window.addEventListener('resize', measureQuote);
+    return () => window.removeEventListener('resize', measureQuote);
+  }, [current]);
 
   return (
-    <section className="py-20 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div 
-          ref={headerRef}
-          className={`text-center mb-16 transition-all duration-1200 ease-out ${
-            headerVisible 
-              ? 'opacity-100 translate-y-0' 
-              : 'opacity-0 translate-y-8'
-          }`}
-        >
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Was unsere Kunden sagen
-          </h2>
-          <div className="flex items-center justify-center mb-4">
-            <div className="flex text-yellow-400">
-              {[...Array(5)].map((_, i) => (
-                <svg key={i} className="w-6 h-6 fill-current" viewBox="0 0 24 24">
-                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                </svg>
+    <section id="reviews" className="bg-[#172024] py-20 sm:py-28">
+      <div
+        ref={ref}
+        className={`section-shell transition-all duration-700 ${
+          isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+        }`}
+      >
+        <div className="mb-10 grid gap-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
+          <div>
+            <p className="eyebrow text-[#d8ebe6]">Bewertungen</p>
+            <h2 className="section-title mt-4 !text-white">
+              Vertrauen,
+              <span className="block">das man nachliest.</span>
+            </h2>
+          </div>
+          <div className="surface rounded-3xl p-4 lg:w-64">
+            <div className="flex items-center gap-2">
+              {[...Array(5)].map((_, index) => (
+                <Star key={index} className="h-4 w-4 fill-[#d63d32] text-[#d63d32]" />
               ))}
+              <span className="ml-1 text-lg font-black text-[#172024]">5,0</span>
             </div>
-            <span className="ml-2 text-gray-600">5,0 (5)</span>
             <a
-              href="https://maps.app.goo.gl/H5Vvn7cMA8UXGQAF9"
+              href="https://share.google/1o8Gsmu8uAAyrGKVm"
               target="_blank"
               rel="noopener noreferrer"
-              className="ml-3 bg-white text-blue-600 border border-blue-600 px-4 py-2 rounded-lg font-semibold hover:bg-blue-50 transition-colors inline-flex items-center gap-2"
+              className="mt-2 inline-flex text-xs font-black text-[#d63d32] underline-offset-4 hover:underline"
             >
-              <GoogleIcon />
-              <span className="md:hidden">Bewerten</span>
-              <span className="hidden md:inline">Bewerten Sie uns</span>
+              Bewertung auf Google schreiben
             </a>
           </div>
         </div>
 
-        {/* Testimonials - Horizontal Scroll auf Mobile, Carousel auf Desktop */}
-        <div 
-          ref={carouselRef}
-          className={`relative transition-all duration-1200 ease-out delay-200 ${
-            carouselVisible 
-              ? 'opacity-100 translate-y-0' 
-              : 'opacity-0 translate-y-8'
-          }`}
-        >
-          {/* Mobile: Horizontal Scroll */}
-          <div className="md:hidden overflow-x-auto pb-4 scrollbar-thin -mx-4 px-4">
-            <div className="flex gap-4" style={{ width: 'max-content' }}>
-              {testimonials.map((testimonial, index) => {
-                const isExpanded = expandedMobile[index] || false;
-                // Schätzung: ca. 150 Zeichen passen in die Container-Höhe von 300px
-                const maxVisibleChars = 150;
-                const needsExpansion = testimonial.text.length > maxVisibleChars;
-                const textLength = Math.floor(testimonial.text.length / 3);
-                const displayText = isExpanded || !needsExpansion 
-                  ? testimonial.text 
-                  : getTruncatedText(testimonial.text, textLength);
-
-                return (
-                  <div 
-                    key={index}
-                    className="bg-white rounded-lg shadow-lg p-6 min-w-[85vw] max-w-[85vw] flex flex-col"
-                    style={{ minHeight: needsExpansion && !isExpanded ? '300px' : 'auto' }}
-                  >
-                    <Quote className="w-10 h-10 text-red-500 mb-4 flex-shrink-0" />
-                    
-                    <blockquote className="text-base text-gray-700 mb-4 italic flex-grow">
-                      {displayText}
-                    </blockquote>
-                    
-                    {needsExpansion && (
-                      <button
-                        onClick={() => toggleMobileExpanded(index)}
-                        className="flex items-center gap-1 text-red-500 hover:text-red-600 font-semibold mb-4 text-sm self-start"
-                      >
-                        {isExpanded ? (
-                          <>
-                            <ChevronUp className="w-4 h-4" />
-                            Weniger anzeigen
-                          </>
-                        ) : (
-                          <>
-                            <ChevronDown className="w-4 h-4" />
-                            Mehr anzeigen
-                          </>
-                        )}
-                      </button>
-                    )}
-                    
-                    <div className="flex items-center flex-shrink-0 mt-auto">
-                      <div>
-                        <div className="font-semibold text-gray-900 text-sm">
-                          {testimonial.author}
-                        </div>
-                        <div className="text-gray-600 text-sm">
-                          Ort: {testimonial.location}
-                        </div>
-                        <a
-                          href={testimonial.sourceUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-xs text-blue-600 hover:text-blue-700 underline mt-1 inline-block"
-                        >
-                          {testimonial.sourceUrl.includes('fliesenleger.net') 
-                            ? 'von Fliesenleger.net' 
-                            : 'von Google'}
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Desktop: Carousel mit Dots */}
-          <div className="hidden md:block max-w-4xl mx-auto">
-            <div className="bg-white rounded-lg shadow-lg p-8 relative h-[420px] flex flex-col">
-              <Quote className="w-12 h-12 text-red-500 mb-4 flex-shrink-0" />
-            
-              <blockquote className="text-lg md:text-xl text-gray-700 mb-6 italic flex-grow overflow-y-auto">
-              {testimonials[currentTestimonial].text}
+        <div>
+          <article className="surface threshold-line rounded-[2rem] p-5 sm:p-7">
+            <Quote className="mb-4 h-8 w-8 text-[#d63d32] sm:mb-5 sm:h-10 sm:w-10" />
+            <blockquote
+              ref={quoteRef}
+              className={`min-h-[3.1rem] text-xl font-black leading-tight text-[#172024] sm:min-h-[4.5rem] sm:text-3xl lg:max-w-5xl ${
+                isExpanded ? '' : 'overflow-hidden [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2]'
+              }`}
+            >
+              {active.text}
             </blockquote>
-            
-              <div className="flex items-center flex-shrink-0 mt-auto">
-              <div>
-                <div className="font-semibold text-gray-900">
-                  {testimonials[currentTestimonial].author}
-                </div>
-                <div className="text-gray-600">
-                  Ort: {testimonials[currentTestimonial].location}
-                </div>
-                <a
-                  href={testimonials[currentTestimonial].sourceUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-blue-600 hover:text-blue-700 underline mt-1 inline-block"
+            <div className="mt-3 min-h-8">
+              {(canToggle || isExpanded) && (
+                <button
+                  type="button"
+                  onClick={() => setIsExpanded((value) => !value)}
+                  className="inline-flex text-sm font-black text-[#d63d32] underline-offset-4 hover:underline"
                 >
-                  {testimonials[currentTestimonial].sourceUrl.includes('fliesenleger.net') 
-                    ? 'von Fliesenleger.net' 
-                    : 'von Google'}
-                </a>
+                  {isExpanded ? 'Weniger anzeigen' : 'Mehr anzeigen'}
+                </button>
+              )}
+            </div>
+            <div className="mt-5 flex flex-col gap-3 border-t border-[#172024]/10 pt-4 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <p className="font-black text-[#172024]">{active.author}</p>
+                <p className="text-sm font-bold text-[#6f8f9a]">
+                  Ort: {active.location}
+                  <a href={active.sourceUrl} target="_blank" rel="noopener noreferrer" className="ml-3 font-black text-[#d63d32]">
+                    Quelle öffnen
+                  </a>
+                </p>
+              </div>
+              <div className="flex gap-2 sm:w-44">
+                <button onClick={prev} className="flex h-12 flex-1 items-center justify-center rounded-full bg-[#172024] text-white transition hover:bg-[#d63d32]" aria-label="Vorherige Bewertung">
+                  <ChevronLeft className="h-5 w-5" />
+                </button>
+                <button onClick={next} className="flex h-12 flex-1 items-center justify-center rounded-full bg-[#172024] text-white transition hover:bg-[#d63d32]" aria-label="Nächste Bewertung">
+                  <ChevronRight className="h-5 w-5" />
+                </button>
               </div>
             </div>
-          </div>
-
-          {/* Dots indicator */}
-          <div className="flex justify-center mt-6 space-x-2">
-            {testimonials.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentTestimonial(index)}
-                className={`w-3 h-3 rounded-full transition-colors duration-200 ${
-                  index === currentTestimonial ? 'bg-red-500' : 'bg-gray-300'
-                }`}
-              />
-            ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Stats */}
-        <div 
-          ref={statsRef}
-          className={`grid grid-cols-1 md:grid-cols-3 gap-8 mt-16 transition-all duration-1200 ease-out delay-400 ${
-            statsVisible 
-              ? 'opacity-100 translate-y-0' 
-              : 'opacity-0 translate-y-8'
-          }`}
-        >
-          <div className="text-center">
-            <div className="text-4xl font-bold text-red-500 mb-2">24/7</div>
-            <div className="text-gray-600">Schneller und regionaler Service</div>
-          </div>
-          
-          <div className="text-center">
-            <div className="text-4xl font-bold text-red-500 mb-2">22+</div>
-            <div className="text-gray-600">Jahre Erfahrung</div>
-          </div>
-          
-          <div className="text-center">
-            <div className="text-4xl font-bold text-red-500 mb-2">150+</div>
-            <div className="text-gray-600">erfolgreich abgeschlossene Projekte</div>
-          </div>
+          </article>
         </div>
       </div>
     </section>

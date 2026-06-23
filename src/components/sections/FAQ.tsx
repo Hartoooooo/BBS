@@ -1,127 +1,84 @@
 'use client';
 
 import { useState } from 'react';
-import { ChevronDown, ChevronUp, Hammer } from 'lucide-react';
 import Link from 'next/link';
+import { ChevronDown, Hammer } from 'lucide-react';
 import { useScrollAnimation } from '@/lib/useScrollAnimation';
 
+const faqs = [
+  {
+    question: 'Welche Fliesenarbeiten bieten Sie an?',
+    answer: 'Wand- und Bodenfliesen, Naturstein, großformatige Fliesen und saubere Anschlüsse für Bad, Küche und Wohnräume.',
+  },
+  {
+    question: 'Führen Sie komplette barrierefreie Badumbauten durch?',
+    answer: 'Ja. Von Planung bis Fertigstellung: bodengleiche Dusche, rutschfeste Fliesen, Haltegriffe und schwellenlose Übergänge.',
+  },
+  {
+    question: 'Was umfasst Ihre Wasserschadensanierung?',
+    answer: 'Leckortung, Trocknung, Schimmelprävention und Reparatur.',
+  },
+  {
+    question: 'Welche Bodenbeläge verlegen Sie?',
+    answer: 'Fliesen, Naturstein, Parkett, Laminat, Vinyl und PVC. Materialauswahl und Verlegung kommen aus einer Hand.',
+  },
+  {
+    question: 'Was beinhaltet Ihr Trockenbau-Service?',
+    answer: 'Trennwände, abgehängte Decken, Dachausbauten, Raumteilungen, Dämmung, Spachtelung und Oberflächenbearbeitung.',
+  },
+  {
+    question: 'Welche Förderungen gibt es für barrierefreie Umbauten?',
+    answer: 'Je nach Situation kommen KfW-Kredite, Pflegekassenzuschüsse und regionale Förderungen infrage. Wir beraten passend zum Vorhaben.',
+  },
+];
+
 const FAQ = () => {
-  const [openItems, setOpenItems] = useState<number[]>([]);
-  const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation<HTMLDivElement>();
-  const { ref: faqRef, isVisible: faqVisible } = useScrollAnimation<HTMLDivElement>();
-  const { ref: ctaRef, isVisible: ctaVisible } = useScrollAnimation<HTMLDivElement>();
-
-  const toggleItem = (index: number) => {
-    setOpenItems(prev => 
-      prev.includes(index) 
-        ? prev.filter(i => i !== index)
-        : [...prev, index]
-    );
-  };
-
-  const faqs = [
-    {
-      question: 'Welche Fliesenarbeiten bieten Sie an?',
-      answer: 'Wir bieten professionelle Fliesenarbeiten für Bad, Küche und Wohnräume an. Dazu gehören Wand- und Bodenfliesen, Natursteinverlegung sowie moderne großformatige Fliesen. Unsere erfahrenen Fliesenleger arbeiten präzise und sauber.'
-    },
-    {
-      question: 'Führen Sie komplette barrierefreie Badumbauten durch?',
-      answer: 'Ja, wir führen komplette barrierefreie Badumbauten durch. Von der Planung bis zur Fertigstellung erhalten Sie alles aus einer Hand - bodengleiche Duschen, rutschfeste Fliesen, Haltegriffe und alle weiteren Anpassungen für mehr Sicherheit und Komfort.'
-    },
-    {
-      question: 'Was umfasst Ihre Wasserschadensanierung?',
-      answer: 'Bei Wasserschäden bieten wir schnelle professionelle Hilfe: Leckortung, Trocknung der betroffenen Bereiche, Schimmelprävention sowie fachgerechte Sanierung und Wiederherstellung. Wir arbeiten mit modernen Trocknungsgeräten und dokumentieren den gesamten Prozess.'
-    },
-    {
-      question: 'Welche Bodenbeläge verlegen Sie?',
-      answer: 'Wir verlegen alle gängigen Bodenbeläge: Fliesen, Naturstein, Parkett, Laminat, Vinyl und PVC. Dabei beraten wir Sie zur Auswahl des passenden Materials für Ihre Räumlichkeiten und sorgen für eine fachgerechte, präzise Verlegung.'
-    },
-    {
-      question: 'Was beinhaltet Ihr Trockenbau-Service?',
-      answer: 'Unser Trockenbau-Service umfasst den Bau von Trennwänden, abgehängten Decken, Dachausbauten und Raumteilungen. Wir arbeiten schnell, sauber und bieten auch Schall- und Wärmedämmung sowie die komplette Verspachtelung und Oberflächenbearbeitung.'
-    },
-    {
-      question: 'Wie schützen Sie Gebäude vor Feuchtigkeit?',
-      answer: 'Wir bieten professionelle Bauwerksabdichtung gegen Feuchtigkeit: Kellerabdichtung, Horizontalsperren, Vertikalabdichtungen und Balkonabdichtungen. Zusätzlich führen wir Holzschutzmaßnahmen durch, um Ihre Bausubstanz langfristig zu schützen.'
-    },
-    {
-      question: 'Welche Förderungen gibt es für barrierefreie Umbauten?',
-      answer: 'Es gibt verschiedene Fördermöglichkeiten wie zinsgünstige KfW Kredite, Pflegekassenzuschüsse (bis zu 4.180 €) und regionale Förderungen. Wir beraten Sie gerne über die für Sie passenden Fördermöglichkeiten.'
-    }
-  ];
+  const [openItem, setOpenItem] = useState(0);
+  const { ref, isVisible } = useScrollAnimation<HTMLDivElement>();
 
   return (
-    <section id="faq" className="py-20 bg-gray-50">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div 
-          ref={headerRef}
-          className={`text-center mb-16 transition-all duration-1200 ease-out ${
-            headerVisible 
-              ? 'opacity-100 translate-y-0' 
-              : 'opacity-0 translate-y-8'
-          }`}
-        >
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Ihre Fragen unsere Antworten: BBS Barrierefreies Bauen und Sanieren
-          </h2>
-          <p className="text-lg text-gray-600">
-            Hier finden Sie Antworten auf häufig gestellte Fragen zu unseren Dienstleistungen
+    <section id="faq" className="bg-white py-20 sm:py-28">
+      <div
+        ref={ref}
+        className={`section-shell grid gap-10 transition-all duration-700 lg:grid-cols-[0.8fr_1.2fr] ${
+          isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+        }`}
+      >
+        <div>
+          <p className="eyebrow">FAQ</p>
+          <h2 className="section-title mt-4">Kurz klären. Dann sauber planen.</h2>
+          <p className="body-copy mt-6">
+            Häufige Fragen zu Fliesenarbeiten, barrierefreiem Badumbau, Trockenbau und Sanierung.
           </p>
-        </div>
-
-        {/* FAQ Items */}
-        <div 
-          ref={faqRef}
-          className={`space-y-4 transition-all duration-1200 ease-out delay-200 ${
-            faqVisible 
-              ? 'opacity-100 translate-y-0' 
-              : 'opacity-0 translate-y-8'
-          }`}
-        >
-          {faqs.map((faq, index) => (
-            <div key={index} className="bg-white rounded-lg shadow-sm border border-gray-200">
-              <button
-                onClick={() => toggleItem(index)}
-                className="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50 transition-colors duration-200"
-              >
-                <h3 className="text-lg font-semibold text-gray-900 pr-4">
-                  {faq.question}
-                </h3>
-                {openItems.includes(index) ? (
-                  <ChevronUp className="w-5 h-5 text-red-500 flex-shrink-0" />
-                ) : (
-                  <ChevronDown className="w-5 h-5 text-red-500 flex-shrink-0" />
-                )}
-              </button>
-              
-              {openItems.includes(index) && (
-                <div className="px-6 pb-4">
-                  <p className="text-gray-600 leading-relaxed">
-                    {faq.answer}
-                  </p>
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-
-        {/* Contact CTA */}
-        <div 
-          ref={ctaRef}
-          className={`text-center mt-12 transition-all duration-1200 ease-out delay-400 ${
-            ctaVisible 
-              ? 'opacity-100 translate-y-0' 
-              : 'opacity-0 translate-y-8'
-          }`}
-        >
-          <p className="text-lg text-gray-600 mb-6">
-            Haben Sie weitere Fragen? Kontaktieren Sie uns gerne!
-          </p>
-          <Link href="/anfrage" className="inline-flex items-center gap-2 bg-red-500 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-red-600 transition-colors duration-200 shadow-lg">
-            <Hammer className="w-5 h-5" />
-            Kostenfreie Anfrage
+          <Link
+            href="/anfrage"
+            className="mt-8 inline-flex min-h-14 items-center justify-center gap-2 rounded-full bg-[#d63d32] px-7 py-4 font-black text-white shadow-[0_18px_44px_rgba(214,61,50,0.24)]"
+          >
+            <Hammer className="h-5 w-5" />
+            Anfrage starten
           </Link>
+        </div>
+
+        <div className="grid gap-3">
+          {faqs.map((faq, index) => {
+            const isOpen = openItem === index;
+            return (
+              <article key={faq.question} className="surface overflow-hidden rounded-3xl">
+                <button
+                  onClick={() => setOpenItem(isOpen ? -1 : index)}
+                  className="flex min-h-20 w-full items-center justify-between gap-4 px-5 py-4 text-left sm:px-7"
+                >
+                  <span className="text-lg font-black leading-tight text-[#172024]">{faq.question}</span>
+                  <ChevronDown className={`h-5 w-5 flex-none text-[#d63d32] transition ${isOpen ? 'rotate-180' : ''}`} />
+                </button>
+                <div className={`grid transition-all duration-300 ${isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}>
+                  <div className="overflow-hidden">
+                    <p className="px-5 pb-6 text-base leading-7 text-[#172024]/70 sm:px-7">{faq.answer}</p>
+                  </div>
+                </div>
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>

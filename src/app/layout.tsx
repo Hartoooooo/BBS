@@ -62,7 +62,7 @@ export const metadata: Metadata = {
         alt: 'BBS Barrierefreies Bauen und Sanieren',
       },
       {
-        url: '/LOGO.webp',
+        url: '/bbs-logo-transparent.png',
         width: 512,
         height: 512,
         alt: 'BBS Logo',
