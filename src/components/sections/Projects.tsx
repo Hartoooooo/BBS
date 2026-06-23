@@ -44,7 +44,14 @@ const Projects = () => {
     if (!container) return;
 
     const handleScroll = () => {
-      const index = Math.round(container.scrollLeft / container.offsetWidth);
+      const slides = Array.from(container.children) as HTMLElement[];
+      const containerCenter = container.scrollLeft + container.clientWidth / 2;
+      const index = slides.reduce((closestIndex, slide, slideIndex) => {
+        const slideCenter = slide.offsetLeft + slide.offsetWidth / 2;
+        const closestSlide = slides[closestIndex];
+        const closestCenter = closestSlide.offsetLeft + closestSlide.offsetWidth / 2;
+        return Math.abs(slideCenter - containerCenter) < Math.abs(closestCenter - containerCenter) ? slideIndex : closestIndex;
+      }, 0);
       setActiveIndex(index);
     };
 
@@ -108,7 +115,10 @@ const Projects = () => {
   const scrollToIndex = (index: number) => {
     const container = scrollContainerRef.current;
     if (!container) return;
-    container.scrollTo({ left: container.offsetWidth * index, behavior: 'smooth' });
+    const slide = container.children[index] as HTMLElement | undefined;
+    if (!slide) return;
+    const left = slide.offsetLeft - (container.clientWidth - slide.offsetWidth) / 2;
+    container.scrollTo({ left, behavior: 'smooth' });
   };
 
   const openFullscreen = (index: number) => {
@@ -158,12 +168,12 @@ const Projects = () => {
           }`}
         >
           <div className="md:hidden">
-            <div ref={scrollContainerRef} className="-mx-4 flex snap-x gap-4 overflow-x-auto px-4 pb-5 scrollbar-hide">
+            <div ref={scrollContainerRef} className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth px-4 pb-5 scrollbar-hide">
               {images.map((image, index) => (
                 <button
                   key={image.src}
                   onClick={() => openFullscreen(index)}
-                  className="relative h-[70svh] w-[86vw] flex-none snap-center overflow-hidden rounded-3xl bg-black text-left"
+                  className="relative h-[70svh] w-[86vw] flex-none snap-center snap-always overflow-hidden rounded-3xl bg-black text-left"
                   aria-label={`${image.alt} öffnen`}
                 >
                   <Image src={image.src} alt={image.alt} fill className="object-cover" sizes="86vw" priority={index === 0} />
