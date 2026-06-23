@@ -25,6 +25,12 @@ const services = [
     image: '/Trockenbau.png',
   },
   {
+    icon: Droplet,
+    title: 'Wasserschadensanierung',
+    description: 'Trocknung, Reparatur und Wiederherstellung nach Wasserschäden.',
+    image: '/wasserschadensanierung-trocknung.png',
+  },
+  {
     icon: TreePine,
     title: 'Holz & Bautenschutz',
     description: 'Schutz für Holzkonstruktionen und Bausubstanz mit dauerhafter Wirkung.',
@@ -35,12 +41,6 @@ const services = [
     title: 'Bauwerksabdichtung',
     description: 'Fachgerechte Abdichtung gegen Feuchtigkeit, Wasser und Folgeschäden.',
     image: '/bauwerksabdichtung-abdichtung.png',
-  },
-  {
-    icon: Droplet,
-    title: 'Wasserschadensanierung',
-    description: 'Trocknung, Reparatur und Wiederherstellung nach Wasserschäden.',
-    image: '/wasserschadensanierung-trocknung.png',
   },
 ];
 
