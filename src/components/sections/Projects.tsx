@@ -40,18 +40,20 @@ const Projects = () => {
     const container = scrollContainerRef.current;
     if (!container) return;
 
-    const handleScroll = () => {
+    const getClosestIndex = () => {
       const slides = Array.from(container.children) as HTMLElement[];
       const containerCenter = container.scrollLeft + container.clientWidth / 2;
-      const index = slides.reduce((closestIndex, slide, slideIndex) => {
+      return slides.reduce((closestIndex, slide, slideIndex) => {
         const slideCenter = slide.offsetLeft + slide.offsetWidth / 2;
         const closestSlide = slides[closestIndex];
         const closestCenter = closestSlide.offsetLeft + closestSlide.offsetWidth / 2;
         return Math.abs(slideCenter - containerCenter) < Math.abs(closestCenter - containerCenter) ? slideIndex : closestIndex;
       }, 0);
-      setActiveIndex(index);
     };
 
+    const handleScroll = () => setActiveIndex(getClosestIndex());
+
+    handleScroll();
     container.addEventListener('scroll', handleScroll, { passive: true });
     return () => container.removeEventListener('scroll', handleScroll);
   }, []);

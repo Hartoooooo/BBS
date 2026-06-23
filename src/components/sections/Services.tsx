@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import { useEffect, useRef, useState } from 'react';
 import { Bath, Building, Droplet, Layers, Shield, TreePine } from 'lucide-react';
 import { useScrollAnimation } from '@/lib/useScrollAnimation';
 
@@ -44,8 +45,41 @@ const services = [
 ];
 
 const Services = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
   const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation<HTMLDivElement>();
   const { ref: servicesRef, isVisible: servicesVisible } = useScrollAnimation<HTMLDivElement>();
+
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    const getClosestIndex = () => {
+      const slides = Array.from(container.children) as HTMLElement[];
+      const containerCenter = container.scrollLeft + container.clientWidth / 2;
+      return slides.reduce((closestIndex, slide, slideIndex) => {
+        const slideCenter = slide.offsetLeft + slide.offsetWidth / 2;
+        const closestSlide = slides[closestIndex];
+        const closestCenter = closestSlide.offsetLeft + closestSlide.offsetWidth / 2;
+        return Math.abs(slideCenter - containerCenter) < Math.abs(closestCenter - containerCenter) ? slideIndex : closestIndex;
+      }, 0);
+    };
+
+    const handleScroll = () => setActiveIndex(getClosestIndex());
+
+    handleScroll();
+    container.addEventListener('scroll', handleScroll, { passive: true });
+    return () => container.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToIndex = (index: number) => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+    const slide = container.children[index] as HTMLElement | undefined;
+    if (!slide) return;
+    const left = slide.offsetLeft - (container.clientWidth - slide.offsetWidth) / 2;
+    container.scrollTo({ left, behavior: 'smooth' });
+  };
 
   return (
     <section id="services" className="py-20 sm:py-28">
@@ -70,10 +104,10 @@ const Services = () => {
             servicesVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
           }`}
         >
-          <div className="-mx-4 flex snap-x gap-4 overflow-x-auto px-4 pb-5 scrollbar-hide md:hidden">
+          <div ref={scrollContainerRef} className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth px-4 pb-5 scrollbar-hide md:hidden">
             {services.map((service) => {
               return (
-                <article key={service.title} className="surface threshold-line w-[84vw] flex-none snap-center overflow-hidden rounded-3xl">
+                <article key={service.title} className="surface threshold-line w-[84vw] flex-none snap-center snap-always overflow-hidden rounded-3xl">
                   <div className="relative h-44">
                     <Image src={service.image} alt={service.title} fill className="object-cover" sizes="84vw" />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#172024]/70 to-transparent" />
@@ -85,6 +119,17 @@ const Services = () => {
                 </article>
               );
             })}
+          </div>
+          <div className="flex justify-center gap-2 md:hidden">
+            {services.map((service, index) => (
+              <button
+                key={service.title}
+                type="button"
+                onClick={() => scrollToIndex(index)}
+                className={`h-2 rounded-full transition-all ${activeIndex === index ? 'w-10 bg-[#d63d32]' : 'w-2 bg-[#172024]/25'}`}
+                aria-label={`Zu Leistung ${index + 1}`}
+              />
+            ))}
           </div>
 
           <div className="hidden grid-cols-3 gap-4 md:grid">
