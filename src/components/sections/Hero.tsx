@@ -30,24 +30,24 @@ const Hero = () => {
             bauen sauber und machen Ihr Zuhause sicherer.
           </p>
 
-          <div className="mt-12 flex flex-col gap-3 sm:mt-8 sm:flex-row reveal-up delay-3">
+          <div className="mt-12 flex flex-col items-center gap-3 sm:mt-8 sm:flex-row sm:items-stretch reveal-up delay-3">
             <Link
               href="/anfrage"
-              className="inline-flex min-h-14 items-center justify-center gap-2 rounded-full bg-[#d63d32] px-7 py-4 text-base font-black text-white shadow-[0_18px_44px_rgba(214,61,50,0.28)] transition hover:-translate-y-1 hover:bg-[#b93028]"
+              className="inline-flex min-h-14 w-full max-w-[20rem] items-center justify-center gap-2 rounded-full bg-[#d63d32] px-7 py-4 text-base font-black text-white shadow-[0_18px_44px_rgba(214,61,50,0.28)] transition hover:-translate-y-1 hover:bg-[#b93028] sm:w-auto sm:max-w-none"
             >
               <Hammer className="h-5 w-5" />
               Kostenfreie Anfrage
             </Link>
             <Link
               href="tel:+493092371277"
-              className="inline-flex min-h-14 items-center justify-center gap-2 rounded-full border border-[#172024]/15 bg-white/70 px-7 py-4 text-base font-black text-[#172024] transition hover:-translate-y-1 hover:bg-white"
+              className="inline-flex min-h-14 w-full max-w-[20rem] items-center justify-center gap-2 rounded-full border border-[#172024]/15 bg-white/70 px-7 py-4 text-base font-black text-[#172024] transition hover:-translate-y-1 hover:bg-white sm:w-auto sm:max-w-none"
             >
               <Phone className="h-5 w-5" />
               Direkt anrufen
             </Link>
           </div>
 
-          <div className="mx-auto mt-8 grid w-full max-w-xl grid-cols-3 gap-1.5 reveal-up delay-3 sm:mx-0 sm:gap-2">
+          <div className="mx-auto mt-8 grid w-full max-w-[21.5rem] grid-cols-3 gap-1.5 reveal-up delay-3 sm:mx-0 sm:max-w-xl sm:gap-2">
             {[
               ['22+', 'Jahre Erfahrung'],
               ['150+', 'Projekte realisiert'],
