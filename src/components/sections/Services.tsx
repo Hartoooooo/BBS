@@ -82,7 +82,7 @@ const Services = () => {
   };
 
   return (
-    <section id="services" className="py-20 sm:py-28">
+    <section id="services" className="page-pattern py-20 sm:py-28">
       <div className="section-shell">
         <div
           ref={headerRef}
