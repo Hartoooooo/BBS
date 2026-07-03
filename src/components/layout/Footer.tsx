@@ -75,6 +75,8 @@ const Footer = () => {
             <Link href="/cookies" className="hover:text-white">Cookies</Link>
           </div>
         </div>
+
+        <p className="mt-6 text-center text-sm text-white/50">Umsetzung von Neoklar</p>
       </div>
     </footer>
   );
