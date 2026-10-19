@@ -91,7 +91,7 @@ const CookieBanner = () => {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-50 p-4 md:p-6">
+    <div role="region" aria-label="Cookie-Einstellungen" className="fixed inset-x-0 bottom-0 z-50 p-4 md:p-6">
       <div className="max-w-7xl mx-auto">
         <div className="bg-white rounded-xl shadow-2xl border border-gray-200 p-6 md:p-8">
           {!showSettings ? (
@@ -110,7 +110,7 @@ const CookieBanner = () => {
                 </div>
                 <button
                   onClick={() => setIsVisible(false)}
-                  className="ml-4 text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
+                  className="ml-4 text-gray-700 hover:text-gray-900 transition-colors cursor-pointer"
                   aria-label="Banner schließen"
                 >
                   <X className="w-5 h-5" />
@@ -133,19 +133,19 @@ const CookieBanner = () => {
                 </button>
                 <button
                   onClick={handleAcceptAll}
-                  className="px-6 py-3 rounded-lg font-semibold bg-red-500 text-white hover:bg-red-600 transition-colors duration-200 flex-1 sm:flex-initial cursor-pointer"
+                  className="px-6 py-3 rounded-lg font-semibold bg-brand text-white hover:bg-brand-strong transition-colors duration-200 flex-1 sm:flex-initial cursor-pointer"
                 >
                   Alle akzeptieren
                 </button>
               </div>
 
-              <div className="mt-4 text-xs text-gray-500">
+              <div className="mt-4 text-xs text-gray-700">
                 Weitere Informationen finden Sie in unserer{' '}
-                <Link href="/datenschutz" className="text-red-500 hover:text-red-600 underline cursor-pointer">
+                <Link href="/datenschutz" className="text-brand-strong hover:text-ink underline cursor-pointer">
                   Datenschutzerklärung
                 </Link>
                 {' '}und auf unserer{' '}
-                <Link href="/cookies" className="text-red-500 hover:text-red-600 underline cursor-pointer">
+                <Link href="/cookies" className="text-brand-strong hover:text-ink underline cursor-pointer">
                   Cookie-Seite
                 </Link>
                 .
@@ -159,7 +159,7 @@ const CookieBanner = () => {
                 </h3>
                 <button
                   onClick={() => setShowSettings(false)}
-                  className="text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
+                  className="text-gray-700 hover:text-gray-900 transition-colors cursor-pointer"
                   aria-label="Zurück"
                 >
                   <X className="w-5 h-5" />
@@ -193,7 +193,7 @@ const CookieBanner = () => {
                       Diese Cookies helfen uns zu verstehen, wie Besucher mit unserer Website interagieren, 
                       indem Informationen anonym gesammelt und gemeldet werden (Google Analytics, Microsoft Clarity).
                     </p>
-                    <div className="text-xs text-gray-500">
+                    <div className="text-xs text-gray-700">
                       <strong>Verwendete Dienste:</strong> Google Analytics, Microsoft Clarity
                     </div>
                   </div>
@@ -204,7 +204,7 @@ const CookieBanner = () => {
                       onChange={() => togglePreference('analytics')}
                       className="sr-only peer"
                     />
-                    <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-red-500"></div>
+                    <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-brand/40 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-brand-strong"></div>
                   </label>
                 </div>
               </div>
@@ -218,7 +218,7 @@ const CookieBanner = () => {
                 </button>
                 <button
                   onClick={handleSavePreferences}
-                  className="px-6 py-3 rounded-lg font-semibold bg-red-500 text-white hover:bg-red-600 transition-colors duration-200 flex-1 sm:flex-initial cursor-pointer"
+                  className="px-6 py-3 rounded-lg font-semibold bg-brand text-white hover:bg-brand-strong transition-colors duration-200 flex-1 sm:flex-initial cursor-pointer"
                 >
                   Einstellungen speichern
                 </button>

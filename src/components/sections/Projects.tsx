@@ -16,7 +16,7 @@ const images = [
   },
   {
     src: '/Bad-neu.webp',
-    alt: 'Barrierefreie Badsanierung mit Haltegriffen - Beispielprojekt Brandenburg',
+    alt: 'Gefliester Duschbereich mit Thermostat-Armatur nach Badsanierung',
   },
   {
     src: '/Beispielbild-Bad-2.webp',
@@ -105,7 +105,8 @@ const Projects = () => {
 
   return (
     <section
-      id="projects"
+      id="projekte"
+      aria-labelledby="projekte-title"
       ref={sectionRef}
       style={
         {
@@ -113,7 +114,7 @@ const Projects = () => {
           '--project-bottom': edgeProgress.bottom,
         } as CSSProperties
       }
-      className="relative mt-[-3rem] translate-y-[calc(72px*(1-var(--project-top)))] transform-gpu overflow-hidden rounded-t-[3rem] bg-[#172024] pb-28 pt-28 text-white shadow-[0_calc(-34px*var(--project-top))_80px_rgba(23,32,36,calc(0.24*var(--project-top)))] will-change-transform sm:mt-[-4rem] sm:translate-y-[calc(96px*(1-var(--project-top)))] sm:rounded-t-[4rem] sm:pb-36 sm:pt-36"
+      className="relative mt-[-3rem] translate-y-[calc(72px*(1-var(--project-top)))] transform-gpu overflow-hidden rounded-t-[3rem] bg-ink pb-28 pt-28 text-white shadow-[0_calc(-34px*var(--project-top))_80px_rgba(23,32,36,calc(0.24*var(--project-top)))] will-change-transform sm:mt-[-4rem] sm:translate-y-[calc(96px*(1-var(--project-top)))] sm:rounded-t-[4rem] sm:pb-36 sm:pt-36"
     >
       <div className="pointer-events-none absolute inset-x-0 top-0 h-10 rounded-t-[3rem] bg-[linear-gradient(180deg,rgba(255,255,255,calc(0.08*var(--project-top))),rgba(255,255,255,0))] sm:h-14 sm:rounded-t-[4rem]" />
       <div className="section-shell relative z-10">
@@ -124,8 +125,8 @@ const Projects = () => {
           }`}
         >
           <div className="max-w-6xl">
-            <p className="eyebrow text-[#d8ebe6]">Projekte</p>
-            <h2 className="section-title mt-4 !text-white">
+            <p className="eyebrow !text-mint">Projekte</p>
+            <h2 id="projekte-title" className="section-title mt-4 !text-white">
               Vorher gedacht. Nachher leicht nutzbar.
             </h2>
           </div>
@@ -138,26 +139,28 @@ const Projects = () => {
           }`}
         >
           <div className="md:hidden">
-            <div ref={scrollContainerRef} className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth px-4 pb-5 scrollbar-hide">
-              {images.map((image, index) => (
-                <button
+            <div ref={scrollContainerRef} tabIndex={0} role="region" aria-label="Projektbilder, seitlich wischen" className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth px-4 pb-5 scrollbar-hide">
+              {images.map((image) => (
+                <div
                   key={image.src}
-                  type="button"
-                  className="relative h-[70svh] w-[86vw] flex-none snap-center snap-always overflow-hidden rounded-3xl bg-black text-left"
-                  aria-label={image.alt}
+                  className="relative h-[70svh] w-[86vw] flex-none snap-center snap-always overflow-hidden rounded-3xl bg-black"
                 >
-                  <Image src={image.src} alt={image.alt} fill className="object-cover" sizes="86vw" priority={index === 0} />
-                </button>
+                  <Image src={image.src} alt={image.alt} fill className="object-cover" sizes="86vw" />
+                </div>
               ))}
             </div>
             <div className="flex justify-center gap-2">
               {images.map((_, index) => (
                 <button
                   key={index}
+                  type="button"
+                  aria-current={activeIndex === index ? 'true' : undefined}
                   onClick={() => scrollToIndex(index)}
-                  className={`h-2 rounded-full transition-all ${activeIndex === index ? 'w-10 bg-[#d63d32]' : 'w-2 bg-white/35'}`}
+                  className="flex h-11 min-w-11 items-center justify-center"
                   aria-label={`Zu Bild ${index + 1}`}
-                />
+                >
+                  <span className={`h-2 rounded-full transition-all ${activeIndex === index ? 'w-10 bg-brand' : 'w-2 bg-white/60'}`} />
+                </button>
               ))}
             </div>
           </div>
@@ -170,18 +173,17 @@ const Projects = () => {
                 fill
                 className="object-cover transition duration-500"
                 sizes="900px"
-                priority
               />
               <div className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-4 bg-gradient-to-t from-black/80 to-transparent p-6">
                 <div>
-                  <p className="text-sm font-black uppercase tracking-[0.16em] text-[#d8ebe6]">Projektbild</p>
+                  <p className="text-sm font-black uppercase tracking-[0.16em] text-mint" aria-live="polite">Projektbild {currentSlide + 1} von {images.length}</p>
                 </div>
                 <div className="flex gap-2">
-                  <button onClick={prevSlide} className="rounded-full bg-white/90 p-4 text-[#172024] transition hover:bg-white" aria-label="Vorheriges Bild">
-                    <ChevronLeft className="h-5 w-5" />
+                  <button type="button" onClick={prevSlide} className="rounded-full bg-white/90 p-4 text-ink transition hover:bg-white" aria-label="Vorheriges Bild">
+                    <ChevronLeft className="h-5 w-5" aria-hidden="true" />
                   </button>
-                  <button onClick={nextSlide} className="rounded-full bg-white/90 p-4 text-[#172024] transition hover:bg-white" aria-label="Nächstes Bild">
-                    <ChevronRight className="h-5 w-5" />
+                  <button type="button" onClick={nextSlide} className="rounded-full bg-white/90 p-4 text-ink transition hover:bg-white" aria-label="Nächstes Bild">
+                    <ChevronRight className="h-5 w-5" aria-hidden="true" />
                   </button>
                 </div>
               </div>
@@ -191,13 +193,15 @@ const Projects = () => {
               {images.map((image, index) => (
                 <button
                   key={image.src}
+                  type="button"
+                  aria-pressed={currentSlide === index}
                   onClick={() => setCurrentSlide(index)}
                   className={`relative overflow-hidden rounded-3xl border text-left transition ${
-                    currentSlide === index ? 'border-[#d63d32]' : 'border-white/12 opacity-72 hover:opacity-100'
+                    currentSlide === index ? 'border-brand' : 'border-white/12 opacity-80 hover:opacity-100'
                   }`}
                   aria-label={`Bild ${index + 1} anzeigen`}
                 >
-                  <Image src={image.src} alt={image.alt} width={320} height={180} className="h-32 w-full object-cover" />
+                  <Image src={image.src} alt="" width={320} height={180} className="h-32 w-full object-cover" />
                 </button>
               ))}
             </div>

@@ -5,7 +5,7 @@ import { useEffect, useRef, useState, type CSSProperties } from 'react';
 import { useScrollAnimation } from '@/lib/useScrollAnimation';
 
 const facts = [
-  { icon: Award, value: '22+', label: 'Jahre Erfahrung im barrierefreien Bauen' },
+  { icon: Award, value: '20+', label: 'Jahre Erfahrung, Meisterbetrieb seit 2003' },
   { icon: CheckCircle, value: '150+', label: 'abgeschlossene Projekte' },
   { icon: Globe2, value: 'Regional', label: 'in Berlin & Brandenburg' },
 ];
@@ -51,10 +51,11 @@ const About = () => {
 
   return (
     <section
-      id="about"
+      id="ueber-uns"
+      aria-labelledby="ueber-uns-title"
       ref={sectionRef}
       style={{ '--about-top': edgeProgress } as CSSProperties}
-      className="relative z-30 mt-[-3rem] translate-y-[calc(72px*(1-var(--about-top)))] transform-gpu overflow-hidden rounded-t-[3rem] bg-[#f7f8f6] py-20 shadow-[0_calc(-34px*var(--about-top))_80px_rgba(23,32,36,calc(0.18*var(--about-top)))] will-change-transform sm:mt-[-4rem] sm:translate-y-[calc(96px*(1-var(--about-top)))] sm:rounded-t-[4rem] sm:py-28"
+      className="relative z-30 mt-[-3rem] translate-y-[calc(72px*(1-var(--about-top)))] transform-gpu overflow-hidden rounded-t-[3rem] bg-paper py-20 shadow-[0_calc(-34px*var(--about-top))_80px_rgba(23,32,36,calc(0.18*var(--about-top)))] will-change-transform sm:mt-[-4rem] sm:translate-y-[calc(96px*(1-var(--about-top)))] sm:rounded-t-[4rem] sm:py-28"
     >
       <div className="pointer-events-none absolute inset-x-0 top-0 h-10 rounded-t-[3rem] bg-[linear-gradient(180deg,rgba(23,32,36,calc(0.06*var(--about-top))),rgba(23,32,36,0))] sm:h-14 sm:rounded-t-[4rem]" />
       <div
@@ -65,10 +66,11 @@ const About = () => {
       >
         <div className="max-w-5xl">
           <p className="eyebrow">Über BBS</p>
-          <h2 className="section-title mt-4">Handwerk für mehr Bewegungsfreiheit.</h2>
+          <h2 id="ueber-uns-title" className="section-title mt-4">Handwerk für mehr Bewegungsfreiheit.</h2>
           <p className="body-copy mt-6">
-            BBS ist Ihr Fliesenleger und Badumbau-Experte in Berlin & Brandenburg. Wir planen
-            barrierefreie Lösungen mit Blick auf Sicherheit, Komfort und saubere Ausführung.
+            BBS ist ein Meisterbetrieb aus Schöneiche bei Berlin, spezialisiert auf barrierefreie Badumbauten,
+            Badsanierung und Fliesenarbeiten. Seit 2003 planen wir Lösungen mit Blick auf Sicherheit, Komfort und
+            saubere Ausführung – in ganz Berlin und Brandenburg.
           </p>
           <p className="body-copy mt-4">
             Ob präventive Sanierung, kompletter Umbau oder Wasserschaden: Sie sprechen direkt
@@ -80,9 +82,9 @@ const About = () => {
               const Icon = fact.icon;
               return (
                 <div key={fact.label} className="surface rounded-3xl p-5">
-                  <Icon className="mb-5 h-6 w-6 text-[#d63d32]" />
-                  <div className="text-3xl font-black text-[#172024]">{fact.value}</div>
-                  <p className="mt-2 text-sm font-bold leading-5 text-[#172024]/62">{fact.label}</p>
+                  <Icon className="mb-5 h-6 w-6 text-brand" aria-hidden="true" />
+                  <div className="text-3xl font-black text-ink">{fact.value}</div>
+                  <p className="mt-2 text-sm font-bold leading-5 text-ink/80">{fact.label}</p>
                 </div>
               );
             })}

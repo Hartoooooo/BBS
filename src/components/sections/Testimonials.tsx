@@ -1,14 +1,12 @@
-'use client';
-
-import { useEffect, useRef, useState } from 'react';
-import { ChevronLeft, ChevronRight, Quote, Star } from 'lucide-react';
-import { useScrollAnimation } from '@/lib/useScrollAnimation';
+import { Quote, Star } from 'lucide-react';
+import { Marquee } from '@/components/ui/marquee';
+import { site } from '@/content/site';
 
 const testimonials = [
   {
     text: 'Wir haben schon mehrere Sachen machen lassen, ist jedes Mal super geworden. Tolle Arbeit! Jederzeit wieder!',
     author: 'D. S.',
-    location: 'N.A.',
+    location: '',
     sourceUrl: 'https://maps.app.goo.gl/H5Vvn7cMA8UXGQAF9',
   },
   {
@@ -37,112 +35,49 @@ const testimonials = [
   },
 ];
 
+const sourceLabel = (url: string) => (url.includes('fliesenleger.net') ? 'fliesenleger.net' : 'Google');
+
+// Testimonial-Marquee nach 21st.dev / Magic UI
 const Testimonials = () => {
-  const [current, setCurrent] = useState(0);
-  const [isExpanded, setIsExpanded] = useState(false);
-  const [canToggle, setCanToggle] = useState(false);
-  const quoteRef = useRef<HTMLQuoteElement>(null);
-  const { ref, isVisible } = useScrollAnimation<HTMLDivElement>();
-
-  const next = () => {
-    setIsExpanded(false);
-    setCurrent((value) => (value + 1) % testimonials.length);
-  };
-  const prev = () => {
-    setIsExpanded(false);
-    setCurrent((value) => (value - 1 + testimonials.length) % testimonials.length);
-  };
-  const active = testimonials[current];
-
-  useEffect(() => {
-    const measureQuote = () => {
-      const quote = quoteRef.current;
-      if (!quote) return;
-      setCanToggle(quote.scrollHeight > quote.clientHeight + 1);
-    };
-
-    measureQuote();
-    window.addEventListener('resize', measureQuote);
-    return () => window.removeEventListener('resize', measureQuote);
-  }, [current]);
-
   return (
-    <section id="reviews" className="bg-[#172024] py-20 sm:py-28">
-      <div
-        ref={ref}
-        className={`section-shell transition-all duration-700 ${
-          isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
-        }`}
-      >
-        <div className="mb-10 grid gap-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
-          <div>
-            <p className="eyebrow text-[#d8ebe6]">Bewertungen</p>
-            <h2 className="section-title mt-4 !text-white">
-              Vertrauen,
-              <span className="block">das man nachliest.</span>
-            </h2>
-          </div>
-          <div className="surface rounded-3xl p-4 lg:w-64">
-            <div className="flex items-center gap-2">
-              {[...Array(5)].map((_, index) => (
-                <Star key={index} className="h-4 w-4 fill-[#d63d32] text-[#d63d32]" />
-              ))}
-              <span className="ml-1 text-lg font-black text-[#172024]">5,0</span>
-            </div>
-            <a
-              href="https://share.google/1o8Gsmu8uAAyrGKVm"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-2 inline-flex text-xs font-black text-[#d63d32] underline-offset-4 hover:underline"
-            >
-              Bewertung auf Google schreiben
-            </a>
-          </div>
-        </div>
-
-        <div>
-          <article className="surface threshold-line rounded-[2rem] p-5 sm:p-7">
-            <Quote className="mb-4 h-8 w-8 text-[#d63d32] sm:mb-5 sm:h-10 sm:w-10" />
-            <blockquote
-              ref={quoteRef}
-              className={`min-h-[3.1rem] text-xl font-black leading-tight text-[#172024] sm:min-h-[4.5rem] sm:text-3xl lg:max-w-5xl ${
-                isExpanded ? '' : 'overflow-hidden [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2]'
-              }`}
-            >
-              {active.text}
-            </blockquote>
-            <div className="mt-3 min-h-8">
-              {(canToggle || isExpanded) && (
-                <button
-                  type="button"
-                  onClick={() => setIsExpanded((value) => !value)}
-                  className="inline-flex text-sm font-black text-[#d63d32] underline-offset-4 hover:underline"
-                >
-                  {isExpanded ? 'Weniger anzeigen' : 'Mehr anzeigen'}
-                </button>
-              )}
-            </div>
-            <div className="mt-5 flex flex-col gap-3 border-t border-[#172024]/10 pt-4 sm:flex-row sm:items-center sm:justify-between">
-              <div>
-                <p className="font-black text-[#172024]">{active.author}</p>
-                <p className="text-sm font-bold text-[#6f8f9a]">
-                  Ort: {active.location}
-                  <a href={active.sourceUrl} target="_blank" rel="noopener noreferrer" className="ml-3 font-black text-[#d63d32]">
-                    Quelle öffnen
+    <section id="bewertungen" aria-labelledby="bewertungen-title" className="overflow-hidden bg-ink py-20 text-white sm:py-28">
+      <div className="section-shell">
+        <p className="eyebrow !text-mint">Bewertungen</p>
+        <h2 id="bewertungen-title" className="section-title mt-4 !text-white">Was unsere Kunden sagen.</h2>
+        <a
+          href={site.googleReviewsUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-6 inline-flex min-h-11 items-center gap-2 font-bold text-white/90 hover:text-white hover:underline"
+        >
+          <span className="flex" aria-hidden="true">
+            {[...Array(5)].map((_, index) => (
+              <Star key={index} className="h-4 w-4 fill-brand text-brand" />
+            ))}
+          </span>
+          5,0 Sterne bei Google – alle Bewertungen ansehen
+          <span className="sr-only">(öffnet in neuem Tab)</span>
+        </a>
+      </div>
+      <div className="mt-10 pl-4 sm:pl-[max(1rem,calc((100vw-1180px)/2))]">
+        <Marquee label="Bewertungen">
+          {testimonials.map((testimonial) => (
+            <figure key={testimonial.author} className="flex w-[min(84vw,400px)] flex-col rounded-3xl border border-white/15 bg-white/[0.06] p-6">
+              <Quote className="h-7 w-7 text-brand" aria-hidden="true" />
+              <blockquote className="mt-4 flex-1 text-lg leading-8 text-white/90">„{testimonial.text}“</blockquote>
+              <figcaption className="mt-5 text-sm">
+                <span className="block font-black text-white">{testimonial.author}</span>
+                <span className="text-white/75">
+                  {testimonial.location && `${testimonial.location} · `}
+                  <a href={testimonial.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline hover:text-white">
+                    Bewertung auf {sourceLabel(testimonial.sourceUrl)}
+                    <span className="sr-only"> (öffnet in neuem Tab)</span>
                   </a>
-                </p>
-              </div>
-              <div className="flex gap-2 sm:w-44">
-                <button onClick={prev} className="flex h-12 flex-1 items-center justify-center rounded-full bg-[#172024] text-white transition hover:bg-[#d63d32]" aria-label="Vorherige Bewertung">
-                  <ChevronLeft className="h-5 w-5" />
-                </button>
-                <button onClick={next} className="flex h-12 flex-1 items-center justify-center rounded-full bg-[#172024] text-white transition hover:bg-[#d63d32]" aria-label="Nächste Bewertung">
-                  <ChevronRight className="h-5 w-5" />
-                </button>
-              </div>
-            </div>
-          </article>
-        </div>
+                </span>
+              </figcaption>
+            </figure>
+          ))}
+        </Marquee>
       </div>
     </section>
   );

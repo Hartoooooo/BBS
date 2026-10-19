@@ -5,12 +5,18 @@ const nextConfig: NextConfig = {
     return [
       {
         source: '/leistungen.html',
-        destination: '/',
+        destination: '/leistungen',
         permanent: true,
       },
       {
         source: '/impressum.html',
-        destination: '/',
+        destination: '/impressum',
+        permanent: true,
+      },
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'artdesignbau.de' }],
+        destination: 'https://www.artdesignbau.de/:path*',
         permanent: true,
       },
     ];

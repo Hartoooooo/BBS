@@ -1,85 +1,64 @@
-'use client';
-
-import { useState } from 'react';
 import Link from 'next/link';
-import { ChevronDown, Hammer } from 'lucide-react';
-import { useScrollAnimation } from '@/lib/useScrollAnimation';
+import { Hammer } from 'lucide-react';
+import JsonLd from '@/components/seo/JsonLd';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { faqSchema, type Faq } from '@/lib/schema';
 
-const faqs = [
-  {
-    question: 'Welche Fliesenarbeiten bieten Sie an?',
-    answer: 'Wand- und Bodenfliesen, Naturstein, großformatige Fliesen und saubere Anschlüsse für Bad, Küche und Wohnräume.',
-  },
+const faqs: Faq[] = [
   {
     question: 'Führen Sie komplette barrierefreie Badumbauten durch?',
-    answer: 'Ja. Von Planung bis Fertigstellung: bodengleiche Dusche, rutschfeste Fliesen, Haltegriffe und schwellenlose Übergänge.',
+    answer:
+      'Ja. Von der Planung nach DIN 18040-2 bis zur Fertigstellung: bodengleiche Dusche, rutschhemmende Fliesen, Haltegriffe, schwellenlose Übergänge und auf Wunsch breitere Türen – alles aus einer Hand.',
   },
   {
-    question: 'Was umfasst Ihre Wasserschadensanierung?',
-    answer: 'Leckortung, Trocknung, Schimmelprävention und Reparatur.',
+    question: 'Welche Förderungen gibt es für ein barrierefreies Bad?',
+    answer:
+      'Mit Pflegegrad zahlt die Pflegekasse bis zu 4.180 € je Maßnahme. Zusätzlich gibt es den zinsgünstigen KfW-Kredit 159. Der KfW-Zuschuss 455-B ist für 2026 ausgeschöpft. Wichtig: Alle Anträge müssen vor Baubeginn gestellt werden.',
   },
   {
-    question: 'Welche Bodenbeläge verlegen Sie?',
-    answer: 'Fliesen, Naturstein, Parkett, Laminat, Vinyl und PVC. Materialauswahl und Verlegung kommen aus einer Hand.',
+    question: 'Ist die Beratung vor Ort kostenlos?',
+    answer:
+      'Ja. Wir kommen zu Ihnen nach Hause, messen auf, prüfen die Machbarkeit und erstellen anschließend ein schriftliches Angebot – kostenlos und unverbindlich.',
   },
   {
-    question: 'Was beinhaltet Ihr Trockenbau-Service?',
-    answer: 'Trennwände, abgehängte Decken, Dachausbauten, Raumteilungen, Dämmung, Spachtelung und Oberflächenbearbeitung.',
+    question: 'Wie lange dauert der Umbau von der Badewanne zur Dusche?',
+    answer:
+      'Wird nur der Wannenbereich umgebaut, sind es meist wenige Arbeitstage. Ein kompletter barrierefreier Badumbau dauert je nach Umfang etwa ein bis drei Wochen.',
   },
   {
-    question: 'Welche Förderungen gibt es für barrierefreie Umbauten?',
-    answer: 'Je nach Situation kommen KfW-Kredite, Pflegekassenzuschüsse und regionale Förderungen infrage. Wir beraten passend zum Vorhaben.',
+    question: 'In welchen Orten sind Sie tätig?',
+    answer:
+      'In allen Berliner Bezirken und in Brandenburg – besonders im östlichen Umland rund um unseren Standort Schöneiche bei Berlin, etwa in Neuenhagen, Strausberg, Erkner, Woltersdorf und Hoppegarten.',
+  },
+  {
+    question: 'Welche Leistungen bieten Sie außer Badumbauten an?',
+    answer:
+      'Fliesen- und Bodenbelagsarbeiten, Badsanierung, Türverbreiterungen und Schwellenabbau, Trockenbau, Wasserschadensanierung, Bauwerksabdichtung sowie Holz- und Bautenschutz.',
   },
 ];
 
 const FAQ = () => {
-  const [openItem, setOpenItem] = useState(0);
-  const { ref, isVisible } = useScrollAnimation<HTMLDivElement>();
-
   return (
-    <section id="faq" className="bg-white py-20 sm:py-28">
-      <div
-        ref={ref}
-        className={`section-shell grid gap-10 transition-all duration-700 lg:grid-cols-[0.8fr_1.2fr] ${
-          isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
-        }`}
-      >
+    <section id="faq" aria-labelledby="faq-title" className="bg-white py-20 sm:py-28">
+      <JsonLd data={faqSchema(faqs)} />
+      <div className="section-shell grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
         <div>
           <p className="eyebrow">FAQ</p>
-          <h2 className="section-title mt-4">Kurz klären. Dann sauber planen.</h2>
-          <p className="body-copy mt-6">
-            Häufige Fragen zu Fliesenarbeiten, barrierefreiem Badumbau, Trockenbau und Sanierung.
-          </p>
-          <Link
-            href="/anfrage"
-            className="mt-8 inline-flex min-h-14 items-center justify-center gap-2 rounded-full bg-[#d63d32] px-7 py-4 font-black text-white shadow-[0_18px_44px_rgba(214,61,50,0.24)]"
-          >
-            <Hammer className="h-5 w-5" />
-            Anfrage starten
+          <h2 id="faq-title" className="section-title mt-4">Häufige Fragen.</h2>
+          <p className="body-copy mt-5">Ihre Frage ist nicht dabei? Rufen Sie uns an oder schreiben Sie uns – wir antworten schnell.</p>
+          <Link href="/anfrage" className="mt-8 inline-flex min-h-14 items-center gap-2 rounded-full bg-brand px-7 font-black text-white transition hover:bg-brand-strong">
+            <Hammer className="h-5 w-5" aria-hidden="true" />
+            Kostenfreie Anfrage
           </Link>
         </div>
-
-        <div className="grid gap-3">
-          {faqs.map((faq, index) => {
-            const isOpen = openItem === index;
-            return (
-              <article key={faq.question} className="surface overflow-hidden rounded-3xl">
-                <button
-                  onClick={() => setOpenItem(isOpen ? -1 : index)}
-                  className="flex min-h-20 w-full items-center justify-between gap-4 px-5 py-4 text-left sm:px-7"
-                >
-                  <span className="text-lg font-black leading-tight text-[#172024]">{faq.question}</span>
-                  <ChevronDown className={`h-5 w-5 flex-none text-[#d63d32] transition ${isOpen ? 'rotate-180' : ''}`} />
-                </button>
-                <div className={`grid transition-all duration-300 ${isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}>
-                  <div className="overflow-hidden">
-                    <p className="px-5 pb-6 text-base leading-7 text-[#172024]/70 sm:px-7">{faq.answer}</p>
-                  </div>
-                </div>
-              </article>
-            );
-          })}
-        </div>
+        <Accordion type="multiple" className="grid gap-3">
+          {faqs.map((faq) => (
+            <AccordionItem key={faq.question} value={faq.question}>
+              <AccordionTrigger>{faq.question}</AccordionTrigger>
+              <AccordionContent>{faq.answer}</AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
       </div>
     </section>
   );
