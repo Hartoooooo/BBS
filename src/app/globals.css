@@ -282,39 +282,6 @@ textarea {
   overflow: hidden;
 }
 
-.reveal-up {
-  animation: reveal-up 0.8s cubic-bezier(.2, .8, .2, 1) both;
-}
-
-.delay-1 {
-  animation-delay: 0.12s;
-}
-
-.delay-2 {
-  animation-delay: 0.24s;
-}
-
-.delay-3 {
-  animation-delay: 0.36s;
-}
-
-@keyframes reveal-up {
-  from {
-    opacity: 0;
-    transform: translateY(26px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@media (prefers-reduced-motion: reduce), (max-width: 767px) {
-  .reveal-up {
-    animation: none;
-  }
-}
-
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }

@@ -1,9 +1,8 @@
 'use client';
 
 import Image from 'next/image';
-import { useEffect, useRef, useState, type CSSProperties } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { useScrollAnimation } from '@/lib/useScrollAnimation';
 
 const images = [
   {
@@ -27,11 +26,7 @@ const images = [
 const Projects = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [edgeProgress, setEdgeProgress] = useState({ top: 0, bottom: 0 });
-  const sectionRef = useRef<HTMLElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation<HTMLDivElement>();
-  const { ref: galleryRef, isVisible: galleryVisible } = useScrollAnimation<HTMLDivElement>();
 
   const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % images.length);
   const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + images.length) % images.length);
@@ -58,41 +53,6 @@ const Projects = () => {
     return () => container.removeEventListener('scroll', handleScroll);
   }, []);
 
-  useEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return;
-
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reducedMotion) {
-      setEdgeProgress({ top: 1, bottom: 1 });
-      return;
-    }
-
-    let frame = 0;
-    const clamp = (value: number) => Math.max(0, Math.min(1, value));
-    const updateEdges = () => {
-      frame = 0;
-      const rect = section.getBoundingClientRect();
-      const viewport = window.innerHeight;
-      const top = clamp((viewport - rect.top) / (viewport * 0.36));
-      const bottom = clamp((viewport - rect.bottom + viewport * 0.3) / (viewport * 0.28));
-      setEdgeProgress({ top, bottom });
-    };
-
-    const onScroll = () => {
-      if (frame) return;
-      frame = window.requestAnimationFrame(updateEdges);
-    };
-
-    updateEdges();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
-    return () => {
-      if (frame) window.cancelAnimationFrame(frame);
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onScroll);
-    };
-  }, []);
 
   const scrollToIndex = (index: number) => {
     const container = scrollContainerRef.current;
@@ -107,23 +67,10 @@ const Projects = () => {
     <section
       id="projekte"
       aria-labelledby="projekte-title"
-      ref={sectionRef}
-      style={
-        {
-          '--project-top': edgeProgress.top,
-          '--project-bottom': edgeProgress.bottom,
-        } as CSSProperties
-      }
-      className="relative mt-[-3rem] translate-y-[calc(72px*(1-var(--project-top)))] transform-gpu overflow-hidden rounded-t-[3rem] bg-ink pb-28 pt-28 text-white shadow-[0_calc(-34px*var(--project-top))_80px_rgba(23,32,36,calc(0.24*var(--project-top)))] will-change-transform sm:mt-[-4rem] sm:translate-y-[calc(96px*(1-var(--project-top)))] sm:rounded-t-[4rem] sm:pb-36 sm:pt-36"
+      className="bg-ink py-20 text-white sm:py-28"
     >
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-10 rounded-t-[3rem] bg-[linear-gradient(180deg,rgba(255,255,255,calc(0.08*var(--project-top))),rgba(255,255,255,0))] sm:h-14 sm:rounded-t-[4rem]" />
-      <div className="section-shell relative z-10">
-        <div
-          ref={headerRef}
-          className={`mb-10 transition-all duration-700 ${
-            headerVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
-          }`}
-        >
+      <div className="section-shell">
+        <div className="mb-10">
           <div className="max-w-6xl">
             <p className="eyebrow !text-mint">Projekte</p>
             <h2 id="projekte-title" className="section-title mt-4 !text-white">
@@ -132,12 +79,7 @@ const Projects = () => {
           </div>
         </div>
 
-        <div
-          ref={galleryRef}
-          className={`transition-all duration-700 ${
-            galleryVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
-          }`}
-        >
+        <div>
           <div className="md:hidden">
             <div ref={scrollContainerRef} tabIndex={0} role="region" aria-label="Projektbilder, seitlich wischen" className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth px-4 pb-5 scrollbar-hide">
               {images.map((image) => (

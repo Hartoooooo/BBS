@@ -1,8 +1,4 @@
-'use client';
-
 import { Award, CheckCircle, Globe2 } from 'lucide-react';
-import { useEffect, useRef, useState, type CSSProperties } from 'react';
-import { useScrollAnimation } from '@/lib/useScrollAnimation';
 
 const facts = [
   { icon: Award, value: '20+', label: 'Jahre Erfahrung, Meisterbetrieb seit 2003' },
@@ -11,59 +7,15 @@ const facts = [
 ];
 
 const About = () => {
-  const [edgeProgress, setEdgeProgress] = useState(0);
-  const sectionRef = useRef<HTMLElement>(null);
-  const { ref, isVisible } = useScrollAnimation<HTMLDivElement>();
 
-  useEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return;
-
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reducedMotion) {
-      setEdgeProgress(1);
-      return;
-    }
-
-    let frame = 0;
-    const clamp = (value: number) => Math.max(0, Math.min(1, value));
-    const updateEdge = () => {
-      frame = 0;
-      const rect = section.getBoundingClientRect();
-      const viewport = window.innerHeight;
-      setEdgeProgress(clamp((viewport - rect.top) / (viewport * 0.36)));
-    };
-
-    const onScroll = () => {
-      if (frame) return;
-      frame = window.requestAnimationFrame(updateEdge);
-    };
-
-    updateEdge();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
-    return () => {
-      if (frame) window.cancelAnimationFrame(frame);
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onScroll);
-    };
-  }, []);
 
   return (
     <section
       id="ueber-uns"
       aria-labelledby="ueber-uns-title"
-      ref={sectionRef}
-      style={{ '--about-top': edgeProgress } as CSSProperties}
-      className="relative z-30 mt-[-3rem] translate-y-[calc(72px*(1-var(--about-top)))] transform-gpu overflow-hidden rounded-t-[3rem] bg-paper py-20 shadow-[0_calc(-34px*var(--about-top))_80px_rgba(23,32,36,calc(0.18*var(--about-top)))] will-change-transform sm:mt-[-4rem] sm:translate-y-[calc(96px*(1-var(--about-top)))] sm:rounded-t-[4rem] sm:py-28"
+      className="bg-paper py-20 sm:py-28"
     >
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-10 rounded-t-[3rem] bg-[linear-gradient(180deg,rgba(23,32,36,calc(0.06*var(--about-top))),rgba(23,32,36,0))] sm:h-14 sm:rounded-t-[4rem]" />
-      <div
-        ref={ref}
-        className={`section-shell relative z-10 transition-all duration-700 ${
-          isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
-        }`}
-      >
+      <div className="section-shell">
         <div className="max-w-5xl">
           <p className="eyebrow">Über BBS</p>
           <h2 id="ueber-uns-title" className="section-title mt-4">Handwerk für mehr Bewegungsfreiheit.</h2>

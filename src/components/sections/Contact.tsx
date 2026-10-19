@@ -2,13 +2,11 @@
 
 import { useState } from 'react';
 import { AlertCircle, CheckCircle, Clock, Mail, MapPin, Phone, Send } from 'lucide-react';
-import { useScrollAnimation } from '@/lib/useScrollAnimation';
 
 const inputClass =
   'w-full rounded-2xl border border-ink/12 bg-white px-4 py-4 text-ink placeholder:text-ink/60 transition focus:border-brand focus:ring-4 focus:ring-brand/12';
 
 const Contact = () => {
-  const { ref, isVisible } = useScrollAnimation<HTMLDivElement>();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [formData, setFormData] = useState({
@@ -59,12 +57,7 @@ const Contact = () => {
 
   return (
     <section id="kontakt" aria-labelledby="kontakt-title" className="bg-white py-20 sm:py-28">
-      <div
-        ref={ref}
-        className={`section-shell transition-all duration-700 ${
-          isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
-        }`}
-      >
+      <div className="section-shell">
         <div className="mb-10 max-w-3xl">
           <p className="eyebrow">Kontakt</p>
           <h2 id="kontakt-title" className="section-title mt-4">Projekt kurz schildern. Rückruf bekommen.</h2>

@@ -26,17 +26,17 @@ const Hero = () => {
 
       <div className="section-shell relative z-10 flex flex-1 items-end pb-10 pt-8 lg:items-center">
         <div className="w-full max-w-5xl">
-          <p className="eyebrow reveal-up">Meisterbetrieb für Berlin & Brandenburg</p>
-          <h1 id="hero-title" className="mt-5 text-[clamp(2.4rem,6vw,5rem)] font-black leading-[0.98] text-ink reveal-up delay-1">
+          <p className="eyebrow">Meisterbetrieb für Berlin & Brandenburg</p>
+          <h1 id="hero-title" className="mt-5 text-[clamp(2.4rem,6vw,5rem)] font-black leading-[0.98] text-ink">
             <span className="block lg:whitespace-nowrap">Barrierefrei umbauen.</span>
             <span className="block">Ohne Kompromiss.</span>
           </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-ink/85 reveal-up delay-2">
+          <p className="mt-6 max-w-2xl text-lg leading-8 text-ink/85">
             Bodengleiche Dusche statt Badewanne, mehr Platz, sichere Griffe: Wir planen und bauen Ihr Bad so, dass Sie sich
             darin sicher fühlen – und helfen Ihnen beim Zuschuss der Pflegekasse.
           </p>
 
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row reveal-up delay-3">
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Link
               href="/anfrage"
               className="inline-flex min-h-14 items-center justify-center gap-2 rounded-full bg-brand px-7 text-base font-black text-white shadow-[0_18px_44px_rgba(214,61,50,0.28)] transition hover:-translate-y-1 hover:bg-brand-strong"
@@ -53,7 +53,7 @@ const Hero = () => {
             </a>
           </div>
 
-          <ul className="mt-8 grid grid-cols-2 gap-2 reveal-up delay-3 sm:max-w-md">
+          <ul className="mt-8 grid grid-cols-2 gap-2 sm:max-w-md">
             {stats.map(([value, label]) => (
               <li key={label} className="rounded-2xl border border-ink/12 bg-white/90 p-3 shadow-[0_24px_80px_rgba(23,32,36,0.08)] sm:p-4">
                 <span className="block text-base font-black text-ink sm:text-2xl">{value}</span>
