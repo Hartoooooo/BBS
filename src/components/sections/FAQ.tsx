@@ -13,7 +13,7 @@ const faqs: Faq[] = [
   {
     question: 'Welche Förderungen gibt es für ein barrierefreies Bad?',
     answer:
-      'Mit Pflegegrad zahlt die Pflegekasse bis zu 4.180 € je Maßnahme. Zusätzlich gibt es den zinsgünstigen KfW-Kredit 159. Der KfW-Zuschuss 455-B ist für 2026 ausgeschöpft. Wichtig: Alle Anträge müssen vor Baubeginn gestellt werden.',
+      'Mit Pflegegrad zahlt die Pflegekasse bis zu 4.180 € je Maßnahme. Zusätzlich gibt es den zinsgünstigen KfW-Kredit 159. Wichtig: Alle Anträge müssen vor Baubeginn gestellt werden.',
   },
   {
     question: 'Ist die Beratung vor Ort kostenlos?',

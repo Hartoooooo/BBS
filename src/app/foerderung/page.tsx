@@ -11,7 +11,7 @@ const path = '/foerderung';
 export const metadata = buildMetadata({
   title: 'Förderung barrierefreies Bad 2026: Pflegekasse 4.180 € & KfW | BBS',
   description:
-    'Zuschuss für das barrierefreie Bad: bis 4.180 € von der Pflegekasse, KfW-Kredit 159, aktueller Stand KfW 455-B. So beantragen Sie die Förderung richtig – mit Checkliste.',
+    'Zuschuss für das barrierefreie Bad: bis 4.180 € von der Pflegekasse, KfW-Kredit 159 und Steuervorteil. So beantragen Sie die Förderung richtig – mit Checkliste.',
   path,
   image: images.griffe.src,
 });
@@ -21,11 +21,6 @@ const faqs: Faq[] = [
     question: 'Wie viel zahlt die Pflegekasse für den Badumbau?',
     answer:
       'Bis zu 4.180 € je Maßnahme, wenn ein Pflegegrad (1 bis 5) vorliegt. Wohnen mehrere Pflegebedürftige zusammen, kann der Zuschuss für bis zu vier Personen zusammengelegt werden. Ein barrierefreier Badumbau gilt dabei in der Regel als eine Maßnahme.',
-  },
-  {
-    question: 'Gibt es den KfW-Zuschuss 455-B noch?',
-    answer:
-      'Die KfW hat die Antragstellung für den Zuschuss 455-B am 31. Juli 2026 gestoppt, weil die Bundesmittel für 2026 ausgeschöpft sind. Ob und wann das Programm wieder öffnet, ist offen. Der zinsgünstige Kredit 159 „Altersgerecht Umbauen“ ist davon nicht betroffen.',
   },
   {
     question: 'Kann ich Pflegekasse und KfW kombinieren?',
@@ -91,11 +86,6 @@ export default function FoerderungPage() {
             <td>unabhängig von Alter und Pflegegrad, über die Hausbank</td>
           </tr>
           <tr>
-            <td><strong>KfW-Zuschuss 455-B</strong></td>
-            <td>aktuell keine Anträge möglich</td>
-            <td>Mittel für 2026 ausgeschöpft (Stopp am 31.07.2026)</td>
-          </tr>
-          <tr>
             <td><strong>Steuerermäßigung</strong> (§ 35a EStG)</td>
             <td>20 % der Lohnkosten, max. 1.200 € pro Jahr</td>
             <td>Rechnung und unbare Zahlung</td>
@@ -126,17 +116,11 @@ export default function FoerderungPage() {
         <li>Rechnung bei der Pflegekasse einreichen, Auszahlung an Sie</li>
       </ol>
 
-      <h2>KfW: Kredit 159 und Zuschuss 455-B</h2>
+      <h2>KfW-Kredit 159: Altersgerecht Umbauen</h2>
       <p>
         Die KfW fördert den Abbau von Barrieren mit dem Programm <strong>„Altersgerecht Umbauen“</strong>. Der{' '}
         <strong>Kredit 159</strong> steht allen offen – Eigentümern wie Mietern, unabhängig vom Alter. Sie beantragen ihn über
         Ihre Hausbank, ebenfalls vor Beginn der Arbeiten.
-      </p>
-      <p>
-        Der <strong>Zuschuss 455-B</strong> war im April 2026 wieder geöffnet worden, die KfW hat die Antragstellung am{' '}
-        <strong>31. Juli 2026</strong> jedoch wieder gestoppt, weil die Mittel für 2026 vollständig belegt sind. Bereits
-        erteilte Zusagen bleiben gültig. Viele Ratgeber im Netz sind hier nicht aktuell – fragen Sie uns gern nach dem
-        neuesten Stand.
       </p>
 
       <h2>Typische Fehler, die Geld kosten</h2>

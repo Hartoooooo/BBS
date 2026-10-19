@@ -25,7 +25,7 @@ const faqs: Faq[] = [
   {
     question: 'Bekomme ich einen Zuschuss für ein barrierefreies Bad?',
     answer:
-      'Mit Pflegegrad zahlt die Pflegekasse bis zu 4.180 € je Maßnahme für wohnumfeldverbessernde Maßnahmen. Wichtig: Der Antrag muss vor Baubeginn gestellt werden. Die KfW fördert zusätzlich mit dem Kredit 159. Der KfW-Zuschuss 455-B ist für 2026 derzeit ausgeschöpft. Wir erstellen Ihnen ein Angebot, das Sie direkt einreichen können.',
+      'Mit Pflegegrad zahlt die Pflegekasse bis zu 4.180 € je Maßnahme für wohnumfeldverbessernde Maßnahmen. Wichtig: Der Antrag muss vor Baubeginn gestellt werden. Die KfW fördert zusätzlich mit dem Kredit 159. Wir erstellen Ihnen ein Angebot, das Sie direkt einreichen können.',
   },
   {
     question: 'Wie lange dauert ein barrierefreier Badumbau?',
@@ -152,8 +152,7 @@ export default function BarrierefreiesBadPage() {
         Ein barrierefreies Bad wird von mehreren Stellen gefördert. Die wichtigste Quelle ist die <strong>Pflegekasse</strong>:
         Bei einem anerkannten Pflegegrad zahlt sie bis zu <strong>4.180 € je Maßnahme</strong> (§ 40 Abs. 4 SGB XI). Leben
         mehrere Anspruchsberechtigte im Haushalt, können sich die Beträge addieren. Zusätzlich gibt es den zinsgünstigen{' '}
-        <strong>KfW-Kredit 159</strong> „Altersgerecht Umbauen“. Den KfW-Zuschuss 455-B hat die KfW Ende Juli 2026 gestoppt,
-        weil die Mittel für 2026 ausgeschöpft sind.
+        <strong>KfW-Kredit 159</strong> „Altersgerecht Umbauen“.
       </p>
       <p>
         Alle Details, den richtigen Ablauf und typische Fehler finden Sie auf unserer Seite{' '}

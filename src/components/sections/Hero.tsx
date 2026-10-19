@@ -25,11 +25,11 @@ const Hero = () => {
       </div>
 
       <div className="section-shell relative z-10 flex flex-1 items-end pb-10 pt-8 lg:items-center">
-        <div className="w-full max-w-3xl">
+        <div className="w-full max-w-5xl">
           <p className="eyebrow reveal-up">Meisterbetrieb für Berlin & Brandenburg</p>
           <h1 id="hero-title" className="mt-5 text-[clamp(2.4rem,6vw,5rem)] font-black leading-[0.98] text-ink reveal-up delay-1">
-            <span className="block lg:inline">Barrierefrei umbauen.</span>
-            <span className="block lg:inline"> Ohne Kompromiss.</span>
+            <span className="block lg:whitespace-nowrap">Barrierefrei umbauen.</span>
+            <span className="block">Ohne Kompromiss.</span>
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-8 text-ink/85 reveal-up delay-2">
             Bodengleiche Dusche statt Badewanne, mehr Platz, sichere Griffe: Wir planen und bauen Ihr Bad so, dass Sie sich
