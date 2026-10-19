@@ -28,7 +28,7 @@ export default function BarrierefreiheitPage() {
 
             <h2>Was wir umgesetzt haben</h2>
             <ul>
-              <li>Schriftgröße in drei Stufen und ein Hochkontrast-Modus – über die Schaltflächen im Kopf- und Fußbereich</li>
+              <li>Schriftgröße in drei Stufen und ein Hochkontrast-Modus – über die Schaltflächen im Fußbereich jeder Seite</li>
               <li>Vollständige Bedienbarkeit per Tastatur mit gut sichtbarem Fokusrahmen</li>
               <li>„Zum Inhalt springen“-Link am Seitenanfang</li>
               <li>Klare Überschriftenstruktur und Orientierungsbereiche für Screenreader</li>

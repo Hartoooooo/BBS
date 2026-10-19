@@ -11,26 +11,11 @@ const items: BentoItem[] = [
     wide: true,
   },
   {
-    title: 'Badewanne zur Dusche',
-    description: 'Wanne raus, bodengleiche Dusche rein – meist in wenigen Arbeitstagen.',
-    href: '/badewanne-zur-dusche',
-    image: images.badNeu.src,
-    imageAlt: images.badNeu.alt,
-  },
-  {
     title: 'Barrierefreier Umbau',
     description: 'Türen verbreitern, Schwellen entfernen, Wohnung anpassen.',
     href: '/barrierefreier-umbau',
     image: images.trockenbau.src,
     imageAlt: images.trockenbau.alt,
-  },
-  {
-    title: 'Badsanierung',
-    description: 'Komplettsanierung aus einer Hand – vom Rückbau bis zur letzten Fuge, auf Wunsch gleich barrierefrei.',
-    href: '/badsanierung',
-    image: images.badBeispiel2.src,
-    imageAlt: images.badBeispiel2.alt,
-    wide: true,
   },
   {
     title: 'Fliesen & Bodenbeläge',

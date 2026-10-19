@@ -7,7 +7,6 @@ import { usePathname } from 'next/navigation';
 import * as NavigationMenu from '@radix-ui/react-navigation-menu';
 import * as Dialog from '@radix-ui/react-dialog';
 import { ArrowRight, ChevronDown, Hammer, Menu, Phone, X } from 'lucide-react';
-import A11yToolbar from '@/components/a11y/A11yToolbar';
 import { badLinks, leistungLinks, site, type NavLink } from '@/content/site';
 import { cn } from '@/lib/utils';
 
@@ -93,7 +92,6 @@ const Header = () => {
         </NavigationMenu.Root>
 
         <div className="flex items-center gap-1 sm:gap-2">
-          <A11yToolbar className="nav-desktop hidden xl:flex" />
           <a
             href={site.phoneHref}
             className="hidden min-h-11 items-center gap-2 whitespace-nowrap rounded-full px-3 text-sm font-black text-ink transition hover:bg-ink/8 md:inline-flex"
@@ -132,7 +130,7 @@ const Header = () => {
                     <span className="sr-only">Menü schließen</span>
                   </Dialog.Close>
                 </div>
-                <Dialog.Description className="sr-only">Navigation und Darstellungsoptionen</Dialog.Description>
+                <Dialog.Description className="sr-only">Hauptnavigation</Dialog.Description>
                 <nav aria-label="Mobile Navigation" className="mt-4 grid gap-6">
                   {menus.map((menu) => (
                     <div key={menu.label}>
@@ -162,10 +160,6 @@ const Header = () => {
                     </li>
                   </ul>
                 </nav>
-                <div className="mt-6 rounded-2xl border border-black/10 bg-white p-3">
-                  <p className="px-1 pb-2 text-sm font-bold text-ink">Schriftgröße & Kontrast</p>
-                  <A11yToolbar />
-                </div>
                 <div className="mt-6 grid gap-2">
                   <a href={site.phoneHref} className="flex min-h-14 items-center justify-center gap-2 rounded-2xl border border-ink/15 bg-white font-black text-ink">
                     <Phone className="h-5 w-5" aria-hidden="true" />

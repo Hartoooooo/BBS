@@ -6,7 +6,6 @@ import { site } from '@/content/site';
 const stats = [
   ['Seit 2003', 'Meisterbetrieb'],
   ['150+', 'Projekte realisiert'],
-  ['DIN 18040-2', 'Planung nach Norm'],
 ];
 
 const Hero = () => {
@@ -29,7 +28,8 @@ const Hero = () => {
         <div className="w-full max-w-3xl">
           <p className="eyebrow reveal-up">Meisterbetrieb für Berlin & Brandenburg</p>
           <h1 id="hero-title" className="mt-5 text-[clamp(2.4rem,6vw,5rem)] font-black leading-[0.98] text-ink reveal-up delay-1">
-            Barrierefreies Bad &amp; barrierefreier Umbau
+            <span className="block lg:inline">Barrierefrei umbauen.</span>
+            <span className="block lg:inline"> Ohne Kompromiss.</span>
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-8 text-ink/85 reveal-up delay-2">
             Bodengleiche Dusche statt Badewanne, mehr Platz, sichere Griffe: Wir planen und bauen Ihr Bad so, dass Sie sich
@@ -53,7 +53,7 @@ const Hero = () => {
             </a>
           </div>
 
-          <ul className="mt-8 grid grid-cols-3 gap-2 reveal-up delay-3 sm:max-w-xl">
+          <ul className="mt-8 grid grid-cols-2 gap-2 reveal-up delay-3 sm:max-w-md">
             {stats.map(([value, label]) => (
               <li key={label} className="rounded-2xl border border-ink/12 bg-white/90 p-3 shadow-[0_24px_80px_rgba(23,32,36,0.08)] sm:p-4">
                 <span className="block text-base font-black text-ink sm:text-2xl">{value}</span>
