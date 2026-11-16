@@ -2,12 +2,14 @@
 
 import { useState } from 'react';
 import { AlertCircle, CheckCircle, Clock, Mail, MapPin, Phone, Send } from 'lucide-react';
+import { saveLead } from '@/lib/leads';
 
 const inputClass =
   'w-full rounded-2xl border border-ink/12 bg-white px-4 py-4 text-ink placeholder:text-ink/60 transition focus:border-brand focus:ring-4 focus:ring-brand/12';
 
 const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [honeypot, setHoneypot] = useState('');
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [formData, setFormData] = useState({
     firstName: '',
@@ -31,11 +33,23 @@ const Contact = () => {
       formDataToSend.append('_subject', `Neue Kontaktanfrage von ${formData.firstName} ${formData.lastName}`);
       Object.entries(formData).forEach(([key, value]) => formDataToSend.append(key, value));
 
+      const lead = saveLead({
+        source: 'kontakt',
+        name: `${formData.firstName} ${formData.lastName}`.trim(),
+        email: formData.email,
+        phone: formData.phone,
+        projectType: formData.subject,
+        budget: formData.budget,
+        message: formData.message,
+        website: honeypot,
+      });
+
       const response = await fetch('https://formsubmit.co/hartmanntimon@gmail.com', {
         method: 'POST',
         body: formDataToSend,
         headers: { Accept: 'application/json' },
       });
+      await lead;
 
       if (!response.ok) throw new Error('Form submit failed');
 
@@ -98,6 +112,10 @@ const Contact = () => {
           </aside>
 
           <form onSubmit={handleSubmit} className="surface threshold-line rounded-[2rem] p-5 sm:p-8">
+            <div aria-hidden="true" className="absolute -left-[9999px] h-px w-px overflow-hidden">
+              <label htmlFor="kontakt-website">Website</label>
+              <input id="kontakt-website" type="text" tabIndex={-1} autoComplete="off" value={honeypot} onChange={(event) => setHoneypot(event.target.value)} />
+            </div>
             <div className="grid gap-4 sm:grid-cols-2">
               <div>
                 <label htmlFor="firstName" className="mb-2 block text-sm font-black text-ink">Vorname *</label>

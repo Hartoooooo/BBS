@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { saveLead } from '@/lib/leads';
 import {
   ArrowLeft,
   ArrowRight,
@@ -74,6 +75,7 @@ const AnfragePage = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [isStepVisible, setIsStepVisible] = useState(true);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'sending' | 'error'>('idle');
+  const [honeypot, setHoneypot] = useState('');
   const stepHeadingRef = useRef<HTMLHeadingElement>(null);
   const hasNavigated = useRef(false);
 
@@ -183,11 +185,29 @@ const AnfragePage = () => {
     formDataToSend.append('Adresse', formData.contactInfo.address);
     formDataToSend.append('Nachricht', formData.contactInfo.message || '');
 
+    const lead = saveLead({
+      source: 'anfrage',
+      name: formData.contactInfo.name,
+      email: formData.contactInfo.email,
+      phone: formData.contactInfo.phone,
+      projectType: selectedProject?.label,
+      objectType: [
+        formData.propertyType.map((id) => propertyTypes.find((property) => property.id === id)?.label).join(', '),
+        formData.buildingType === 'altbau' ? 'Altbau' : 'Neubau',
+      ].filter(Boolean).join(' · '),
+      budget: selectedBudget?.label,
+      timeframe: selectedTime?.label,
+      location: formData.contactInfo.address,
+      message: formData.contactInfo.message,
+      website: honeypot,
+    });
+
     try {
       const response = await fetch('https://formsubmit.co/hartmanntimon@gmail.com', {
         method: 'POST',
         body: formDataToSend,
       });
+      await lead;
 
       if (!response.ok) throw new Error('Form submit failed');
       router.push('/anfrage/danke');
@@ -521,6 +541,10 @@ const AnfragePage = () => {
             </aside>
 
             <form onSubmit={handleSubmit} className="surface threshold-line order-1 rounded-[2rem] p-4 sm:p-7 lg:order-2 lg:p-9">
+              <div aria-hidden="true" className="absolute -left-[9999px] h-px w-px overflow-hidden">
+                <label htmlFor="anfrage-website">Website</label>
+                <input id="anfrage-website" type="text" tabIndex={-1} autoComplete="off" value={honeypot} onChange={(event) => setHoneypot(event.target.value)} />
+              </div>
               <div className="mb-6 lg:hidden">
                 <div className="mb-3 flex items-center justify-between">
                   <span className="text-xs font-black uppercase tracking-[0.14em] text-muted">Fortschritt</span>
